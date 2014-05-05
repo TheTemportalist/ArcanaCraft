@@ -26,8 +26,15 @@
 		"Throw fire balls",
 
 		"Take hearts (become enchanted)",
+		"- 4 TCon hearts = 1 enchanted",
+		"- Cannot enchant already enchanted hearts",
+		"- Holder has control of that entity",
+
+		"Brains can be retrieved from heads"
+		
 	],
 	"other": [
+		"Alchemy sub mod?"
 	]
 }
 
