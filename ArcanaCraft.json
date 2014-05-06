@@ -1,0 +1,63 @@
+{
+	"block": [
+	],
+	"item": [
+		{
+			"name": "Embroidered Book",
+			"purpose": "Crafting item for 'The Arcana'.",
+			"crafting": [
+				"glg", "ppp", "glg",
+				"g", "Items.goldNugget",
+				"l", "Item.leather",
+				"p", "Items.paper"
+			],
+			"notes": [
+				"Can only be enchanted with 'Arcane Knowledge'."
+			]
+		},
+		{
+			"name": "The Arcana",
+			"purpose": "",
+			"crafting": [
+				"Right click with enchanted 'Embroidered Book'."
+			]
+		}
+	],
+	"entity": [
+	],
+	"particle": [
+		{
+			"name": "Mystical Smoke"
+		}
+	],
+	"player-abilities": [
+		"\"Morph\" into hovering/flying smoke",
+		"- Spawns 'Mystical Smoke' sa you move (leaving a trail)",
+
+		"Can click on block to \"teleport to that block\"",
+		"- Spawns 'Mystical Smoke' around player on disapear and reapear",
+
+		"Push back opponents/targets",
+
+		"Throw fire balls",
+
+		"Take hearts (become enchanted)",
+		"- 4 TCon hearts = 1 enchanted",
+		"- Cannot enchant already enchanted hearts",
+		"- Holder has control of that entity",
+
+		"Brains can be retrieved from heads"
+		
+	],
+	"enchantments" : [
+		{
+			"name": "Arcane Knowledge",
+			"levels_required": 30
+		}
+	],
+	"other": [
+		"Alchemy sub mod?"
+	]
+}
+
+
