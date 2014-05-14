@@ -21,6 +21,15 @@
 			"crafting": [
 				"Right click with enchanted 'Embroidered Book'."
 			]
+		},
+		{
+			"name": "Arcane Focus",
+			"purpose": "Similar to wands (Thaumcraft) or spells (Ars Magica). You need to have this focus in your hand in order to cast spells."
+
+		},
+		{
+			"name": "Arcane Staff",
+			"purpose": "An advanced focus."
 		}
 	],
 	"entity": [
@@ -53,6 +62,29 @@
 		{
 			"name": "Arcane Knowledge",
 			"levels_required": 30
+		}
+	],
+	"biomes": [
+		{
+			"name": "Enchanted Grove",
+			"top_block": "",
+			"under_block": "",
+			"generates_ores": false,
+			"notes": [
+				"Populated with enchanted trees",
+				"Extremely Rare"
+			]
+		},
+		{
+			"name": "Petrified Forest",
+			"top_block": "",
+			"under_block": "",
+			"generates_ores": false,
+			"notes": [
+				"Populated with Petrified trees",
+				"Can take over an Enchanted Grove",
+				"More common than the Enchanted Grove"
+			]
 		}
 	],
 	"other": [

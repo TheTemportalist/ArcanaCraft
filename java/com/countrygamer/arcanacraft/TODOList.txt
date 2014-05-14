@@ -1,0 +1,4 @@
+
+- Make ItemEmbroideredBook enchantable
+- Open TheArcana gui with right click (w/o sneaking)
+- ExtendedPlayerArcane properties
