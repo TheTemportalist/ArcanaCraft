@@ -2,6 +2,7 @@ package com.countrygamer.arcanacraft.common;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Configuration;
 
 import com.countrygamer.core.Base.Plugin.PluginEnchantment;
@@ -12,6 +13,13 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 public class ACOptions implements PluginOptionRegistry {
 	
 	public static final int arcanaGui = 0;
+	public static final int arcanaGuiReset = 1;
+	
+	public static final ResourceLocation icons = new ResourceLocation(
+			ArcanaCraft.pluginID, "textures/gui/GuiIcons.png");
+	
+	public static final ResourceLocation quomIcons = new ResourceLocation(
+			ArcanaCraft.pluginID, "textures/quoms/Teleport.png");
 	
 	public static final Enchantment arcaneSocerery = new PluginEnchantment(
 			"Arcane Socerery", 1) {

@@ -18,38 +18,21 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class ACItems implements PluginItemRegistry {
 	
 	public static Item embroideredBook;
-	public static ItemStack embroideredBook_Stack;
 	public static Item arcana;
-	public static ItemStack arcana_Stack;
-	public static Item arcaneFocus;
-	public static ItemStack arcanaFocus_Stack;
-	public static Item arcaneStave;
-	public static ItemStack arcanaStave_Stack;
-	public static ItemStack arcanaStave_Enchanted_Stack;
 	public static Item enchantedFluxBucket;
+	public static Item basicFocus;
 	
 	@Override
 	public void registerItems() {
 		ACItems.embroideredBook = new ItemEmbroideredBook(ArcanaCraft.pluginID,
 				"Embroidered Book");
-		ACItems.embroideredBook_Stack = new ItemStack(ACItems.embroideredBook, 1, 0);
 		Core.addItemToTab(ACItems.embroideredBook);
 		
 		ACItems.arcana = new ItemArcana(ArcanaCraft.pluginID, "The Arcana");
-		ACItems.arcana_Stack = new ItemStack(ACItems.arcana, 1, 0);
 		Core.addItemToTab(ACItems.arcana);
 		
-		ACItems.arcaneFocus = new ItemBase(ArcanaCraft.pluginID, "Arcane Focus");
-		ACItems.arcanaFocus_Stack = new ItemStack(ACItems.arcaneFocus, 1, 0);
-		Core.addItemToTab(ACItems.arcaneFocus);
-		
-		ACItems.arcaneStave = new ItemBase(ArcanaCraft.pluginID, "Arcane Stave");
-		ACItems.arcanaStave_Stack = new ItemStack(ACItems.arcaneStave, 1, 0);
-		// TODO tag compound properties
-		ACItems.arcanaStave_Enchanted_Stack = new ItemStack(ACItems.arcaneStave, 1,
-				0);
-		// TODO tag compound properties
-		Core.addItemToTab(ACItems.arcaneStave);
+		ACItems.basicFocus = new ItemBase(ArcanaCraft.pluginID, "Basic Focus");
+		Core.addItemToTab(ACItems.basicFocus);
 		
 	}
 	

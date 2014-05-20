@@ -19,7 +19,10 @@ public class ACBlocks implements PluginBlockRegistry {
 			MapColor.grassColor);
 	public static Block enchantedFluxBlock;
 	public static Fluid enchantedFluxFluid = new Fluid("Enchanted Flux")
-			.setLuminosity(30).setDensity(500).setViscosity(3000).setTemperature(500);
+			.setLuminosity(30).setDensity(500).setViscosity(3000)
+			.setTemperature(500);
+	public static Fluid dormantFluxFluid = new Fluid("Dormant Flux").setLuminosity(30)
+			.setDensity(500).setViscosity(3000).setTemperature(500);
 	
 	@Override
 	public void registryTileEntities() {
@@ -29,6 +32,7 @@ public class ACBlocks implements PluginBlockRegistry {
 	@Override
 	public void registerBlocks() {
 		FluidRegistry.registerFluid(ACBlocks.enchantedFluxFluid);
+		FluidRegistry.registerFluid(ACBlocks.dormantFluxFluid);
 		
 		ACBlocks.enchantedFluxBlock = new BlockEnchantedFlux(
 				ACBlocks.enchantedFluxFluid, ACBlocks.enchantedFluxMaterial);
@@ -38,6 +42,7 @@ public class ACBlocks implements PluginBlockRegistry {
 		
 		ACBlocks.enchantedFluxFluid.setUnlocalizedName(ACBlocks.enchantedFluxBlock
 				.getUnlocalizedName());
+		ACBlocks.dormantFluxFluid.setUnlocalizedName("dormant flux");
 		
 	}
 	

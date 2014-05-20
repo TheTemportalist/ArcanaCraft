@@ -30,8 +30,8 @@ public class ItemEmbroideredBook extends ItemBase {
 			EntityPlayer player) {
 		if (itemStack != null && itemStack.getItem() instanceof ItemEmbroideredBook) {
 			if (ItemEmbroideredBook.hasEnchantment(itemStack,
-					ACOptions.arcaneSocerery, 2)) {
-				return ACItems.arcana_Stack.copy();
+					ACOptions.arcaneSocerery, 1)) {
+				return new ItemStack(ACItems.arcana);
 			}
 		}
 		return itemStack;
