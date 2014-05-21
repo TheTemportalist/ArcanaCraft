@@ -10,14 +10,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 
-import com.countrygamer.arcanacraft.client.gui.GuiArcana;
 import com.countrygamer.arcanacraft.client.particle.Particles;
 import com.countrygamer.arcanacraft.common.extended.EnumSmokeAction;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
@@ -38,12 +36,11 @@ import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
-import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = ArcanaCraft.pluginID, name = ArcanaCraft.pluginName,
 		version = ArcanaCraft.pluginVersion)
-public class ArcanaCraft extends PluginBase implements IFuelHandler, IGuiHandler {
+public class ArcanaCraft extends PluginBase implements IFuelHandler {
 	
 	public static final String pluginName = "ArcanaCraft";
 	public static final String pluginID = "arcanacraft";
@@ -64,10 +61,10 @@ public class ArcanaCraft extends PluginBase implements IFuelHandler, IGuiHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		super.preInitialize(pluginName, event, ArcanaCraft.proxy, new ACOptions(),
 				new ACItems(), new ACBlocks(), new ACBiomes(), null);
-		this.registerHandlers(this, this, this, this);
+		this.registerHandlers(this, this);
 		this.registerPacketClass(PacketCastQuom.class);
 		
-		FMLCommonHandler.instance().bus().register(this);
+		//FMLCommonHandler.instance().bus().register(this);
 		this.registerExtendedPlayer("Extended Arcane Player",
 				ExtendedArcanePlayer.class, true);
 		if (event.getSide() == Side.CLIENT) {
@@ -86,26 +83,6 @@ public class ArcanaCraft extends PluginBase implements IFuelHandler, IGuiHandler
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		super.postInitialize(event);
-	}
-	
-	@Override
-	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
-			int x, int y, int z) {
-		TileEntity tileEnt = world.getTileEntity(x, y, z);
-		if (ID == ACOptions.arcanaGui || ID == ACOptions.arcanaGuiReset) {
-		}
-		return null;
-	}
-	
-	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world,
-			int x, int y, int z) {
-		TileEntity tileEnt = world.getTileEntity(x, y, z);
-		if (ID == ACOptions.arcanaGui || ID == ACOptions.arcanaGuiReset) {
-			boolean reset = ID == ACOptions.arcanaGuiReset;
-			return new GuiArcana(player);
-		}
-		return null;
 	}
 	
 	@Override
