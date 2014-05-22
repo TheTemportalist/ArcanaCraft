@@ -2,10 +2,7 @@ package com.countrygamer.arcanacraft.common;
 
 import java.util.ArrayList;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 
 import org.lwjgl.input.Keyboard;
 

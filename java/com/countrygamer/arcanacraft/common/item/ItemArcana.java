@@ -6,7 +6,6 @@ import net.minecraft.world.World;
 
 import com.countrygamer.arcanacraft.common.ACOptions;
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
-import com.countrygamer.arcanacraft.common.extended.EnumSmokeAction;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.core.Base.Plugin.ExtendedEntity;
 import com.countrygamer.core.Base.common.item.ItemBase;
@@ -31,10 +30,6 @@ public class ItemArcana extends ItemBase {
 			
 			System.out.println("Manus|" + cS + ": " + arcanePlayer.getManus());
 			
-			if (!player.isSneaking()) {
-				arcanePlayer.setChanging(EnumSmokeAction.TELEPORT);
-				// TODO preselect location
-			}
 		}
 		else {
 			int id = player.isSneaking() ? ACOptions.arcanaGuiReset

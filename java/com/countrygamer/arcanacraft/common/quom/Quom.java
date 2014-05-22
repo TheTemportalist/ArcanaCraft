@@ -9,13 +9,7 @@ import net.minecraft.world.World;
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 
-public class Quom {
-	
-	public static Quom getFromNBT(NBTTagCompound tagCom) {
-		Quom quom = new Quom();
-		quom.loadFromNBT(tagCom);
-		return quom;
-	}
+public abstract class Quom {
 	
 	private String name;
 	private String parentName;
@@ -35,7 +29,7 @@ public class Quom {
 		this.iconSource = new ResourceLocation(ArcanaCraft.pluginID,
 				"textures/quoms/" + this.name + ".png");
 		
-		id = QuomRegistry.quomRegistry.size();
+		this.id = QuomRegistry.quomRegistry.size();
 		QuomRegistry.registerQuom(this);
 	}
 	
@@ -92,12 +86,16 @@ public class Quom {
 	}
 	
 	public double getReachLength() {
-		return -1;
+		return 5.0D;
 	}
 	
-	public void onUse(ExtendedArcanePlayer arcanePlayer, World world, int x, int y,
-			int z, int side) {
+	public void onUse_do(ExtendedArcanePlayer arcanePlayer, World world, int x, int y,
+			int z, int side, Tiers.Cast castTier, Tiers.MANUS manusTier) {
 		// TODO Decrement Manus
+		this.onUse(arcanePlayer, world, x, y, z, side, castTier, manusTier);
 	}
+	
+	public abstract void onUse(ExtendedArcanePlayer arcanePlayer, World world, int x, int y,
+			int z, int side, Tiers.Cast castTier, Tiers.MANUS manusTier);
 	
 }

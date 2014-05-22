@@ -20,7 +20,8 @@ public class ACItems implements PluginItemRegistry {
 	public static Item embroideredBook;
 	public static Item arcana;
 	public static Item enchantedFluxBucket;
-	public static Item basicFocus;
+	public static Item focusBasic;
+	public static Item focusAdvanced;
 	
 	@Override
 	public void registerItems() {
@@ -31,8 +32,11 @@ public class ACItems implements PluginItemRegistry {
 		ACItems.arcana = new ItemArcana(ArcanaCraft.pluginID, "The Arcana");
 		Core.addItemToTab(ACItems.arcana);
 		
-		ACItems.basicFocus = new ItemBase(ArcanaCraft.pluginID, "Basic Focus");
-		Core.addItemToTab(ACItems.basicFocus);
+		ACItems.focusBasic = new ItemBase(ArcanaCraft.pluginID, "Basic Focus");
+		Core.addItemToTab(ACItems.focusBasic);
+		
+		ACItems.focusAdvanced = new ItemBase(ArcanaCraft.pluginID, "Advanced Focus");
+		Core.addItemToTab(ACItems.focusAdvanced);
 		
 	}
 	

@@ -44,7 +44,9 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 		this.hotBar = new Quom[9];
 		this.currentSelectedHotBarIndex = 0;
 		
-		QuomRegistry.unlockQuom(this, QuomRegistry.lightFire.getName());
+		for (Quom quom : QuomRegistry.quomRegistry) {
+			this.learnQuom(quom);
+		}
 	}
 	
 	@Override
@@ -69,6 +71,8 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 				quomTag.setInteger("slot", i);
 				quomTag.setInteger("quomID", this.quoms[i].getID());
 				quomList.appendTag(quomTag);
+				//System.out
+				//		.println("\nSlot: " + i + "\nID: " + this.quoms[i].getID());
 			}
 		}
 		compound.setTag("quoms", quomList);
@@ -109,17 +113,17 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 		for (int i = 0; i < quomList.tagCount(); i++) {
 			NBTTagCompound quomTag = quomList.getCompoundTagAt(i);
 			this.quoms[quomTag.getInteger("slot")] = QuomRegistry.quomRegistry
-					.get(compound.getInteger("quomID"));
+					.get(quomTag.getInteger("quomID"));
+			//System.out.println("Loaded "
+			//		+ this.quoms[quomTag.getInteger("slot")].getName());
 		}
 		
 		this.hotBar = new Quom[9];
 		NBTTagList hotbarList = compound.getTagList("hotbar", 10);
 		for (int i = 0; i < hotbarList.tagCount(); i++) {
 			NBTTagCompound quomTag = hotbarList.getCompoundTagAt(i);
-			Quom quom = new Quom();
-			quom.loadFromNBT(quomTag);
 			this.hotBar[quomTag.getInteger("slot")] = QuomRegistry.quomRegistry
-					.get(compound.getInteger("quomID"));
+					.get(quomTag.getInteger("quomID"));
 		}
 		
 		this.turningToSmoke = EnumSmokeAction.getEnumFromID(compound
@@ -287,6 +291,7 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	}
 	
 	public void learnQuom(Quom quom) {
+		//System.out.println("Learning " + quom.getName());
 		QuomRegistry.unlockQuom(this, quom.getName());
 	}
 	

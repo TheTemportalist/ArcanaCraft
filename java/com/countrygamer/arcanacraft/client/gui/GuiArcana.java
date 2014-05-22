@@ -29,14 +29,18 @@ public class GuiArcana extends GuiScreen {
 	
 	private ExtendedArcanePlayer arcanePlayer;
 	
-	public GuiArcana(EntityPlayer player) {
+	public GuiArcana(EntityPlayer player, boolean revertPages) {
 		IExtendedEntityProperties props = ExtendedEntity.getExtended(player,
 				ExtendedArcanePlayer.class);
 		if (props != null) this.arcanePlayer = (ExtendedArcanePlayer) props;
 		this.bkgdTex = new ResourceLocation(ArcanaCraft.pluginID,
 				"textures/gui/Scroll.png");
-		this.currPage = this.arcanePlayer.getCurrentArcanaPage();
-		
+		if (revertPages) {
+			this.currPage = "Info";
+		}
+		else {
+			this.currPage = this.arcanePlayer.getCurrentArcanaPage();
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
