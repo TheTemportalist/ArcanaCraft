@@ -2,7 +2,7 @@ package com.countrygamer.arcanacraft.common.quom;
 
 import net.minecraft.item.ItemStack;
 
-import com.countrygamer.arcanacraft.common.ACItems;
+import com.countrygamer.arcanacraft.common.item.ACItems;
 
 public class Tiers {
 	
@@ -18,6 +18,17 @@ public class Tiers {
 				return Tiers.Cast.ADVANCED;
 			else
 				return null;
+		}
+		
+		public static int tierToInt(Tiers.Cast tier) {
+			if (tier == HAND)
+				return 1;
+			else if (tier == BASIC)
+				return 2;
+			else if (tier == ADVANCED)
+				return 3;
+			else
+				return 0;
 		}
 		
 	}

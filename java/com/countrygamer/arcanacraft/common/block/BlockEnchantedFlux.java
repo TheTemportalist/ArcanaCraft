@@ -30,6 +30,7 @@ public class BlockEnchantedFlux extends BlockFluidClassic {
 	public void registerBlockIcons(IIconRegister register) {
 		this.iconStill = register.registerIcon("arcanacraft:enchantedflux");
 		this.iconFlow = register.registerIcon("arcanacraft:enchantedflux");
+		ACBlocks.enchantedFluxFluid.setIcons(this.iconStill, this.iconFlow);
 	}
 	
 	@Override

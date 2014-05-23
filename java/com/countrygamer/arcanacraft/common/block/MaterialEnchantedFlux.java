@@ -14,7 +14,6 @@ public class MaterialEnchantedFlux extends Material {
 		this.setReplaceable();
 	}
 	
-	
 	@Override
 	public boolean isLiquid() {
 		return true;

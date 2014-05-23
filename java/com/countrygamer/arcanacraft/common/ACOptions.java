@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Configuration;
 
+import com.countrygamer.arcanacraft.common.item.ACItems;
 import com.countrygamer.core.Base.Plugin.PluginEnchantment;
 import com.countrygamer.core.Base.Plugin.PluginOptionRegistry;
 

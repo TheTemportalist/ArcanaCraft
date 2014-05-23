@@ -33,8 +33,7 @@ public class GuiArcana extends GuiScreen {
 		IExtendedEntityProperties props = ExtendedEntity.getExtended(player,
 				ExtendedArcanePlayer.class);
 		if (props != null) this.arcanePlayer = (ExtendedArcanePlayer) props;
-		this.bkgdTex = new ResourceLocation(ArcanaCraft.pluginID,
-				"textures/gui/Scroll.png");
+		this.bkgdTex = new ResourceLocation(ArcanaCraft.pluginID, "textures/gui/Scroll.png");
 		if (revertPages) {
 			this.currPage = "Info";
 		}
@@ -53,20 +52,21 @@ public class GuiArcana extends GuiScreen {
 		int top = (this.height - this.ySize) / 2;
 		
 		int bID = -1;
-		this.buttonList.add(this.infoTab = new GuiButton(bID += 1, left + this.xSize
-				- 10, top + 5, 20, 20, ""));
-		this.buttonList.add(this.quomiTab = new GuiButton(bID += 1, left
-				+ this.xSize - 10, top + 35, 20, 20, ""));
-		this.buttonList.add(this.skillTab = new GuiButton(bID += 1, left
-				+ this.xSize - 10, top + 65, 20, 20, ""));
+		this.buttonList.add(this.infoTab = new GuiButton(bID += 1, left + this.xSize - 10, top + 5,
+				20, 20, ""));
+		this.buttonList.add(this.quomiTab = new GuiButton(bID += 1, left + this.xSize - 10,
+				top + 35, 20, 20, ""));
+		this.buttonList.add(this.skillTab = new GuiButton(bID += 1, left + this.xSize - 10,
+				top + 65, 20, 20, ""));
 		
 		ComponentPageQuomi page = (ComponentPageQuomi) this.pages.get("Quomi");
 		page.selected = arcanePlayer.getCurrentSelectedQuomIndex();
 		Quom[] hotbar = arcanePlayer.getHotBar();
+		
 		for (int i = 0; i < 9; i++) {
 			page.quomSlots[i].setQuom(hotbar[i]);
-			System.out.println("Set hotbar slot " + i + " to quom ("
-					+ (hotbar[i] == null ? "null" : hotbar[i].getName()) + ")");
+			// System.out.println("Set hotbar slot " + i + " to quom ("
+			// + (hotbar[i] == null ? "null" : hotbar[i].getName()) + ")");
 		}
 		
 	}
@@ -89,8 +89,8 @@ public class GuiArcana extends GuiScreen {
 			public void drawForeground() {
 				String title = "ArcanaCraft; The Arcana";
 				mc.fontRenderer.drawString(title, this.guiLeft + (this.xSize / 2)
-						- (mc.fontRenderer.getStringWidth(title) / 2),
-						this.guiTop + 5, this.grayColor);
+						- (mc.fontRenderer.getStringWidth(title) / 2), this.guiTop + 5,
+						this.grayColor);
 				
 			}
 			
@@ -101,8 +101,7 @@ public class GuiArcana extends GuiScreen {
 			
 		});
 		
-		this.pages.put("Quomi", new ComponentPageQuomi(a, b, c, d, e,
-				this.arcanePlayer));
+		this.pages.put("Quomi", new ComponentPageQuomi(a, b, c, d, e, this.arcanePlayer));
 		
 		this.pages.put("Skill Tree", new ComponentPage(a, b, c, d, e) {
 			
@@ -115,8 +114,8 @@ public class GuiArcana extends GuiScreen {
 			public void drawForeground() {
 				String title = "Quom Skill Tree";
 				mc.fontRenderer.drawString(title, this.guiLeft + (this.xSize / 2)
-						- (mc.fontRenderer.getStringWidth(title) / 2),
-						this.guiTop + 5, this.grayColor);
+						- (mc.fontRenderer.getStringWidth(title) / 2), this.guiTop + 5,
+						this.grayColor);
 			}
 			
 			@Override
@@ -171,8 +170,8 @@ public class GuiArcana extends GuiScreen {
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.getTextureManager().bindTexture(this.bkgdTex);
-		this.drawTexturedModalRect((this.width - this.xSize) / 2,
-				(this.height - this.ySize) / 2, 0, 0, this.xSize, this.ySize);
+		this.drawTexturedModalRect((this.width - this.xSize) / 2, (this.height - this.ySize) / 2,
+				0, 0, this.xSize, this.ySize);
 		
 		if (this.pages.containsKey(this.currPage)) {
 			this.pages.get(this.currPage).drawBackground();

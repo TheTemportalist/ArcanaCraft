@@ -11,11 +11,15 @@ import org.lwjgl.opengl.GL11;
 
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
+import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.core.Base.Plugin.ExtendedEntity;
 
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
+@SideOnly(Side.CLIENT)
 public class ArcaneOverlay extends Gui {
 	
 	final Minecraft mc;
@@ -31,8 +35,17 @@ public class ArcaneOverlay extends Gui {
 		
 		int width = event.resolution.getScaledWidth();
 		int height = event.resolution.getScaledHeight();
-		width = this.mc.displayWidth;
-		height = this.mc.displayHeight;
+		/*
+		int width = Minecraft.getMinecraft().displayWidth;
+		int height = Minecraft.getMinecraft().displayHeight;
+		ScaledResolution get = new ScaledResolution(
+				Minecraft.getMinecraft().gameSettings, width, height);
+		int scale = get.getScaleFactor();
+		if (scale == 1 || scale == 2 || scale == 3) {
+			width /= scale;
+			height /= scale;
+		}
+		 */
 		
 		IExtendedEntityProperties props = ExtendedEntity.getExtended(
 				this.mc.thePlayer, ExtendedArcanePlayer.class);
@@ -42,11 +55,9 @@ public class ArcaneOverlay extends Gui {
 			if (!arcanePlayer.isPlayerArcaic()) return;
 			
 			if (event.type == ElementType.EXPERIENCE) {
+				
 				int w = 80;
 				int h = 10;
-				int x = width / 2;// (width / 64 * 37);
-				int y = height / 2;// (height / 32 * 27);
-				
 				float frac = ((float) arcanePlayer.getManus())
 						/ ((float) arcanePlayer.getMaxManus());
 				float wFrac = frac * ((float) w);
@@ -57,18 +68,27 @@ public class ArcaneOverlay extends Gui {
 				
 				GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 				GL11.glDisable(GL11.GL_LIGHTING);
+				
+				int quomX = 202;
+				int quomY = 195;
 				this.mc.getTextureManager().bindTexture(
 						new ResourceLocation(ArcanaCraft.pluginID,
 								"textures/gui/GuiIcons.png"));
+				this.drawTexturedModalRect(quomX, quomY, 0, 20, 18, 18);
+				Quom quom = arcanePlayer.getCurrentQuom();
+				if (quom != null) quom.draw(this.mc, this, quomX + 1, quomY + 1);
 				
-				this.drawTexturedModalRect(222, 190, 0, 10, 80, h);
-				this.drawTexturedModalRect(222, 190, 0, 0, w, h);
+				this.mc.getTextureManager().bindTexture(
+						new ResourceLocation(ArcanaCraft.pluginID,
+								"textures/gui/GuiIcons.png"));
+				this.drawTexturedModalRect(223, 190, 0, 10, 80, h);
+				this.drawTexturedModalRect(223, 190, 0, 0, w, h);
 				
 			}
 			if (event.type == ElementType.TEXT) {
 				String s = arcanePlayer.getManus() + " / "
 						+ arcanePlayer.getMaxManus();
-				this.mc.fontRenderer.drawString(s, 225, 191, 0xFFFFFF);
+				this.mc.fontRenderer.drawString(s, 226, 191, 0xFFFFFF);
 			}
 		}
 	}

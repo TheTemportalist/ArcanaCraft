@@ -1,4 +1,4 @@
-package com.countrygamer.arcanacraft.common;
+package com.countrygamer.arcanacraft.common.item;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -6,9 +6,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 
-import com.countrygamer.arcanacraft.common.item.ItemArcana;
-import com.countrygamer.arcanacraft.common.item.ItemEmbroideredBook;
-import com.countrygamer.arcanacraft.common.item.ItemEnchantedFluxBucket;
+import com.countrygamer.arcanacraft.common.ArcanaCraft;
+import com.countrygamer.arcanacraft.common.block.ACBlocks;
 import com.countrygamer.core.Base.Plugin.PluginItemRegistry;
 import com.countrygamer.core.Base.common.item.ItemBase;
 import com.countrygamer.countrygamercore.common.Core;

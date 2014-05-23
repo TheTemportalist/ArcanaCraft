@@ -18,8 +18,7 @@ public class ComponentPageQuomi extends ComponentPage {
 	ExtendedArcanePlayer arcanePlayer;
 	final int number_of_slots;
 	
-	public ComponentPageQuomi(int a, int b, int c, int d, int e,
-			ExtendedArcanePlayer arcanePlayer) {
+	public ComponentPageQuomi(int a, int b, int c, int d, int e, ExtendedArcanePlayer arcanePlayer) {
 		super(a, b, c, d, e);
 		this.arcanePlayer = arcanePlayer;
 		this.number_of_slots = 9 + 1 + arcanePlayer.getQuoms().length;
@@ -36,7 +35,6 @@ public class ComponentPageQuomi extends ComponentPage {
 		int y = this.guiTop + 10;
 		
 		int farRightSlotX = x + (8 * 18) + 3;
-		this.quomSlots[9] = new QuomSlot(farRightSlotX, y, 0, 20, ACOptions.icons);
 		
 		y += 18;
 		Quom[] hotBar = this.arcanePlayer.getHotBar();
@@ -77,9 +75,9 @@ public class ComponentPageQuomi extends ComponentPage {
 	@Override
 	public void drawForeground() {
 		String title = "My Quomi";
-		mc.fontRenderer.drawString(title, this.guiLeft + (this.xSize / 2)
-				- (mc.fontRenderer.getStringWidth(title) / 2), this.guiTop + 5,
-				this.grayColor);
+		mc.fontRenderer.drawString(title,
+				this.guiLeft + (this.xSize / 2) - (mc.fontRenderer.getStringWidth(title) / 2),
+				this.guiTop + 5, this.grayColor);
 	}
 	
 	@Override
@@ -88,7 +86,7 @@ public class ComponentPageQuomi extends ComponentPage {
 		int x = coords[0];
 		int y = coords[1];
 		for (int i = 0; i < this.quomSlots.length; i++) {
-			if (this.quomSlots != null) this.quomSlots[i].draw();
+			if (this.quomSlots[i] != null) this.quomSlots[i].draw();
 		}
 		g.drawTexturedModalRect(x + (this.selected * 18), y, 18, 20, 18, 18);
 		
@@ -99,22 +97,20 @@ public class ComponentPageQuomi extends ComponentPage {
 		int[] coords = null;
 		boolean hotbar_has_changed = false;
 		
-		coords = this.quomSlots[9].getCoords();
-		if (x >= coords[0] && x <= coords[0] + 18 && y >= coords[1]
-				&& y <= coords[1] + 18) {
-			System.out.println("Set null");
-			this.quomSlots[this.selected].setQuom(null);
-			hotbar_has_changed = true;
-		}
-		
 		int hotbarY = this.quomSlots[0].getCoords()[1];
 		if (y >= hotbarY && y <= hotbarY + 18) {
 			for (int i = 0; i < 9; i++) {
 				coords = this.quomSlots[i].getCoords();
 				if (x >= coords[0] && x <= coords[0] + 18) {
-					this.selected = i;
-					System.out.println("Selected hotbar slot " + i);
-					arcanePlayer.setCurrentHotBarIndex(this.selected);
+					if (mouseButton == 1) {
+						this.quomSlots[i].setQuom(null);
+						hotbar_has_changed = true;
+					}
+					else {
+						this.selected = i;
+						// System.out.println("Selected hotbar slot " + i);
+						arcanePlayer.setCurrentHotBarIndex(this.selected);
+					}
 					break;
 				}
 			}
@@ -126,15 +122,15 @@ public class ComponentPageQuomi extends ComponentPage {
 				boolean validX = x >= coords[0] && x <= coords[0] + 18;
 				boolean validY = y >= coords[1] && y <= coords[1] + 18;
 				if (validX && validY) {
-					System.out.println("Found clicked slot");
+					//System.out.println("Found clicked slot");
 					quomSlot = this.quomSlots[i];
 					break;
 				}
 			}
 			if (quomSlot != null) {
 				if (quomSlot.getQuom() != null) {
-					System.out.println("Quom slot " + this.selected
-							+ "'s quom set to " + quomSlot.getQuom().getName());
+					//System.out.println("Quom slot " + this.selected + "'s quom set to "
+					//		+ quomSlot.getQuom().getName());
 					this.quomSlots[this.selected].setQuom(quomSlot.getQuom());
 					hotbar_has_changed = true;
 				}
@@ -142,7 +138,7 @@ public class ComponentPageQuomi extends ComponentPage {
 		}
 		
 		if (hotbar_has_changed) {
-			System.out.println("Changed Hotbar");
+			//System.out.println("Changed Hotbar");
 			Quom[] hotBar = new Quom[9];
 			for (int i = 0; i < 9; i++) {
 				hotBar[i] = quomSlots[i].getQuom();

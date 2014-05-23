@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
-import com.countrygamer.arcanacraft.common.quom.Tiers.MANUS;
 
 public class QuomRegistry {
 	
@@ -20,8 +20,15 @@ public class QuomRegistry {
 	public static Quom fireBall;
 	public static Quom furnace;
 	public static Quom extract;
-	public static Quom bindBasic;
+	public static Quom bind;
 	public static Quom teleport;
+	public static Quom fastTravel;
+	public static Quom flash;
+	public static Quom barrier;
+	public static Quom icePath;
+	public static Quom luminize;
+	public static Quom illuminate;
+	public static Quom data;
 	
 	public static void registerQuom(Quom quom) {
 		QuomRegistry.quomKeys.put(quom.getName(), QuomRegistry.quomRegistry.size());
@@ -39,24 +46,18 @@ public class QuomRegistry {
 		QuomRegistry.extract = new Quom("Rescindo") {
 
 			@Override
-			public void onUse(ExtendedArcanePlayer arcanePlayer, World world, int x,
-					int y, int z, int side, Cast castTier, MANUS manusTier) {
+			public void onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,
+					int x, int y, int z, int side, Cast castTier) {
 				
 			}
 			
 		};
 		
-		QuomRegistry.bindBasic = new Quom("Bind") {
-
-			@Override
-			public void onUse(ExtendedArcanePlayer arcanePlayer, World world, int x,
-					int y, int z, int side, Cast castTier, MANUS manusTier) {
-				
-			}
-			
-		};
+		QuomRegistry.bind = new QuomBind("Bind", null);
 				
 		QuomRegistry.teleport = new QuomTeleport("Teleport", null);
+		
+		QuomRegistry.data = new QuomData("Data", null);
 		
 	}
 	

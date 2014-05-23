@@ -2,12 +2,16 @@ package com.countrygamer.arcanacraft.common.quom;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
+import com.countrygamer.countrygamercore.lib.UtilCursor;
 
 public abstract class Quom {
 	
@@ -16,9 +20,6 @@ public abstract class Quom {
 	private int id;
 	private ResourceLocation iconSource;
 	
-	public Quom() {
-	}
-	
 	public Quom(String name) {
 		this(name, null);
 	}
@@ -26,8 +27,8 @@ public abstract class Quom {
 	public Quom(String name, String parentKey) {
 		this.name = name;
 		this.parentName = parentKey == null ? "" : parentKey;
-		this.iconSource = new ResourceLocation(ArcanaCraft.pluginID,
-				"textures/quoms/" + this.name + ".png");
+		this.iconSource = new ResourceLocation(ArcanaCraft.pluginID, "textures/quoms/" + this.name
+				+ ".png");
 		
 		this.id = QuomRegistry.quomRegistry.size();
 		QuomRegistry.registerQuom(this);
@@ -85,17 +86,49 @@ public abstract class Quom {
 		return QuomRegistry.getQuom(this.parentName);
 	}
 	
-	public double getReachLength() {
+	public double getReachLength(Tiers.Cast castTier) {
 		return 5.0D;
 	}
 	
-	public void onUse_do(ExtendedArcanePlayer arcanePlayer, World world, int x, int y,
-			int z, int side, Tiers.Cast castTier, Tiers.MANUS manusTier) {
+	public void onUse_do(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,
+			Tiers.Cast castTier, Tiers.MANUS manusTier) {
+		//ArcanaCraft.logger.info("Quom");
+		
 		// TODO Decrement Manus
-		this.onUse(arcanePlayer, world, x, y, z, side, castTier, manusTier);
+		
+		boolean usedOnEntity = false;
+		MovingObjectPosition mop = UtilCursor.getMOPFromPlayer(world, player,
+				this.getReachLength(castTier));
+		if (mop != null) {
+			if (mop.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
+				//ArcanaCraft.logger.info("Found Entity");
+				if (mop.entityHit instanceof EntityLivingBase) {
+					usedOnEntity = this.onEntityUse(player, arcanePlayer, world,
+							(EntityLivingBase) mop.entityHit, castTier);
+				}
+			}
+			else {
+				//ArcanaCraft.logger.info("Not An Entity");
+			}
+		}
+		else {
+			//ArcanaCraft.logger.info("Null MOP");
+		}
+		
+		if (!usedOnEntity) {
+			UtilCursor.MovingObjectPositionTarget mopT = UtilCursor.getBlockFromCursor(world,
+					arcanePlayer.player, this.getReachLength(castTier));
+			if (mopT != null)
+				this.onUse(player, arcanePlayer, world, mopT.x, mopT.y, mopT.z, mopT.side, castTier);
+		}
 	}
 	
-	public abstract void onUse(ExtendedArcanePlayer arcanePlayer, World world, int x, int y,
-			int z, int side, Tiers.Cast castTier, Tiers.MANUS manusTier);
+	private boolean onEntityUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,
+			EntityLivingBase entity, Tiers.Cast castTier) {
+		return false;
+	}
+	
+	public abstract void onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,
+			int x, int y, int z, int side, Tiers.Cast castTier);
 	
 }

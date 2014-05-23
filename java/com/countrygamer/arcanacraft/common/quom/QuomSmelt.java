@@ -21,8 +21,8 @@ public class QuomSmelt extends Quom {
 	}
 	
 	@Override
-	public void onUse(ExtendedArcanePlayer arcanePlayer, World world, int x, int y,
-			int z, int side, Tiers.Cast castTier, Tiers.MANUS manusTier) {		
+	public void onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world, int x,
+			int y, int z, int side, Tiers.Cast castTier) {		
 		FurnaceRecipes recipes = FurnaceRecipes.smelting();
 		
 		float xp = 0.0F;
@@ -31,7 +31,7 @@ public class QuomSmelt extends Quom {
 		if (castTier != Tiers.Cast.HAND) {
 			@SuppressWarnings("rawtypes")
 			List list = world.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB
-					.getBoundingBox(x - 0, y - 0, z - 0, x + 1, y + z, z + 1));
+					.getBoundingBox(x - 0, y + 1, z - 0, x + 1, y + 2, z + 1));
 			
 			for (Object obj : list) {
 				if (obj instanceof EntityItem) {

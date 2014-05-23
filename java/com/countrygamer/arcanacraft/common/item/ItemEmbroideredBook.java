@@ -7,7 +7,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 
-import com.countrygamer.arcanacraft.common.ACItems;
 import com.countrygamer.arcanacraft.common.ACOptions;
 import com.countrygamer.core.Base.common.item.ItemBase;
 

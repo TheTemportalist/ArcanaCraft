@@ -11,7 +11,6 @@ import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.quom.Tiers;
 import com.countrygamer.core.Base.Plugin.ExtendedEntity;
 import com.countrygamer.core.Base.common.packet.AbstractPacket;
-import com.countrygamer.countrygamercore.lib.UtilCursor;
 
 public class PacketCastQuom extends AbstractPacket {
 	
@@ -42,21 +41,12 @@ public class PacketCastQuom extends AbstractPacket {
 				// System.out.println("FoundQuom");
 				// System.out.println(quom.getClass().getSimpleName());
 				// System.out.println(quom.getName());
-				UtilCursor.MovingObjectPositionTarget mopT = UtilCursor
-						.getBlockFromCursor(player.worldObj, player,
-								quom.getReachLength());
-				if (mopT != null) {
-					ItemStack heldStack = player.getHeldItem();
-					Tiers.Cast castTier = Tiers.Cast.getTier(heldStack);
-					Tiers.MANUS manusTier = Tiers.MANUS.getTier(castTier, quom);
-					if (castTier != null && manusTier != null) {
-						System.out.println(castTier);
-						quom.onUse_do(arcanePlayer, player.worldObj, mopT.x, mopT.y,
-								mopT.z, mopT.side, castTier, manusTier);
-					}
-					else {
-						// System.out.println("Cast Tier Null");
-					}
+				ItemStack heldStack = player.getHeldItem();
+				Tiers.Cast castTier = Tiers.Cast.getTier(heldStack);
+				Tiers.MANUS manusTier = Tiers.MANUS.getTier(castTier, quom);
+				if (castTier != null && manusTier != null) {
+					ArcanaCraft.logger.info(castTier.name());
+					quom.onUse_do(player, arcanePlayer, player.worldObj, castTier, manusTier);
 				}
 			}
 			else {

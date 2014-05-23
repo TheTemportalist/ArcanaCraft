@@ -6,10 +6,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 
+import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.quom.QuomRegistry;
 import com.countrygamer.core.Base.Plugin.ExtendedEntity;
 import com.countrygamer.countrygamercore.lib.CoreUtil;
+import com.countrygamer.countrygamercore.lib.LogBlock;
 
 public class ExtendedArcanePlayer extends ExtendedEntity {
 	
@@ -51,6 +53,13 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	
 	@Override
 	public void init(Entity entity, World world) {
+		if (this.quoms.length < QuomRegistry.quomRegistry.size()) {
+			Quom[] temp = this.quoms;
+			this.quoms = new Quom[QuomRegistry.quomRegistry.size()];
+			for (int i = 0; i < temp.length; i++) {
+				this.quoms[i] = temp[i];
+			}
+		}
 		this.syncEntity();
 	}
 	
@@ -71,8 +80,8 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 				quomTag.setInteger("slot", i);
 				quomTag.setInteger("quomID", this.quoms[i].getID());
 				quomList.appendTag(quomTag);
-				//System.out
-				//		.println("\nSlot: " + i + "\nID: " + this.quoms[i].getID());
+				// System.out
+				// .println("\nSlot: " + i + "\nID: " + this.quoms[i].getID());
 			}
 		}
 		compound.setTag("quoms", quomList);
@@ -112,22 +121,21 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 		NBTTagList quomList = compound.getTagList("quoms", 10);
 		for (int i = 0; i < quomList.tagCount(); i++) {
 			NBTTagCompound quomTag = quomList.getCompoundTagAt(i);
-			this.quoms[quomTag.getInteger("slot")] = QuomRegistry.quomRegistry
-					.get(quomTag.getInteger("quomID"));
-			//System.out.println("Loaded "
-			//		+ this.quoms[quomTag.getInteger("slot")].getName());
+			this.quoms[quomTag.getInteger("slot")] = QuomRegistry.quomRegistry.get(quomTag
+					.getInteger("quomID"));
+			// System.out.println("Loaded "
+			// + this.quoms[quomTag.getInteger("slot")].getName());
 		}
 		
 		this.hotBar = new Quom[9];
 		NBTTagList hotbarList = compound.getTagList("hotbar", 10);
 		for (int i = 0; i < hotbarList.tagCount(); i++) {
 			NBTTagCompound quomTag = hotbarList.getCompoundTagAt(i);
-			this.hotBar[quomTag.getInteger("slot")] = QuomRegistry.quomRegistry
-					.get(quomTag.getInteger("quomID"));
+			this.hotBar[quomTag.getInteger("slot")] = QuomRegistry.quomRegistry.get(quomTag
+					.getInteger("quomID"));
 		}
 		
-		this.turningToSmoke = EnumSmokeAction.getEnumFromID(compound
-				.getInteger("turningToSmoke"));
+		this.turningToSmoke = EnumSmokeAction.getEnumFromID(compound.getInteger("turningToSmoke"));
 		this.smokeTick = compound.getInteger("smokeTick");
 		
 		if (compound.getBoolean("hasDest")) {
@@ -225,19 +233,30 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 			index += i + ",";
 			val += ((this.hotBar[i] == null) + "").substring(0, 1) + ",";
 		}
-		System.out.println(this.player.worldObj.isRemote ? "Client" : "Server");
-		System.out.println(index);
-		System.out.println(val);
+		LogBlock log = new LogBlock(ArcanaCraft.logger, "\n");
+		log.addWithLine(this.player.worldObj.isRemote ? "Client" : "Server");
+		log.addWithLine(index);
+		log.addWithLine(val);
+		log.log();
 	}
 	
 	public Quom getCurrentQuom() {
 		return this.hotBar[this.currentSelectedHotBarIndex];
 	}
 	
+	public void nextQuom() {
+		if (++this.currentSelectedHotBarIndex > 8) this.currentSelectedHotBarIndex = 0;
+		this.syncEntity();
+	}
+	
+	public void lastQuom() {
+		if (--this.currentSelectedHotBarIndex < 0) this.currentSelectedHotBarIndex = 8;
+		this.syncEntity();
+	}
+	
 	public void setChanging(EnumSmokeAction val) {
 		this.turningToSmoke = val;
-		if (val != EnumSmokeAction.NONE)
-			this.smokeTick = ExtendedArcanePlayer.maxSmokeTicks;
+		if (val != EnumSmokeAction.NONE) this.smokeTick = ExtendedArcanePlayer.maxSmokeTicks;
 		this.syncEntity();
 	}
 	
@@ -291,7 +310,7 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	}
 	
 	public void learnQuom(Quom quom) {
-		//System.out.println("Learning " + quom.getName());
+		// System.out.println("Learning " + quom.getName());
 		QuomRegistry.unlockQuom(this, quom.getName());
 	}
 	

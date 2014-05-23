@@ -17,8 +17,11 @@ import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 
 import com.countrygamer.arcanacraft.client.particle.Particles;
+import com.countrygamer.arcanacraft.common.block.ACBlocks;
 import com.countrygamer.arcanacraft.common.extended.EnumSmokeAction;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
+import com.countrygamer.arcanacraft.common.item.ACItems;
+import com.countrygamer.arcanacraft.common.quom.BindRecipes;
 import com.countrygamer.arcanacraft.common.quom.QuomRegistry;
 import com.countrygamer.core.Base.Plugin.ExtendedEntity;
 import com.countrygamer.core.Base.Plugin.PluginBase;
@@ -63,8 +66,8 @@ public class ArcanaCraft extends PluginBase implements IFuelHandler {
 				new ACItems(), new ACBlocks(), new ACBiomes(), null);
 		this.registerHandlers(this, this);
 		this.registerPacketClass(PacketCastQuom.class);
+		this.registerPacketClass(PacketSelectQuom.class);
 		
-		//FMLCommonHandler.instance().bus().register(this);
 		this.registerExtendedPlayer("Extended Arcane Player",
 				ExtendedArcanePlayer.class, true);
 		if (event.getSide() == Side.CLIENT) {
@@ -72,6 +75,7 @@ public class ArcanaCraft extends PluginBase implements IFuelHandler {
 			FMLCommonHandler.instance().bus().register(ArcanaCraft.keyHandler);
 		}
 		QuomRegistry.registerQuoms();
+		BindRecipes.registerRecipes();
 		
 	}
 	
