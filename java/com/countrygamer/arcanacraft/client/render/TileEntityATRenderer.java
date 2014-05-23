@@ -98,145 +98,145 @@ public class TileEntityATRenderer extends TileEntitySpecialRenderer {
 				// north
 				// bottom left
 				t.addVertexWithUV(
-						+center + 0,
-						-center + 0,
+						-center + radiusOffset,
+						+center - radiusOffset,
 						+center - radiusOffset,
 						uMax, vMin);
 				// bottom right
 				t.addVertexWithUV(
-						-center + 0,
-						-center + 0,
+						+center - radiusOffset,
+						+center - radiusOffset,
 						+center - radiusOffset,
 						uMin, vMin);
 				// top right
 				t.addVertexWithUV(
-						-center + 0,
-						+center + 0,
+						+center - radiusOffset,
+						-center + radiusOffset,
 						+center - radiusOffset,
 						uMin, vMax);
 				// top left
 				t.addVertexWithUV(
-						+center + 0,
-						+center + 0,
+						-center + radiusOffset,
+						-center + radiusOffset,
 						+center - radiusOffset,
 						uMax, vMax);
 				
 				// south side
 				// bottom right
 				t.addVertexWithUV(
-						+center + 0,
-						-center + 0,
+						-center + radiusOffset,
+						+center - radiusOffset,
 						-center + radiusOffset,
 						uMin, vMin);
 				// top right
 				t.addVertexWithUV(
-						+center + 0,
-						+center + 0,
+						-center + radiusOffset,
+						-center + radiusOffset,
 						-center + radiusOffset,
 						uMin, vMax);
 				// top left
 				t.addVertexWithUV(
-						-center + 0,
-						+center + 0,
+						+center - radiusOffset,
+						-center + radiusOffset,
 						-center + radiusOffset,
 						uMax, vMax);
 				// bottom left
 				t.addVertexWithUV(
-						-center + 0,
-						-center + 0,
+						+center - radiusOffset,
+						+center - radiusOffset,
 						-center + radiusOffset,
 						uMax, vMin);
 				
 				// east side
 				t.addVertexWithUV(
 						-center + radiusOffset,
-						-center + 0,
-						-center + 0,
+						+center - radiusOffset,
+						+center - radiusOffset,
 						uMin, vMin);
 				t.addVertexWithUV(
 						-center + radiusOffset,
-						+center + 0,
-						-center + 0,
+						-center + radiusOffset,
+						+center - radiusOffset,
 						uMin, vMax);
 				t.addVertexWithUV(
 						-center + radiusOffset,
-						+center + 0,
-						+center + 0,
+						-center + radiusOffset,
+						-center + radiusOffset,
 						uMax, vMax);
 				t.addVertexWithUV(
 						-center + radiusOffset,
-						-center + 0,
-						+center + 0,
+						+center - radiusOffset,
+						-center + radiusOffset,
 						uMax, vMin);
 				
 				// west side
 				t.addVertexWithUV(
 						+center - radiusOffset,
-						-center + 0,
-						+center + 0,
+						+center - radiusOffset,
+						-center + radiusOffset,
 						uMin, vMin);
 				t.addVertexWithUV(
 						+center - radiusOffset,
-						+center + 0,
-						+center + 0,
+						-center + radiusOffset,
+						-center + radiusOffset,
 						uMin, vMax);
 				t.addVertexWithUV(
 						+center - radiusOffset,
-						+center + 0,
-						-center + 0,
+						-center + radiusOffset,
+						+center - radiusOffset,
 						uMax, vMax);
 				t.addVertexWithUV(
 						+center - radiusOffset,
-						-center + 0,
-						-center + 0,
+						+center - radiusOffset,
+						+center - radiusOffset,
 						uMax, vMin);
 				
 				// top
 				// top left
 				t.addVertexWithUV(
-						+center + 0,
 						-center + radiusOffset,
-						+center + 0,
+						-center + radiusOffset,
+						-center + radiusOffset,
 						uMax, vMin);
 				// bottom left
 				t.addVertexWithUV(
-						+center + 0,
 						-center + radiusOffset,
-						-center + 0,
+						-center + radiusOffset,
+						+center - radiusOffset,
 						uMin, vMin);
 				// bottom right
 				t.addVertexWithUV(
-						-center + 0,
+						+center - radiusOffset,
 						-center + radiusOffset,
-						-center + 0,
+						+center - radiusOffset,
 						uMin, vMax);
 				// top right
 				t.addVertexWithUV(
-						-center + 0,
+						+center - radiusOffset,
 						-center + radiusOffset,
-						+center + 0,
+						-center + radiusOffset,
 						uMax, vMax);
 				
 				// bottom
 				t.addVertexWithUV(
-						+center + 0,
+						-center + radiusOffset,
 						+center - radiusOffset,
-						-center + 0,
+						+center - radiusOffset,
 						uMax, vMin);
 				t.addVertexWithUV(
-						+center + 0,
+						-center + radiusOffset,
 						+center - radiusOffset,
-						+center + 0,
+						-center + radiusOffset,
 						uMin, vMin);
 				t.addVertexWithUV(
-						-center + 0,
 						+center - radiusOffset,
-						+center + 0,
+						+center - radiusOffset,
+						-center + radiusOffset,
 						uMin, vMax);
 				t.addVertexWithUV(
-						-center + 0,
 						+center - radiusOffset,
-						-center + 0,
+						+center - radiusOffset,
+						+center - radiusOffset,
 						uMax, vMax);
 				
 			}
