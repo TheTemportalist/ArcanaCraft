@@ -58,42 +58,28 @@ public class TileEntityATRenderer extends TileEntitySpecialRenderer {
 			
 			Tessellator t = Tessellator.instance;
 			
-			final double uMinTex = texture.getInterpolatedU(0.0);
-			final double uMaxTex = texture.getInterpolatedU(16.0);
-			final double vMinTex = texture.getInterpolatedV(0.0);
-			final double vMaxTex = texture.getInterpolatedV(16.0);
-			final double centerU = texture.getInterpolatedU(8.0);
-			final double centerV = texture.getInterpolatedV(8.0);
-			double uMin = uMinTex;
-			double uMax = uMaxTex;
-			double vMin = vMinTex;
-			double vMax = vMaxTex;
+			final double uMin = texture.getInterpolatedU(0.0);
+			final double uMax = texture.getInterpolatedU(16.0);
+			final double vMin = texture.getInterpolatedV(0.0);
+			final double vMax = texture.getInterpolatedV(16.0);
 			
-			final double vHeight = vMaxTex - vMinTex;
+			final double vHeight = vMax - vMin;
 			
 			final float r = (color >> 16 & 0xFF) / 255.0F;
 			final float g = (color >> 8 & 0xFF) / 255.0F;
 			final float b = (color & 0xFF) / 255.0F;
 			
-			boolean renderNormal = false;
+			boolean hasGravity = false;
 			
 			double center = 0.5;
 			double volumeRatio = tankTE.getFluidRatio();
 			double radius = volumeRatio * center;
 			double radiusOffset = center + radius;
 			
-			if (!renderNormal) {
-				//double scaledRadius = radius / 16.0 * 0.5;
-				//uMin = centerU - scaledRadius;
-				//uMax = centerU + scaledRadius;
-				//vMin = centerV - scaledRadius;
-				//vMax = centerV + scaledRadius;
-			}
-			
 			t.startDrawingQuads();
 			t.setColorOpaque_F(r, g, b);
 			
-			if (!renderNormal) {
+			if (!hasGravity) {
 				
 				// north
 				// bottom left
