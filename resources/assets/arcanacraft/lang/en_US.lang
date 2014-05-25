@@ -3,3 +3,5 @@ item.The Arcana.name=The Arcana
 
 key.arcanacraft.category=ArcanaCraft
 key.cast.desc=Cast Quom Key
+
+commands.arcana.usage=/arcana 

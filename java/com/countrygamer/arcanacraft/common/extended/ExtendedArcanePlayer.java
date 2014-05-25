@@ -2,9 +2,11 @@ package com.countrygamer.arcanacraft.common.extended;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.quom.Quom;
@@ -15,24 +17,24 @@ import com.countrygamer.countrygamercore.lib.LogBlock;
 
 public class ExtendedArcanePlayer extends ExtendedEntity {
 	
-	public static final int maxManusTicks = 20 * 5;
-	public static final int maxSmokeTicks = 20 * 6;
+	public static final int	maxManusTicks	= 20 * 5;
+	public static final int	maxSmokeTicks	= 20 * 6;
 	
-	private boolean isActive;
+	private boolean			isActive;
 	
-	private int manus, maxManus;
-	private int manusTick;
+	private int				manus, maxManus;
+	private int				manusTick;
 	
-	private String currentArcanaPage;
+	private String			currentArcanaPage;
 	
-	private Quom[] quoms;
-	private Quom[] hotBar;
-	private int currentSelectedHotBarIndex;
+	private Quom[]			discoveredQuoms, learnedQuoms;
+	private Quom[]			hotBar;
+	private int				currentSelectedHotBarIndex;
 	
-	private EnumSmokeAction turningToSmoke;
-	private int smokeTick;
+	private EnumSmokeAction	turningToSmoke;
+	private int				smokeTick;
 	
-	private double[] teleportationDestination;
+	private double[]		teleportationDestination;
 	
 	public ExtendedArcanePlayer(EntityPlayer player) {
 		super(player);
@@ -42,24 +44,17 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 		this.currentArcanaPage = "Info";
 		this.turningToSmoke = EnumSmokeAction.NONE;
 		
-		this.quoms = new Quom[QuomRegistry.quomRegistry.size()];
 		this.hotBar = new Quom[9];
 		this.currentSelectedHotBarIndex = 0;
 		
-		for (Quom quom : QuomRegistry.quomRegistry) {
-			this.learnQuom(quom);
-		}
+		this.removeAllQuoms();
+		this.learnStartingQuoms();
+		
 	}
 	
 	@Override
 	public void init(Entity entity, World world) {
-		if (this.quoms.length < QuomRegistry.quomRegistry.size()) {
-			Quom[] temp = this.quoms;
-			this.quoms = new Quom[QuomRegistry.quomRegistry.size()];
-			for (int i = 0; i < temp.length; i++) {
-				this.quoms[i] = temp[i];
-			}
-		}
+		// this.printQuoms();
 		this.syncEntity();
 	}
 	
@@ -72,25 +67,32 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 		compound.setString("currentPage", this.currentArcanaPage);
 		compound.setInteger("currentHotBarIndex", this.currentSelectedHotBarIndex);
 		
-		compound.setInteger("quomLength", this.quoms.length);
-		NBTTagList quomList = new NBTTagList();
-		for (int i = 0; i < this.quoms.length; i++) {
-			if (this.quoms[i] != null) {
+		compound.setInteger("discoveredQuoms_length", this.discoveredQuoms.length);
+		NBTTagList discoveredList = new NBTTagList();
+		for (int i = 0; i < this.discoveredQuoms.length; i++) {
+			if (this.discoveredQuoms[i] != null) {
 				NBTTagCompound quomTag = new NBTTagCompound();
-				quomTag.setInteger("slot", i);
-				quomTag.setInteger("quomID", this.quoms[i].getID());
-				quomList.appendTag(quomTag);
-				// System.out
-				// .println("\nSlot: " + i + "\nID: " + this.quoms[i].getID());
+				quomTag.setInteger("quomID", this.discoveredQuoms[i].getID());
+				discoveredList.appendTag(quomTag);
 			}
 		}
-		compound.setTag("quoms", quomList);
+		compound.setTag("discoveredQuoms", discoveredList);
+		
+		compound.setInteger("learnedQuoms_length", this.learnedQuoms.length);
+		NBTTagList learnedList = new NBTTagList();
+		for (int i = 0; i < this.learnedQuoms.length; i++) {
+			if (this.learnedQuoms[i] != null) {
+				NBTTagCompound quomTag = new NBTTagCompound();
+				quomTag.setInteger("quomID", this.learnedQuoms[i].getID());
+				learnedList.appendTag(quomTag);
+			}
+		}
+		compound.setTag("learnedQuoms", learnedList);
 		
 		NBTTagList hotbarList = new NBTTagList();
 		for (int i = 0; i < 9; i++) {
 			if (this.hotBar[i] != null) {
 				NBTTagCompound quomTag = new NBTTagCompound();
-				quomTag.setInteger("slot", i);
 				quomTag.setInteger("quomID", this.hotBar[i].getID());
 				hotbarList.appendTag(quomTag);
 			}
@@ -117,22 +119,28 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 		this.currentArcanaPage = compound.getString("currentPage");
 		this.currentSelectedHotBarIndex = compound.getInteger("currentHotBarIndex");
 		
-		this.quoms = new Quom[compound.getInteger("quomLength")];
-		NBTTagList quomList = compound.getTagList("quoms", 10);
-		for (int i = 0; i < quomList.tagCount(); i++) {
-			NBTTagCompound quomTag = quomList.getCompoundTagAt(i);
-			this.quoms[quomTag.getInteger("slot")] = QuomRegistry.quomRegistry.get(quomTag
-					.getInteger("quomID"));
-			// System.out.println("Loaded "
-			// + this.quoms[quomTag.getInteger("slot")].getName());
+		this.discoveredQuoms = new Quom[compound.getInteger("discoveredQuoms_length")];
+		NBTTagList discoveredList = compound.getTagList("discoveredQuoms", 10);
+		for (int i = 0; i < discoveredList.tagCount(); i++) {
+			NBTTagCompound quomTag = discoveredList.getCompoundTagAt(i);
+			int id = quomTag.getInteger("quomID");
+			this.discoveredQuoms[id] = QuomRegistry.quomRegistry.get(id);
+		}
+		
+		this.learnedQuoms = new Quom[compound.getInteger("learnedQuoms_length")];
+		NBTTagList learnedList = compound.getTagList("learnedQuoms", 10);
+		for (int i = 0; i < learnedList.tagCount(); i++) {
+			NBTTagCompound quomTag = learnedList.getCompoundTagAt(i);
+			int id = quomTag.getInteger("quomID");
+			this.learnedQuoms[id] = QuomRegistry.quomRegistry.get(id);
 		}
 		
 		this.hotBar = new Quom[9];
 		NBTTagList hotbarList = compound.getTagList("hotbar", 10);
 		for (int i = 0; i < hotbarList.tagCount(); i++) {
 			NBTTagCompound quomTag = hotbarList.getCompoundTagAt(i);
-			this.hotBar[quomTag.getInteger("slot")] = QuomRegistry.quomRegistry.get(quomTag
-					.getInteger("quomID"));
+			int id = quomTag.getInteger("quomID");
+			this.hotBar[id] = QuomRegistry.quomRegistry.get(id);
 		}
 		
 		this.turningToSmoke = EnumSmokeAction.getEnumFromID(compound.getInteger("turningToSmoke"));
@@ -148,8 +156,14 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 		}
 	}
 	
-	public void setActiveState(boolean value) {
+	public void setArcaic(boolean value) {
 		this.isActive = value;
+		if (this.isActive) {
+			this.learnStartingQuoms();
+		}
+		else {
+			this.removeAllQuoms();
+		}
 		this.syncEntity();
 	}
 	
@@ -197,15 +211,6 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 		return this.currentArcanaPage;
 	}
 	
-	public void setQuoms(Quom[] activeQuoms) {
-		this.quoms = activeQuoms;
-		this.syncEntity();
-	}
-	
-	public Quom[] getQuoms() {
-		return this.quoms;
-	}
-	
 	public void setCurrentHotBarIndex(int val) {
 		this.currentSelectedHotBarIndex = val;
 		this.syncEntity();
@@ -217,7 +222,7 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	
 	public void setHotBar(Quom[] hotBar) {
 		this.hotBar = hotBar;
-		this.printHotBar();
+		// this.printHotBar();
 		this.syncEntity();
 	}
 	
@@ -245,12 +250,20 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	}
 	
 	public void nextQuom() {
-		if (++this.currentSelectedHotBarIndex > 8) this.currentSelectedHotBarIndex = 0;
+		int count = 0;
+		do {
+			if (++this.currentSelectedHotBarIndex > 8) this.currentSelectedHotBarIndex = 0;
+			count++;
+		} while (count < 9 && this.hotBar[this.currentSelectedHotBarIndex] == null);
 		this.syncEntity();
 	}
 	
 	public void lastQuom() {
-		if (--this.currentSelectedHotBarIndex < 0) this.currentSelectedHotBarIndex = 8;
+		int count = 0;
+		do {
+			if (--this.currentSelectedHotBarIndex < 0) this.currentSelectedHotBarIndex = 8;
+			count++;
+		} while (count < 9 && this.hotBar[this.currentSelectedHotBarIndex] == null);
 		this.syncEntity();
 	}
 	
@@ -305,13 +318,109 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 		this.syncEntity();
 	}
 	
-	public boolean canLearn(String quomKey) {
-		return QuomRegistry.canPlayerLearn(this, quomKey);
+	public void printQuoms() {
+		System.out.println("\n" + (this.player.worldObj.isRemote ? "Client" : "Server"));
+		LogBlock log = new LogBlock(ArcanaCraft.logger, "\n");
+		log.addWithLine("\tDiscovered:");
+		for (int i = 0; i < this.discoveredQuoms.length; i++) {
+			log.add((i != 0 ? ", " : "")
+					+ (this.discoveredQuoms[i] == null ? "null" : this.discoveredQuoms[i].getName()));
+		}
+		log.addWithLine("\n\tLearned:");
+		for (int i = 0; i < this.learnedQuoms.length; i++) {
+			log.add((i != 0 ? ", " : "")
+					+ (this.learnedQuoms[i] == null ? "null" : this.learnedQuoms[i].getName()));
+		}
+		log.log();
 	}
 	
-	public void learnQuom(Quom quom) {
-		// System.out.println("Learning " + quom.getName());
-		QuomRegistry.unlockQuom(this, quom.getName());
+	public void checkForDiscoveries(PlayerInteractEvent.Action action, ItemStack itemStack) {
+		for (int i = 0; i < QuomRegistry.quomRegistry.size(); i++) {
+			Quom quom = QuomRegistry.quomRegistry.get(i);
+			if (!this.hasDiscoveredQuom(quom)) {
+				ArcanaCraft.logger.info("Checking disc " + quom.getName());
+				quom.checkForDiscovery(this, action, itemStack);
+			}
+		}
+	}
+	
+	public boolean hasDiscoveredQuom(Quom quom) {
+		for (int i = 0; i < this.discoveredQuoms.length; i++) {
+			if (quom.equals(this.discoveredQuoms[i])) return true;
+		}
+		return false;
+	}
+	
+	public boolean discoverQuom(Quom quom) {
+		if (this.hasDiscoveredQuom(quom))
+			return false;
+		else {
+			this.discoveredQuoms[quom.getID()] = quom;
+			// TODO Remove this learning line!
+			this.learnQuom(quom);
+			this.syncEntity();
+			return true;
+		}
+	}
+	
+	public boolean hasLearnedQuom(Quom quom) {
+		if (!this.hasDiscoveredQuom(quom)) return false;
+		for (int i = 0; i < this.learnedQuoms.length; i++) {
+			if (quom.equals(this.learnedQuoms[i])) return true;
+		}
+		return false;
+	}
+	
+	public boolean learnQuom(Quom quom) {
+		if (this.hasDiscoveredQuom(quom) && !this.hasLearnedQuom(quom)) {
+			this.learnedQuoms[quom.getID()] = quom;
+			this.syncEntity();
+			return true;
+		}
+		return false;
+	}
+	
+	public void forceLearnQuom(Quom quom, boolean heritage) {
+		if (this.hasLearnedQuom(quom)) return;
+		if (heritage && quom.getParent() != null) {
+			if (!this.hasLearnedQuom(quom.getParent())) {
+				this.forceLearnQuom(quom.getParent(), heritage);
+			}
+		}
+		this.discoveredQuoms[quom.getID()] = quom;
+		this.learnedQuoms[quom.getID()] = quom;
+		this.syncEntity();
+	}
+	
+	public void forceRemoveQuom(Quom quom, boolean heritage) {
+		if (!this.hasDiscoveredQuom(quom) || !this.hasLearnedQuom(quom)) return;
+		if (heritage && quom.getParent() != null) {
+			if (this.hasDiscoveredQuom(quom.getParent()) || this.hasLearnedQuom(quom.getParent())) {
+				this.forceRemoveQuom(quom, heritage);
+			}
+		}
+		this.discoveredQuoms[quom.getID()] = null;
+		this.learnedQuoms[quom.getID()] = null;
+		this.syncEntity();
+	}
+	
+	public void learnStartingQuoms() {
+		for (int i = 0; i < QuomRegistry.quomRegistry.size(); i++) {
+			Quom quom = QuomRegistry.quomRegistry.get(i);
+			if (quom.getParent() == null) {
+				this.forceLearnQuom(quom, false);
+			}
+		}
+	}
+	
+	public void removeAllQuoms() {
+		this.discoveredQuoms = this.learnedQuoms = new Quom[QuomRegistry.quomRegistry.size()];
+		this.printQuoms();
+		this.syncEntity();
+	}
+	
+	public Quom[] getLearnedQuoms() {
+		return this.learnedQuoms;
 	}
 	
 }

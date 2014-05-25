@@ -7,38 +7,29 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.countrygamercore.lib.UtilCursor;
 
 public class QuomFire extends Quom {
 	
-	public QuomFire(String name) {
-		super(name);
+	public QuomFire(String name, Quom parent) {
+		super(name, parent);
+	}
+	
+	@Override
+	public boolean canDiscover(ExtendedArcanePlayer arcanePlayer,
+			PlayerInteractEvent.Action action, ItemStack itemStack) {
+		return super.canDiscover(arcanePlayer, action, itemStack)
+				&& (action == Action.RIGHT_CLICK_BLOCK && itemStack.getItem() == Items.flint_and_steel);
 	}
 	
 	@Override
 	public double getReachLength(Tiers.Cast castTier) {
 		return Tiers.Cast.tierToInt(castTier) * 5.0D;
 	}
-	
-	/*
-	@Override
-	public boolean onEntityUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,
-			EntityLivingBase entity, Tiers.Cast castTier) {
-		if (!player.isSneaking()) {
-			MovingObjectPosition mop = UtilCursor.getMOPFromPlayer(world, player,
-					this.getReachLength(castTier));
-			if (mop == null) ArcanaCraft.logger.info("Null MOP");
-			ArcanaCraft.logger.info(mop.typeOfHit.name());
-			if (mop.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
-				mop.entityHit.setFire(60);
-				return true;
-			}
-		}
-		return false;
-	}
-	*/
 	
 	@Override
 	public void onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world, int x,

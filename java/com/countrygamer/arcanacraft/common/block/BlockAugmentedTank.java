@@ -1,6 +1,7 @@
 package com.countrygamer.arcanacraft.common.block;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -100,6 +101,22 @@ public class BlockAugmentedTank extends BlockContainerBase {
 	@Override
 	public int getRenderType() {
 		return -1;
+	}
+	
+	public boolean hasTileEntityDrops() {
+		return true;
+	}
+	
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity,
+			ItemStack itemStack) {
+		super.onBlockPlacedBy(world, x, y, z, entity, itemStack);
+		
+		TileEntity tileEntity = world.getTileEntity(x, y, z);
+		if (tileEntity != null && tileEntity instanceof TileEntityAugmentedTank
+				&& itemStack.hasTagCompound()) {
+			TileEntityAugmentedTank tankTE = (TileEntityAugmentedTank)tileEntity;
+			tankTE.loadTankFromNBT(itemStack.getTagCompound().getCompoundTag("tank"));
+		}
 	}
 	
 }

@@ -15,26 +15,25 @@ import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
 
 public class QuomBind extends Quom {
 	
-	public QuomBind(String name, String parentKey) {
-		super(name, parentKey);
+	public QuomBind(String name, Quom parent) {
+		super(name, parent);
 	}
 	
 	@Override
 	public void onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world, int x,
 			int y, int z, int side, Cast castTier) {
-
+		if (castTier == Tiers.Cast.HAND) return;
+		
 		if (world.getBlock(x, y, z) == ACBlocks.bindableCore) {
 			world.setBlock(x, y, z, ACBlocks.quomBinder, 0, 3);
 			return;
 		}
 		
-		if (castTier == Tiers.Cast.HAND) return;
-		
 		// ArcanaCraft.logger.info("Quom Bind");
 		
 		@SuppressWarnings("rawtypes")
-		List list = world.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB
-				.getBoundingBox(x - 0, y + 1, z - 0, x + 1, y + 2, z + 1));
+		List list = world.getEntitiesWithinAABB(EntityItem.class,
+				AxisAlignedBB.getBoundingBox(x - 0, y + 1, z - 0, x + 1, y + 2, z + 1));
 		if (list.isEmpty()) return;
 		List<EntityItem> ents = new ArrayList<EntityItem>();
 		for (Object obj : list) {
@@ -53,7 +52,7 @@ public class QuomBind extends Quom {
 					ItemStack[] inputs = new ItemStack[] {
 							ent1.getEntityItem(), ent2.getEntityItem()
 					};
-					output = recipes.getRecipeOutput(inputs);
+					output = recipes.getRecipeOutput(BindRecipes.Type.QUOM, inputs);
 					if (output != null) {
 						// ArcanaCraft.logger.info("Found Output");
 						
@@ -82,8 +81,7 @@ public class QuomBind extends Quom {
 						double avgY = ent1.posY;
 						double avgZ = (ent1.posZ + ent2.posZ) / 2;
 						if (!world.isRemote)
-							world.spawnEntityInWorld(new EntityItem(world, avgX,
-									avgY, avgZ, output));
+							world.spawnEntityInWorld(new EntityItem(world, avgX, avgY, avgZ, output));
 						
 						break recipeSearch;
 					}
@@ -96,14 +94,13 @@ public class QuomBind extends Quom {
 	private int getLowestSize(ItemStack[] inputs) {
 		int lowest = 0;
 		for (int i = 0; i < inputs.length; i++) {
-			if (lowest == 0 || inputs[i].stackSize < lowest)
-				lowest = inputs[i].stackSize;
+			if (lowest == 0 || inputs[i].stackSize < lowest) lowest = inputs[i].stackSize;
 		}
 		return lowest;
 	}
 	
-	private void checkStacks(ItemStack ent1Stack, EntityItem ent1,
-			ItemStack ent2Stack, EntityItem ent2) {
+	private void checkStacks(ItemStack ent1Stack, EntityItem ent1, ItemStack ent2Stack,
+			EntityItem ent2) {
 		if (ent1Stack.stackSize > 0)
 			ent1.setEntityItemStack(ent1Stack);
 		else

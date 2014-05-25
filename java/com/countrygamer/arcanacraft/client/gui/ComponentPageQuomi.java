@@ -21,7 +21,7 @@ public class ComponentPageQuomi extends ComponentPage {
 	public ComponentPageQuomi(int a, int b, int c, int d, int e, ExtendedArcanePlayer arcanePlayer) {
 		super(a, b, c, d, e);
 		this.arcanePlayer = arcanePlayer;
-		this.number_of_slots = 9 + 1 + arcanePlayer.getQuoms().length;
+		this.number_of_slots = 9 + 1 + arcanePlayer.getLearnedQuoms().length;
 	}
 	
 	int selected = 0;
@@ -45,7 +45,7 @@ public class ComponentPageQuomi extends ComponentPage {
 		
 		int x1 = x;
 		int y1 = y + 18 + 9;
-		Quom[] quoms = arcanePlayer.getQuoms();
+		Quom[] quoms = arcanePlayer.getLearnedQuoms();
 		for (int i = 0; i < quoms.length; i++) {
 			if (x1 > farRightSlotX) {
 				x1 = x;

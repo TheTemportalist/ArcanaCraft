@@ -16,7 +16,7 @@ import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 
 public class QuomSmelt extends Quom {
 	
-	public QuomSmelt(String name, String parent) {
+	public QuomSmelt(String name, Quom parent) {
 		super(name, parent);
 	}
 	

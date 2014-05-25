@@ -22,7 +22,7 @@ public class ItemArcana extends ItemBase {
 			EntityPlayer player) {
 		ExtendedArcanePlayer arcanePlayer = (ExtendedArcanePlayer) ExtendedEntity
 				.getExtended(player, ExtendedArcanePlayer.class);
-		if (!arcanePlayer.isPlayerArcaic()) arcanePlayer.setActiveState(true);
+		if (!arcanePlayer.isPlayerArcaic()) arcanePlayer.setArcaic(true);
 
 		boolean debug = false;
 		if (debug) {

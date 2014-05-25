@@ -10,41 +10,41 @@ import com.countrygamer.arcanacraft.common.block.ACBlocks;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
 import com.countrygamer.arcanacraft.common.tile.TileEntityAugmentedTank;
+import com.countrygamer.core.Base.common.block.BlockBase;
 import com.countrygamer.countrygamercore.lib.CoreUtil;
 
 public class QuomData extends Quom {
 	
-	public QuomData(String name, String parentKey) {
-		super(name, parentKey);
+	public QuomData(String name, Quom parent) {
+		super(name, parent);
 	}
 	
 	@Override
 	public void onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world, int x,
 			int y, int z, int side, Cast castTier) {
 		Block block = world.getBlock(x, y, z);
+		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		
-		if (block == ACBlocks.augmentedTank) {
-			TileEntity tileEntity = world.getTileEntity(x, y, z);
-			if (tileEntity != null && tileEntity instanceof TileEntityAugmentedTank) {
-				TileEntityAugmentedTank tankTE = (TileEntityAugmentedTank) tileEntity;
-				
-				if (!player.isSneaking()) {
-					FluidStack storedFluid = tankTE.getFluidStored();
-					String message = "";
-					if (storedFluid != null) {
-						message = "That tank is holding " + storedFluid.amount + " mB of "
-								+ storedFluid.getFluid().getName();
-					}
-					else {
-						message = "That tank contains no fluid";
-					}
-					
-					CoreUtil.sendMessageToPlayer(player, message);
-				}
-				else {
-					//block.dismantle();
-				}
+		if (player.isSneaking() && block instanceof BlockBase) {
+			world.setBlockToAir(x, y, z);
+		}
+		
+		if (block == ACBlocks.augmentedTank && tileEntity != null
+				&& tileEntity instanceof TileEntityAugmentedTank) {
+			TileEntityAugmentedTank tankTE = (TileEntityAugmentedTank) tileEntity;
+			
+			FluidStack storedFluid = tankTE.getFluidStored();
+			String message = "";
+			if (storedFluid != null) {
+				message = "That tank is holding " + storedFluid.amount + " mB of "
+						+ storedFluid.getFluid().getName();
 			}
+			else {
+				message = "That tank contains no fluid";
+			}
+			
+			CoreUtil.sendMessageToPlayer(player, message);
+			
 		}
 		
 	}

@@ -9,7 +9,7 @@ import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
 
 public class QuomTeleport extends Quom {
 	
-	public QuomTeleport(String name, String parent) {
+	public QuomTeleport(String name, Quom parent) {
 		super(name, parent);
 	}
 	
