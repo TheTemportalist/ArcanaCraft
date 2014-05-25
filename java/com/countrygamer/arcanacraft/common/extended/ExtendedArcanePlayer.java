@@ -338,7 +338,7 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 		for (int i = 0; i < QuomRegistry.quomRegistry.size(); i++) {
 			Quom quom = QuomRegistry.quomRegistry.get(i);
 			if (!this.hasDiscoveredQuom(quom)) {
-				ArcanaCraft.logger.info("Checking disc " + quom.getName());
+				// ArcanaCraft.logger.info("Checking disc " + quom.getName());
 				quom.checkForDiscovery(this, action, itemStack);
 			}
 		}
@@ -415,7 +415,7 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	
 	public void removeAllQuoms() {
 		this.discoveredQuoms = this.learnedQuoms = new Quom[QuomRegistry.quomRegistry.size()];
-		this.printQuoms();
+		// this.printQuoms();
 		this.syncEntity();
 	}
 	

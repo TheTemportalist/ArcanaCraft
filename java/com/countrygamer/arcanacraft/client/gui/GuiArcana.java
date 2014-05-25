@@ -36,7 +36,7 @@ public class GuiArcana extends GuiScreenBase {
 			this.currPage = this.arcanePlayer.getCurrentArcanaPage();
 		}
 		
-		this.arcanePlayer.printQuoms();
+		//this.arcanePlayer.printQuoms();
 	}
 	
 	@SuppressWarnings("unchecked")

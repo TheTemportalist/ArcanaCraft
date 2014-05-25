@@ -136,11 +136,11 @@ public abstract class Quom {
 	public void checkForDiscovery(ExtendedArcanePlayer arcanePlayer,
 			PlayerInteractEvent.Action action, ItemStack itemStack) {
 		if (this.canDiscover(arcanePlayer, action, itemStack)) {
-			ArcanaCraft.logger.info("Can discover " + this.getName());
+			//ArcanaCraft.logger.info("Can discover " + this.getName());
 			arcanePlayer.discoverQuom(this);
 			return;
 		}
-		ArcanaCraft.logger.info("Cannot discover " + this.getName());
+		//ArcanaCraft.logger.info("Cannot discover " + this.getName());
 	}
 	
 	public boolean canDiscover(ExtendedArcanePlayer arcanePlayer,

@@ -181,7 +181,7 @@ public class ArcanaCraft extends PluginBase implements IFuelHandler {
 		ExtendedArcanePlayer arcanePlayer = (ExtendedArcanePlayer) ExtendedEntity.getExtended(
 				event.entityPlayer, ExtendedArcanePlayer.class);
 		if (arcanePlayer.isPlayerArcaic()) {
-			ArcanaCraft.logger.info("Check for discoveries");
+			//ArcanaCraft.logger.info("Check for discoveries");
 			arcanePlayer.checkForDiscoveries(event.action, event.entityPlayer.getHeldItem());
 		}
 	}
