@@ -2,6 +2,7 @@ package com.countrygamer.arcanacraft.common;
 
 import java.util.ArrayList;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 
 import org.lwjgl.input.Keyboard;
@@ -14,13 +15,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class KeyHandler {
 	
-	private static final ArrayList<String> descriptions = new ArrayList<String>();
+	private static final ArrayList<String>	descriptions	= new ArrayList<String>();
 	
-	private static final int[] keyValues = {
+	private static final int[]				keyValues		= {
 			Keyboard.KEY_P, Keyboard.KEY_COMMA, Keyboard.KEY_PERIOD
-	};
+															};
 	
-	private final KeyBinding[] keys;
+	private final KeyBinding[]				keys;
 	
 	public KeyHandler() {
 		descriptions.add("key.cast.desc");
@@ -39,6 +40,8 @@ public class KeyHandler {
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void onKeyInput(KeyInputEvent event) {
+		if (!Minecraft.getMinecraft().inGameHasFocus) return;
+		
 		KeyBinding cast = this.getKey("key.cast.desc");
 		KeyBinding lastQuom = this.getKey("key.lastQuom.desc");
 		KeyBinding nextQuom = this.getKey("key.nextQuom.desc");

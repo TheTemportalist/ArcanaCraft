@@ -20,9 +20,9 @@ public class QuomFire extends Quom {
 	}
 	
 	@Override
-	public boolean canDiscover(ExtendedArcanePlayer arcanePlayer,
+	public boolean canDiscover_Use(ExtendedArcanePlayer arcanePlayer,
 			PlayerInteractEvent.Action action, ItemStack itemStack) {
-		return super.canDiscover(arcanePlayer, action, itemStack)
+		return super.canDiscover_Use(arcanePlayer, action, itemStack)
 				&& (action == Action.RIGHT_CLICK_BLOCK && itemStack.getItem() == Items.flint_and_steel);
 	}
 	

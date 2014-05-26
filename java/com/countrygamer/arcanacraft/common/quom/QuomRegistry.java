@@ -10,6 +10,8 @@ public class QuomRegistry {
 	public static final Map<String, Integer>	quomKeys		= new HashMap<String, Integer>();
 	public static final List<Quom>				quomRegistry	= new ArrayList<Quom>();
 	
+	public static Quom							dig;
+	
 	public static Quom							lightFire;
 	public static Quom							fireBall;
 	public static Quom							furnace;
@@ -26,19 +28,23 @@ public class QuomRegistry {
 	
 	public static void registerQuoms() {
 		
+		QuomRegistry.dig = new QuomDig("Dig");
+		
+		QuomRegistry.luminize = new QuomLuminize("Luminize", null);
+		
 		QuomRegistry.extract = new QuomExtract("Rescindo");
 		
-		QuomRegistry.lightFire = new QuomFire("Light Fire", QuomRegistry.extract);
+		QuomRegistry.lightFire = new QuomFire("Light Fire", null);
 		
-		QuomRegistry.fireBall = new QuomFireBall("Fire Ball", QuomRegistry.lightFire);
+		QuomRegistry.fireBall = new QuomFireBall("Fire Ball", null);
 		
-		QuomRegistry.furnace = new QuomSmelt("Furnace", QuomRegistry.lightFire);
+		QuomRegistry.furnace = new QuomSmelt("Furnace", null);
 		
-		QuomRegistry.bind = new QuomBind("Bind", QuomRegistry.furnace);
+		QuomRegistry.bind = new QuomBind("Bind", null);
 		
-		QuomRegistry.data = new QuomData("Data", QuomRegistry.bind);
+		QuomRegistry.data = new QuomData("Data", null);
 		
-		QuomRegistry.teleport = new QuomTeleport("Teleport", QuomRegistry.data);
+		QuomRegistry.teleport = new QuomTeleport("Teleport", null);
 		
 	}
 	

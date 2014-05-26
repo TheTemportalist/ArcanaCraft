@@ -45,7 +45,7 @@ public class PacketCastQuom extends AbstractPacket {
 				Tiers.Cast castTier = Tiers.Cast.getTier(heldStack);
 				Tiers.MANUS manusTier = Tiers.MANUS.getTier(castTier, quom);
 				if (castTier != null && manusTier != null) {
-					ArcanaCraft.logger.info(castTier.name());
+					//ArcanaCraft.logger.info(castTier.name());
 					quom.onUse_do(player, arcanePlayer, player.worldObj, castTier, manusTier);
 				}
 			}

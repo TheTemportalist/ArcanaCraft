@@ -41,6 +41,21 @@ public class Tiers {
 			return Tiers.MANUS.TIER1;
 		}
 		
+		public int getTierValue() {
+			switch (this) {
+				case TIER1:
+					return 1;
+				case TIER2:
+					return 2;
+				case TIER3:
+					return 3;
+				case TIER4:
+					return 4;
+				default:
+					return 0;
+			}
+		}
+		
 	}
 	
 }

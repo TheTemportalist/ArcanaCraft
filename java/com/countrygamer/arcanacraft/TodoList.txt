@@ -1,0 +1,5 @@
+
+[ ] Make Embroidered Book recipe cheaper (for early game usage)
+[ ] Make quom signifying "Let there be light"; discovered on crafting of torch
+
+[ ] Minions

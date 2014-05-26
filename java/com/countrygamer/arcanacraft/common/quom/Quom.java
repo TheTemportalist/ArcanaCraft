@@ -92,11 +92,15 @@ public abstract class Quom {
 		return 5.0D;
 	}
 	
+	public boolean isSingleCast() {
+		return true;
+	}
+	
 	public void onUse_do(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,
 			Tiers.Cast castTier, Tiers.MANUS manusTier) {
 		// ArcanaCraft.logger.info("Quom");
 		
-		// TODO Decrement Manus
+		arcanePlayer.decrementManus(Tiers.Cast.tierToInt(castTier) * 10);
 		
 		boolean usedOnEntity = false;
 		MovingObjectPosition mop = UtilCursor.getMOPFromPlayer(world, player,
@@ -133,20 +137,44 @@ public abstract class Quom {
 	public abstract void onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,
 			int x, int y, int z, int side, Tiers.Cast castTier);
 	
-	public void checkForDiscovery(ExtendedArcanePlayer arcanePlayer,
+	public void checkForDiscovery(ExtendedArcanePlayer arcanePlayer, int type,
 			PlayerInteractEvent.Action action, ItemStack itemStack) {
-		if (this.canDiscover(arcanePlayer, action, itemStack)) {
-			//ArcanaCraft.logger.info("Can discover " + this.getName());
+		if (this.canDiscover_base(arcanePlayer, type, action, itemStack)) {
+			// ArcanaCraft.logger.info("Can discover " + this.getName());
 			arcanePlayer.discoverQuom(this);
 			return;
 		}
-		//ArcanaCraft.logger.info("Cannot discover " + this.getName());
+		// ArcanaCraft.logger.info("Cannot discover " + this.getName());
 	}
 	
-	public boolean canDiscover(ExtendedArcanePlayer arcanePlayer,
+	public boolean canDiscover_base(ExtendedArcanePlayer arcanePlayer, int type,
 			PlayerInteractEvent.Action action, ItemStack itemStack) {
-		boolean hasLearnedParent = this.parentName == null
+		boolean hasLearnedParent = this.getParent() == null
 				|| arcanePlayer.hasLearnedQuom(this.getParent());
-		return hasLearnedParent && !arcanePlayer.hasDiscoveredQuom(this);
+		if (hasLearnedParent && !arcanePlayer.hasDiscoveredQuom(this)) {
+			switch (type) {
+				case 0: // item use
+					return this.canDiscover_Use(arcanePlayer, action, itemStack);
+				case 1: // craft
+					return this.canDiscover_Craft(arcanePlayer, itemStack);
+				case 2: // smelt
+					return this.canDiscover_Smelt(arcanePlayer, itemStack);
+			}
+		}
+		return false;
 	}
+	
+	public boolean canDiscover_Use(ExtendedArcanePlayer arcanePlayer,
+			PlayerInteractEvent.Action action, ItemStack itemStack) {
+		return false;
+	}
+	
+	public boolean canDiscover_Craft(ExtendedArcanePlayer arcanePlayer, ItemStack itemStack) {
+		return false;
+	}
+	
+	public boolean canDiscover_Smelt(ExtendedArcanePlayer arcanePlayer, ItemStack itemStack) {
+		return false;
+	}
+	
 }

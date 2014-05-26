@@ -1,15 +1,22 @@
 package com.countrygamer.arcanacraft.common.quom;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
 
-public class QuomExtract extends Quom {
+public class QuomLuminize extends Quom {
 	
-	public QuomExtract(String name) {
-		super(name);
+	public QuomLuminize(String name, Quom parent) {
+		super(name, parent);
+	}
+	
+	public boolean canDiscover_Craft(ExtendedArcanePlayer arcanePlayer, ItemStack itemStack) {
+		return itemStack.getItem() == Item.getItemFromBlock(Blocks.torch);
 	}
 	
 	@Override

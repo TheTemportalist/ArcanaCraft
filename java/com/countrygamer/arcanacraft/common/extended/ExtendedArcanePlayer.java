@@ -1,5 +1,8 @@
 package com.countrygamer.arcanacraft.common.extended;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -11,30 +14,35 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.quom.QuomRegistry;
+import com.countrygamer.arcanacraft.common.quom.Tiers;
 import com.countrygamer.core.Base.Plugin.ExtendedEntity;
 import com.countrygamer.countrygamercore.lib.CoreUtil;
 import com.countrygamer.countrygamercore.lib.LogBlock;
 
 public class ExtendedArcanePlayer extends ExtendedEntity {
 	
-	public static final int	maxManusTicks	= 20 * 5;
-	public static final int	maxSmokeTicks	= 20 * 6;
+	public static final int		maxManusTicks	= 20 * 5;
+	public static final int		maxSmokeTicks	= 20 * 6;
 	
-	private boolean			isActive;
+	private boolean				isActive;
 	
-	private int				manus, maxManus;
-	private int				manusTick;
+	private int					manus, maxManus;
+	private int					manusTick;
 	
-	private String			currentArcanaPage;
+	private int					internalDormantFlux;
 	
-	private Quom[]			discoveredQuoms, learnedQuoms;
-	private Quom[]			hotBar;
-	private int				currentSelectedHotBarIndex;
+	private String				currentArcanaPage;
 	
-	private EnumSmokeAction	turningToSmoke;
-	private int				smokeTick;
+	private Quom[]				discoveredQuoms, learnedQuoms;
+	private Quom[]				hotBar;
+	private int					currentSelectedHotBarIndex;
 	
-	private double[]		teleportationDestination;
+	private EnumSmokeAction		turningToSmoke;
+	private int					smokeTick;
+	
+	private double[]			teleportationDestination;
+	
+	private Map<String, String>	quomData		= new HashMap<String, String>();
 	
 	public ExtendedArcanePlayer(EntityPlayer player) {
 		super(player);
@@ -54,7 +62,19 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	
 	@Override
 	public void init(Entity entity, World world) {
-		// this.printQuoms();
+		// check for other quoms
+		if (this.discoveredQuoms.length != QuomRegistry.quomRegistry.size()) {
+			Quom[] tempDisc = this.discoveredQuoms;
+			Quom[] tempLear = this.learnedQuoms;
+			this.discoveredQuoms = new Quom[QuomRegistry.quomRegistry.size()];
+			this.learnedQuoms = new Quom[QuomRegistry.quomRegistry.size()];
+			for (int i = 0; i < this.discoveredQuoms.length; i++) {
+				if (i < tempDisc.length) {
+					this.discoveredQuoms[i] = tempDisc[i];
+					this.learnedQuoms[i] = tempLear[i];
+				}
+			}
+		}
 		this.syncEntity();
 	}
 	
@@ -108,6 +128,9 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 			compound.setDouble("teleportDestY", this.teleportationDestination[1]);
 			compound.setDouble("teleportDestZ", this.teleportationDestination[2]);
 		}
+		
+		compound.setInteger("dormantFlux", this.internalDormantFlux);
+		
 	}
 	
 	@Override
@@ -154,6 +177,9 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 					x, y, z
 			};
 		}
+		
+		this.internalDormantFlux = compound.getInteger("dormantFlux");
+		
 	}
 	
 	public void setArcaic(boolean value) {
@@ -334,12 +360,12 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 		log.log();
 	}
 	
-	public void checkForDiscoveries(PlayerInteractEvent.Action action, ItemStack itemStack) {
+	public void checkForDiscoveries(int type, PlayerInteractEvent.Action action, ItemStack itemStack) {
 		for (int i = 0; i < QuomRegistry.quomRegistry.size(); i++) {
 			Quom quom = QuomRegistry.quomRegistry.get(i);
 			if (!this.hasDiscoveredQuom(quom)) {
 				// ArcanaCraft.logger.info("Checking disc " + quom.getName());
-				quom.checkForDiscovery(this, action, itemStack);
+				quom.checkForDiscovery(this, type, action, itemStack);
 			}
 		}
 	}
@@ -358,6 +384,7 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 			this.discoveredQuoms[quom.getID()] = quom;
 			// TODO Remove this learning line!
 			this.learnQuom(quom);
+			//
 			this.syncEntity();
 			return true;
 		}
@@ -421,6 +448,36 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	
 	public Quom[] getLearnedQuoms() {
 		return this.learnedQuoms;
+	}
+	
+	public boolean canCast(int cost) {
+		return this.manus >= cost;
+	}
+	
+	public void decrementManus(int cost) {
+		if (this.canCast(cost)) {
+			this.manus -= cost;
+		}
+	}
+	
+	public void incrementFlux(Tiers.MANUS manusTier) {
+		this.addFlux(manusTier.getTierValue() * 20);
+	}
+	
+	public void addFlux(int value) {
+		this.internalDormantFlux += value;
+	}
+	
+	public boolean drainFlux(int value) {
+		if (this.internalDormantFlux >= value) {
+			this.internalDormantFlux -= value;
+			return true;
+		}
+		return false;
+	}
+	
+	public void clearFlux() {
+		this.drainFlux(this.internalDormantFlux);
 	}
 	
 }

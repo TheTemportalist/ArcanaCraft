@@ -23,6 +23,8 @@ import com.countrygamer.arcanacraft.common.extended.EnumSmokeAction;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.item.ACItems;
 import com.countrygamer.arcanacraft.common.quom.BindRecipes;
+import com.countrygamer.arcanacraft.common.quom.ExtractRecipes;
+import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.quom.QuomRegistry;
 import com.countrygamer.core.Base.Plugin.ExtendedEntity;
 import com.countrygamer.core.Base.Plugin.PluginBase;
@@ -39,6 +41,8 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.ItemSmeltedEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import cpw.mods.fml.relauncher.Side;
@@ -75,6 +79,7 @@ public class ArcanaCraft extends PluginBase implements IFuelHandler {
 		}
 		QuomRegistry.registerQuoms();
 		BindRecipes.registerRecipes();
+		ExtractRecipes.registerRecipes();
 		
 	}
 	
@@ -142,6 +147,15 @@ public class ArcanaCraft extends PluginBase implements IFuelHandler {
 		ExtendedArcanePlayer arcanePlayer = (ExtendedArcanePlayer) props;
 		
 		if (arcanePlayer.isPlayerArcaic()) {
+			
+			if (ArcanaCraft.keyHandler.getKey("key.cast.desc").getIsKeyPressed()) {
+				Quom quom = arcanePlayer.getCurrentQuom();
+				if (quom != null && !quom.isSingleCast()) {
+					// System.out.println("Hold Cast");
+					ArcanaCraft.instance.packetChannel.sendToServer(new PacketCastQuom());
+				}
+			}
+			
 			EnumSmokeAction smokeAction = EnumSmokeAction.NONE;
 			if (event.side == Side.SERVER) {
 				if (arcanePlayer.getManus() < arcanePlayer.getMaxManus()) {
@@ -181,8 +195,26 @@ public class ArcanaCraft extends PluginBase implements IFuelHandler {
 		ExtendedArcanePlayer arcanePlayer = (ExtendedArcanePlayer) ExtendedEntity.getExtended(
 				event.entityPlayer, ExtendedArcanePlayer.class);
 		if (arcanePlayer.isPlayerArcaic()) {
-			//ArcanaCraft.logger.info("Check for discoveries");
-			arcanePlayer.checkForDiscoveries(event.action, event.entityPlayer.getHeldItem());
+			// ArcanaCraft.logger.info("Check for discoveries");
+			arcanePlayer.checkForDiscoveries(0, event.action, event.entityPlayer.getHeldItem());
+		}
+	}
+	
+	@SubscribeEvent
+	public void onCraft(ItemCraftedEvent event) {
+		ExtendedArcanePlayer arcanePlayer = (ExtendedArcanePlayer) ExtendedEntity.getExtended(
+				event.player, ExtendedArcanePlayer.class);
+		if (arcanePlayer.isPlayerArcaic()) {
+			arcanePlayer.checkForDiscoveries(1, null, event.crafting);
+		}
+	}
+	
+	@SubscribeEvent
+	public void onSmelt(ItemSmeltedEvent event) {
+		ExtendedArcanePlayer arcanePlayer = (ExtendedArcanePlayer) ExtendedEntity.getExtended(
+				event.player, ExtendedArcanePlayer.class);
+		if (arcanePlayer.isPlayerArcaic()) {
+			arcanePlayer.checkForDiscoveries(2, null, event.smelting);
 		}
 	}
 	
