@@ -100,7 +100,7 @@ public abstract class Quom {
 			Tiers.Cast castTier, Tiers.MANUS manusTier) {
 		// ArcanaCraft.logger.info("Quom");
 		
-		arcanePlayer.decrementManus(Tiers.Cast.tierToInt(castTier) * 10);
+		//arcanePlayer.decrementManus(Tiers.Cast.tierToInt(castTier) * 2);
 		
 		boolean usedOnEntity = false;
 		MovingObjectPosition mop = UtilCursor.getMOPFromPlayer(world, player,
@@ -126,6 +126,8 @@ public abstract class Quom {
 					arcanePlayer.player, this.getReachLength(castTier));
 			if (mopT != null)
 				this.onUse(player, arcanePlayer, world, mopT.x, mopT.y, mopT.z, mopT.side, castTier);
+			else
+				this.onRightClick(player, arcanePlayer, world, castTier);
 		}
 	}
 	
@@ -136,6 +138,9 @@ public abstract class Quom {
 	
 	public abstract void onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,
 			int x, int y, int z, int side, Tiers.Cast castTier);
+	
+	public abstract void onRightClick(EntityPlayer player, ExtendedArcanePlayer arcanePlayer,
+			World world, Tiers.Cast castTier);
 	
 	public void checkForDiscovery(ExtendedArcanePlayer arcanePlayer, int type,
 			PlayerInteractEvent.Action action, ItemStack itemStack) {

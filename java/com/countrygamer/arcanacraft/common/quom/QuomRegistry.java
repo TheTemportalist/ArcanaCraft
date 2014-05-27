@@ -46,6 +46,8 @@ public class QuomRegistry {
 		
 		QuomRegistry.teleport = new QuomTeleport("Teleport", null);
 		
+		QuomRegistry.fastTravel = new QuomEvaporate("Evaporate", null);
+		
 	}
 	
 	public static void registerQuom(Quom quom) {

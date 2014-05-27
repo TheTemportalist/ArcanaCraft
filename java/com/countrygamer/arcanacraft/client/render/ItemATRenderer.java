@@ -52,6 +52,7 @@ public class ItemATRenderer implements IItemRenderer {
 				}
 			}
 		this.render.renderTileEntityAt(this.dummytile, 0.0D, 0.0D, 0.0D, 0.0F);
+		((TileEntityAugmentedTank)this.dummytile).clearTank();
 	}
 	
 }

@@ -25,12 +25,24 @@ public class ItemEmbroideredBook extends ItemBase {
 	}
 	
 	@Override
-	public ItemStack onItemRightClick(ItemStack itemStack, World world,
-			EntityPlayer player) {
+	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
 		if (itemStack != null && itemStack.getItem() instanceof ItemEmbroideredBook) {
-			if (ItemEmbroideredBook.hasEnchantment(itemStack,
-					ACOptions.arcaneSocerery, 1)) {
+			if (ItemEmbroideredBook.hasEnchantment(itemStack, ACOptions.arcaneSocerery, 1)) {
 				return new ItemStack(ACItems.arcana);
+			}
+			else {
+				float maxHealth = player.getMaxHealth();
+				float currentHealth = player.getHealth();
+				float requiredHealth = maxHealth - 1;
+				float newHealth = currentHealth - requiredHealth;
+				if (newHealth >= 0) {
+					player.setHealth(newHealth);
+					return new ItemStack(ACItems.arcana);
+				}
+				else {
+					player.setHealth(0);
+					return itemStack;
+				}
 			}
 		}
 		return itemStack;
@@ -41,21 +53,18 @@ public class ItemEmbroideredBook extends ItemBase {
 		if (stack != null && stack2 != null) {
 			if (stack.getItem() instanceof ItemEmbroideredBook
 					&& stack2.getItem() instanceof ItemEmbroideredBook) {
-				return ItemEmbroideredBook.hasEnchantment(stack,
-						ACOptions.arcaneSocerery, 0)
-						&& ItemEmbroideredBook.hasEnchantment(stack2,
-								ACOptions.arcaneSocerery, 0);
+				return ItemEmbroideredBook.hasEnchantment(stack, ACOptions.arcaneSocerery, 0)
+						&& ItemEmbroideredBook.hasEnchantment(stack2, ACOptions.arcaneSocerery, 0);
 			}
 		}
 		return true;
 	}
 	
-	public static boolean hasEnchantment(ItemStack itemStack, Enchantment enchant,
-			int level) {
+	public static boolean hasEnchantment(ItemStack itemStack, Enchantment enchant, int level) {
 		if (itemStack != null && itemStack.isItemEnchanted()) {
 			for (int i = 0; i < itemStack.getEnchantmentTagList().tagCount(); i++) {
-				NBTTagCompound enchants = ((NBTTagList) itemStack
-						.getEnchantmentTagList()).getCompoundTagAt(i);
+				NBTTagCompound enchants = ((NBTTagList) itemStack.getEnchantmentTagList())
+						.getCompoundTagAt(i);
 				if (enchants.getShort("id") == enchant.effectId) {
 					if (level <= 0 || enchants.getShort("lvl") == level) {
 						return true;

@@ -13,6 +13,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
+import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
 
 public class QuomSmelt extends Quom {
 	
@@ -122,4 +123,10 @@ public class QuomSmelt extends Quom {
 		}
 		
 	}
+	
+	@Override
+	public void onRightClick(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,
+			Cast castTier) {
+	}
+	
 }

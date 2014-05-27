@@ -111,4 +111,10 @@ public class QuomBind extends Quom {
 			ent2.setDead();
 	}
 	
+	
+	@Override
+	public void onRightClick(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,
+			Cast castTier) {
+	}
+	
 }

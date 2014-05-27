@@ -120,10 +120,9 @@ public class TileEntityAugmentedTank extends TileEntityBase implements IFluidHan
 			// ArcanaCraft.logger.info("Wrote");
 			if (!dropStack.hasTagCompound()) dropStack.setTagCompound(new NBTTagCompound());
 			dropStack.getTagCompound().setTag("tank", tankTag);
-			
-			drops.clear();
-			drops.add(dropStack);
 		}
+		drops.clear();
+		drops.add(dropStack);
 	}
 	
 	public boolean loadTankFromNBT(NBTTagCompound tankTag) {
@@ -132,6 +131,10 @@ public class TileEntityAugmentedTank extends TileEntityBase implements IFluidHan
 			return true;
 		}
 		return false;
+	}
+	
+	public void clearTank() {
+		this.tank.setFluid(null);
 	}
 	
 }

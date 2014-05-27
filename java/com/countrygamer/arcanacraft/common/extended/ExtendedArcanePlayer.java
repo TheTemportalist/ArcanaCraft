@@ -41,6 +41,7 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	private int					smokeTick;
 	
 	private double[]			teleportationDestination;
+	private boolean				isSmoke			= false;
 	
 	private Map<String, String>	quomData		= new HashMap<String, String>();
 	
@@ -64,6 +65,7 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	public void init(Entity entity, World world) {
 		// check for other quoms
 		if (this.discoveredQuoms.length != QuomRegistry.quomRegistry.size()) {
+			ArcanaCraft.logger.info("Not Same Size");
 			Quom[] tempDisc = this.discoveredQuoms;
 			Quom[] tempLear = this.learnedQuoms;
 			this.discoveredQuoms = new Quom[QuomRegistry.quomRegistry.size()];
@@ -113,6 +115,7 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 		for (int i = 0; i < 9; i++) {
 			if (this.hotBar[i] != null) {
 				NBTTagCompound quomTag = new NBTTagCompound();
+				quomTag.setInteger("slot", i);
 				quomTag.setInteger("quomID", this.hotBar[i].getID());
 				hotbarList.appendTag(quomTag);
 			}
@@ -130,6 +133,7 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 		}
 		
 		compound.setInteger("dormantFlux", this.internalDormantFlux);
+		compound.setBoolean("isSmoke", this.isSmoke);
 		
 	}
 	
@@ -162,8 +166,8 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 		NBTTagList hotbarList = compound.getTagList("hotbar", 10);
 		for (int i = 0; i < hotbarList.tagCount(); i++) {
 			NBTTagCompound quomTag = hotbarList.getCompoundTagAt(i);
-			int id = quomTag.getInteger("quomID");
-			this.hotBar[id] = QuomRegistry.quomRegistry.get(id);
+			this.hotBar[quomTag.getInteger("slot")] = QuomRegistry.quomRegistry.get(quomTag
+					.getInteger("quomID"));
 		}
 		
 		this.turningToSmoke = EnumSmokeAction.getEnumFromID(compound.getInteger("turningToSmoke"));
@@ -179,6 +183,7 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 		}
 		
 		this.internalDormantFlux = compound.getInteger("dormantFlux");
+		this.isSmoke = compound.getBoolean("isSmoke");
 		
 	}
 	
@@ -338,7 +343,7 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 			 */
 		}
 		else if (action == EnumSmokeAction.SMOKE) {
-			
+			this.isSmoke = true;
 		}
 		this.teleportationDestination = null;
 		this.syncEntity();
@@ -478,6 +483,14 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	
 	public void clearFlux() {
 		this.drainFlux(this.internalDormantFlux);
+	}
+	
+	public boolean isWisp() {
+		return this.isSmoke;
+	}
+	
+	public void revertSmoke() {
+		this.isSmoke = false;
 	}
 	
 }

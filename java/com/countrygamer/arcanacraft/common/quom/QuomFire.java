@@ -11,6 +11,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
+import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
 import com.countrygamer.countrygamercore.lib.UtilCursor;
 
 public class QuomFire extends Quom {
@@ -49,6 +50,11 @@ public class QuomFire extends Quom {
 				world.setBlock(x, y, z, Blocks.fire);
 			}
 		}
+	}
+	
+	@Override
+	public void onRightClick(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,
+			Cast castTier) {
 	}
 	
 }

@@ -18,4 +18,9 @@ public class QuomFireBall extends Quom {
 		
 	}
 	
+	@Override
+	public void onRightClick(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,
+			Cast castTier) {
+	}
+	
 }
