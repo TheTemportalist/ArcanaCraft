@@ -8,7 +8,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.tile.TileEntityAugmentedTank;
-import com.countrygamer.core.Base.Plugin.PluginBlockRegistry;
+import com.countrygamer.core.Base.Plugin.registry.PluginBlockRegistry;
 import com.countrygamer.core.Base.common.block.BlockBase;
 import com.countrygamer.countrygamercore.common.Core;
 
@@ -16,20 +16,18 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ACBlocks implements PluginBlockRegistry {
 	
-	public static Material	enchantedFluxMaterial	= new MaterialEnchantedFlux(MapColor.grassColor);
-	public static Block		enchantedFluxBlock;
-	public static Fluid		enchantedFluxFluid		= new Fluid("Enchanted Flux").setLuminosity(30)
-															.setDensity(500).setViscosity(3000)
-															.setTemperature(500);
-	public static Fluid		dormantFluxFluid		= new Fluid("Dormant Flux").setLuminosity(30)
-															.setDensity(500).setViscosity(3000)
-															.setTemperature(500);
+	public static Material enchantedFluxMaterial = new MaterialEnchantedFlux(MapColor.grassColor);
+	public static Block enchantedFluxBlock;
+	public static Fluid enchantedFluxFluid = new Fluid("Enchanted Flux").setLuminosity(30)
+			.setDensity(500).setViscosity(3000).setTemperature(500);
+	public static Fluid dormantFluxFluid = new Fluid("Dormant Flux").setLuminosity(30)
+			.setDensity(500).setViscosity(3000).setTemperature(500);
 	
-	public static Block		petrified_log;
+	public static Block petrified_log;
 	
-	public static Block		bindableCore;
-	public static Block		quomBinder, itemBinder, liquidBinder;
-	public static Block		augmentedTank;
+	public static Block bindableCore;
+	public static Block quomBinder, itemBinder, liquidBinder;
+	public static Block augmentedTank;
 	
 	@Override
 	public void registryTileEntities() {
@@ -52,7 +50,7 @@ public class ACBlocks implements PluginBlockRegistry {
 				.getUnlocalizedName());
 		ACBlocks.dormantFluxFluid.setUnlocalizedName("dormant flux");
 		
-		ACBlocks.petrified_log = new BlockPetrifiedLog(Material.wood, ArcanaCraft.pluginID,
+		ACBlocks.petrified_log = new BlockPetrifiedLog(Material.rock, ArcanaCraft.pluginID,
 				"Petrified Log");
 		Core.addBlockToTab(ACBlocks.petrified_log);
 		

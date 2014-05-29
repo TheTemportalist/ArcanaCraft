@@ -15,7 +15,7 @@ import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.quom.QuomRegistry;
 import com.countrygamer.arcanacraft.common.quom.Tiers;
-import com.countrygamer.core.Base.Plugin.ExtendedEntity;
+import com.countrygamer.core.Base.Plugin.extended.ExtendedEntity;
 import com.countrygamer.countrygamercore.lib.CoreUtil;
 import com.countrygamer.countrygamercore.lib.LogBlock;
 
@@ -491,6 +491,7 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	
 	public void revertSmoke() {
 		this.isSmoke = false;
+		this.syncEntity();
 	}
 	
 }

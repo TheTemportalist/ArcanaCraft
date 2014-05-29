@@ -1,7 +1,6 @@
-package com.countrygamer.arcanacraft.common;
+package com.countrygamer.arcanacraft.commom.network;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.IExtendedEntityProperties;
@@ -10,27 +9,28 @@ import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.quom.Tiers;
 import com.countrygamer.core.Base.Plugin.extended.ExtendedEntity;
-import com.countrygamer.core.Base.common.packet.AbstractPacket;
+import com.countrygamer.core.Base.common.network.AbstractMessage;
 
-public class PacketCastQuom extends AbstractPacket {
+public class MessageCastQuom extends AbstractMessage {
 	
-	public PacketCastQuom() {
+	public MessageCastQuom() {
 	}
 	
 	@Override
-	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
+	public void writeTo(ByteBuf buffer) {
 	}
 	
 	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
+	public void readFrom(ByteBuf buffer) {
 	}
 	
 	@Override
-	public void handleClientSide(EntityPlayer player) {
+	public void handleOnClient(EntityPlayer player) {
 	}
 	
+	
 	@Override
-	public void handleServerSide(EntityPlayer player) {
+	public void handleOnServer(EntityPlayer player) {
 		IExtendedEntityProperties props = ExtendedEntity.getExtended(player,
 				ExtendedArcanePlayer.class);
 		// System.out.println(props.getClass().getSimpleName());
@@ -45,7 +45,7 @@ public class PacketCastQuom extends AbstractPacket {
 				Tiers.Cast castTier = Tiers.Cast.getTier(heldStack);
 				Tiers.MANUS manusTier = Tiers.MANUS.getTier(castTier, quom);
 				if (castTier != null && manusTier != null) {
-					//ArcanaCraft.logger.info(castTier.name());
+					// ArcanaCraft.logger.info(castTier.name());
 					quom.onUse_do(player, arcanePlayer, player.worldObj, castTier, manusTier);
 				}
 			}

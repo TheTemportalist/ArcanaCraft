@@ -19,6 +19,8 @@ import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import com.countrygamer.arcanacraft.client.particle.Particles;
+import com.countrygamer.arcanacraft.commom.network.MessageCastQuom;
+import com.countrygamer.arcanacraft.commom.network.MessageSelectQuom;
 import com.countrygamer.arcanacraft.common.block.ACBlocks;
 import com.countrygamer.arcanacraft.common.extended.EnumSmokeAction;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
@@ -27,8 +29,9 @@ import com.countrygamer.arcanacraft.common.quom.BindRecipes;
 import com.countrygamer.arcanacraft.common.quom.ExtractRecipes;
 import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.quom.QuomRegistry;
-import com.countrygamer.core.Base.Plugin.ExtendedEntity;
 import com.countrygamer.core.Base.Plugin.PluginBase;
+import com.countrygamer.core.Base.Plugin.extended.ExtendedEntity;
+import com.countrygamer.core.Base.common.network.PacketHandler;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.IFuelHandler;
@@ -53,27 +56,30 @@ import cpw.mods.fml.relauncher.SideOnly;
 @Mod(modid = ArcanaCraft.pluginID, name = ArcanaCraft.pluginName, version = "@PLUGIN_VERSION@")
 public class ArcanaCraft extends PluginBase implements IFuelHandler {
 	
-	public static final String	pluginName	= "ArcanaCraft";
-	public static final String	pluginID	= "arcanacraft";
+	public static final String pluginName = "ArcanaCraft";
+	public static final String pluginID = "arcanacraft";
 	
-	public static final Logger	logger		= Logger.getLogger(ArcanaCraft.pluginName);
+	public static final Logger logger = Logger.getLogger(ArcanaCraft.pluginName);
 	
 	@SidedProxy(serverSide = "com.countrygamer.arcanacraft.common.CommonProxy",
 			clientSide = "com.countrygamer.arcanacraft.client.ClientProxy")
-	public static CommonProxy	proxy;
+	public static CommonProxy proxy;
 	
 	@Instance(ArcanaCraft.pluginID)
-	public static ArcanaCraft	instance;
+	public static ArcanaCraft instance;
 	
-	public static KeyHandler	keyHandler;
+	public static KeyHandler keyHandler;
 	
+	@SuppressWarnings("unchecked")
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		super.preInitialize(pluginName, event, ArcanaCraft.proxy, new ACOptions(), new ACItems(),
-				new ACBlocks(), new ACBiomes(), null);
+		super.preInitialize(ArcanaCraft.pluginID, ArcanaCraft.pluginName, event, ArcanaCraft.proxy,
+				new ACOptions(), new ACItems(), new ACBlocks(), new ACBiomes(), null);
 		this.registerHandlers(this, this);
-		this.registerPacketClass(PacketCastQuom.class);
-		this.registerPacketClass(PacketSelectQuom.class);
+		
+		if (event.getSide() == Side.CLIENT)
+			PacketHandler.registerHandler(ArcanaCraft.pluginID, MessageCastQuom.class,
+					MessageSelectQuom.class);
 		
 		this.registerExtendedPlayer("Extended Arcane Player", ExtendedArcanePlayer.class, true);
 		if (event.getSide() == Side.CLIENT) {
@@ -101,7 +107,7 @@ public class ArcanaCraft extends PluginBase implements IFuelHandler {
 		return 0;
 	}
 	
-	public static Map<Block, Item>	buckets	= new HashMap<Block, Item>();
+	public static Map<Block, Item> buckets = new HashMap<Block, Item>();
 	
 	@SubscribeEvent
 	public void onBucketFill(FillBucketEvent event) {
@@ -155,7 +161,8 @@ public class ArcanaCraft extends PluginBase implements IFuelHandler {
 				Quom quom = arcanePlayer.getCurrentQuom();
 				if (quom != null && !quom.isSingleCast()) {
 					// System.out.println("Hold Cast");
-					ArcanaCraft.instance.packetChannel.sendToServer(new PacketCastQuom());
+					// ArcanaCraft.instance.packetChannel.sendToServer(new PacketCastQuom());
+					PacketHandler.sendToServer(ArcanaCraft.pluginID, new MessageCastQuom());
 				}
 			}
 			
@@ -189,6 +196,21 @@ public class ArcanaCraft extends PluginBase implements IFuelHandler {
 				}
 			}
 			if (smokeAction != EnumSmokeAction.NONE) arcanePlayer.triggerSmokeAction(smokeAction);
+			
+			if (arcanePlayer.isWisp()) {
+				if (!event.player.capabilities.allowFlying) {
+					event.player.capabilities.allowFlying = true;
+					event.player.sendPlayerAbilities();
+				}
+			}
+			else {
+				if (event.player.capabilities.allowFlying
+						&& !event.player.capabilities.isCreativeMode) {
+					event.player.capabilities.allowFlying = false;
+					event.player.sendPlayerAbilities();
+				}
+			}
+			
 		}
 		
 	}

@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 import com.countrygamer.arcanacraft.common.ACOptions;
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
-import com.countrygamer.core.Base.Plugin.ExtendedEntity;
+import com.countrygamer.core.Base.Plugin.extended.ExtendedEntity;
 import com.countrygamer.core.Base.common.item.ItemBase;
 
 public class ItemArcana extends ItemBase {

@@ -5,7 +5,7 @@ import io.netty.channel.ChannelHandlerContext;
 import net.minecraft.entity.player.EntityPlayer;
 
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
-import com.countrygamer.core.Base.Plugin.ExtendedEntity;
+import com.countrygamer.core.Base.Plugin.extended.ExtendedEntity;
 import com.countrygamer.core.Base.common.packet.AbstractPacket;
 
 public class PacketSelectQuom extends AbstractPacket {

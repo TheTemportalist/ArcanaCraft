@@ -4,8 +4,8 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 
 import com.countrygamer.arcanacraft.common.biome.BiomeEnchantedGrove;
-import com.countrygamer.core.Base.Plugin.PluginBiomeRegistry;
 import com.countrygamer.core.Base.Plugin.PluginUtility;
+import com.countrygamer.core.Base.Plugin.registry.PluginBiomeRegistry;
 
 public class ACBiomes implements PluginBiomeRegistry {
 	

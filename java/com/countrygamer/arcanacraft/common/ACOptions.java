@@ -7,7 +7,7 @@ import net.minecraftforge.common.config.Configuration;
 
 import com.countrygamer.arcanacraft.common.item.ACItems;
 import com.countrygamer.core.Base.Plugin.PluginEnchantment;
-import com.countrygamer.core.Base.Plugin.PluginOptionRegistry;
+import com.countrygamer.core.Base.Plugin.registry.PluginOptionRegistry;
 
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
