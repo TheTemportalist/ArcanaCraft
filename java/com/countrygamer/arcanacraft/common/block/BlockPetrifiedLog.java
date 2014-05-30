@@ -1,8 +1,12 @@
 package com.countrygamer.arcanacraft.common.block;
 
+import java.util.Random;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -17,7 +21,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockPetrifiedLog extends BlockBase {
 	
 	@SideOnly(Side.CLIENT)
-	private IIcon	side, topBottom;
+	private IIcon side, topBottom;
 	
 	public BlockPetrifiedLog(Material mat, String modid, String name) {
 		super(mat, modid, name);
@@ -61,12 +65,12 @@ public class BlockPetrifiedLog extends BlockBase {
 		int maxVal = 255 - minVal;
 		int val = maxVal - (int) (((float) meta * (float) maxVal) / (float) largestMeta) + minVal;
 		
-		//System.out.println(meta + "\t" + largestMeta);
-		//System.out.println("\t" + val);
+		// System.out.println(meta + "\t" + largestMeta);
+		// System.out.println("\t" + val);
 		String hexString = UtilHex.convertRGBtoHexString(val, val, val);
-		//System.out.println("\t" + hexString);
+		// System.out.println("\t" + hexString);
 		int color = Integer.parseInt(hexString, 16);
-		//System.out.println("\t" + color);
+		// System.out.println("\t" + color);
 		
 		return color;
 	}
@@ -84,6 +88,16 @@ public class BlockPetrifiedLog extends BlockBase {
 			y1--;
 		}
 		
+	}
+	
+	@Override
+	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
+		return Item.getItemFromBlock(Blocks.cobblestone);
+	}
+	
+	@Override
+	public int quantityDropped(Random random) {
+		return random.nextInt(4 - 1) + 1;
 	}
 	
 }

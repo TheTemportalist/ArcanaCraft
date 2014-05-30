@@ -21,6 +21,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import com.countrygamer.arcanacraft.client.particle.Particles;
 import com.countrygamer.arcanacraft.commom.network.MessageCastQuom;
 import com.countrygamer.arcanacraft.commom.network.MessageSelectQuom;
+import com.countrygamer.arcanacraft.common.biome.ACBiomes;
 import com.countrygamer.arcanacraft.common.block.ACBlocks;
 import com.countrygamer.arcanacraft.common.extended.EnumSmokeAction;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
@@ -77,9 +78,8 @@ public class ArcanaCraft extends PluginBase implements IFuelHandler {
 				new ACOptions(), new ACItems(), new ACBlocks(), new ACBiomes(), null);
 		this.registerHandlers(this, this);
 		
-		if (event.getSide() == Side.CLIENT)
-			PacketHandler.registerHandler(ArcanaCraft.pluginID, MessageCastQuom.class,
-					MessageSelectQuom.class);
+		this.regsiterPacketHandler(ArcanaCraft.pluginID, MessageCastQuom.class,
+				MessageSelectQuom.class);
 		
 		this.registerExtendedPlayer("Extended Arcane Player", ExtendedArcanePlayer.class, true);
 		if (event.getSide() == Side.CLIENT) {
@@ -273,8 +273,7 @@ public class ArcanaCraft extends PluginBase implements IFuelHandler {
 	public void eventHandler(PlayerInteractEvent event) {
 		ExtendedArcanePlayer arcanePlayer = (ExtendedArcanePlayer) ExtendedEntity.getExtended(
 				event.entityPlayer, ExtendedArcanePlayer.class);
-		if (arcanePlayer == null)
-			return;
+		if (arcanePlayer == null) return;
 		if (arcanePlayer.isPlayerArcaic()) {
 			// ArcanaCraft.logger.info("Check for discoveries");
 			arcanePlayer.checkForDiscoveries(0, event.action, event.entityPlayer.getHeldItem());

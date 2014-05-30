@@ -24,6 +24,7 @@ public class ACBlocks implements PluginBlockRegistry {
 			.setDensity(500).setViscosity(3000).setTemperature(500);
 	
 	public static Block petrified_log;
+	public static Block petrified_leaves;
 	
 	public static Block bindableCore;
 	public static Block quomBinder, itemBinder, liquidBinder;
@@ -58,6 +59,10 @@ public class ACBlocks implements PluginBlockRegistry {
 		ACBlocks.petrified_log = new BlockPetrifiedLog(Material.rock, ArcanaCraft.pluginID,
 				"Petrified Log");
 		Core.addBlockToTab(ACBlocks.petrified_log);
+		
+		ACBlocks.petrified_leaves = new BlockPetrifiedLeaves(Material.rock, ArcanaCraft.pluginID,
+				"Petrified Leaves");
+		Core.addBlockToTab(ACBlocks.petrified_leaves);
 		
 		ACBlocks.bindableCore = new BlockBindableCore(Material.ground, ArcanaCraft.pluginID,
 				"Bindable Core");
