@@ -33,8 +33,8 @@ public class ArcaneOverlay extends Gui {
 	public void renderGameOverlay(RenderGameOverlayEvent.Post event) {
 		if (event.isCanceled()) return;
 		
-		int width = event.resolution.getScaledWidth();
-		int height = event.resolution.getScaledHeight();
+		//int width = event.resolution.getScaledWidth();
+		//int height = event.resolution.getScaledHeight();
 		/*
 		int width = Minecraft.getMinecraft().displayWidth;
 		int height = Minecraft.getMinecraft().displayHeight;

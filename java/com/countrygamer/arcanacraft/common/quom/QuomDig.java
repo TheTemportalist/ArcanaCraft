@@ -17,10 +17,10 @@ public class QuomDig extends Quom {
 	}
 	
 	@Override
-	public void onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world, int x,
+	public boolean onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world, int x,
 			int y, int z, int side, Cast castTier) {
 		if (!arcanePlayer.player.canPlayerEdit(x, y, z, side, null)) {
-			return;
+			return false;
 		}
 		else {
 			Block block = world.getBlock(x, y, z);
@@ -36,9 +36,11 @@ public class QuomDig extends Quom {
 							CoreUtil.dropItemStack(world, stack.copy(), x, y, z);
 						}
 					}
+					return true;
 				}
 			}
 		}
+		return false;
 	}
 	
 	@Override

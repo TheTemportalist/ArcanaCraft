@@ -8,6 +8,7 @@ import net.minecraft.client.settings.KeyBinding;
 import org.lwjgl.input.Keyboard;
 
 import com.countrygamer.arcanacraft.commom.network.MessageCastQuom;
+import com.countrygamer.arcanacraft.commom.network.MessageSelectQuom;
 import com.countrygamer.core.Base.common.network.PacketHandler;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -59,13 +60,13 @@ public class KeyHandler {
 		if (lastQuom.isPressed()) {
 			//PacketSelectQuom packet = new PacketSelectQuom(false);
 			//ArcanaCraft.instance.packetChannel.sendToServer(packet);
-			PacketHandler.sendToServer(ArcanaCraft.pluginID, new MessageCastQuom());
+			PacketHandler.sendToServer(ArcanaCraft.pluginID, new MessageSelectQuom(false));
 		}
 		
 		if (nextQuom.isPressed()) {
 			//PacketSelectQuom packet = new PacketSelectQuom(true);
 			//ArcanaCraft.instance.packetChannel.sendToServer(packet);
-			PacketHandler.sendToServer(ArcanaCraft.pluginID, new MessageCastQuom());
+			PacketHandler.sendToServer(ArcanaCraft.pluginID, new MessageSelectQuom(true));
 		}
 		
 	}

@@ -20,13 +20,14 @@ public class QuomData extends Quom {
 	}
 	
 	@Override
-	public void onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world, int x,
+	public boolean onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world, int x,
 			int y, int z, int side, Cast castTier) {
 		Block block = world.getBlock(x, y, z);
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		
 		if (player.isSneaking() && block instanceof BlockBase) {
 			world.setBlockToAir(x, y, z);
+			return true;
 		}
 		
 		if (block == ACBlocks.augmentedTank && tileEntity != null
@@ -44,9 +45,10 @@ public class QuomData extends Quom {
 			}
 			
 			CoreUtil.sendMessageToPlayer(player, message);
-			
+			return true;
 		}
 		
+		return false;
 	}
 
 	

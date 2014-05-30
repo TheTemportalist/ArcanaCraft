@@ -188,6 +188,60 @@ public class ArcanaCraft extends PluginBase implements IFuelHandler {
 						arcanePlayer.setChanging(EnumSmokeAction.NONE);
 					}
 				}
+				/*
+				if (!event.player.worldObj.isRemote) {
+					NBTTagCompound quomData = arcanePlayer.getQuomData(QuomQuell.dataKey);
+					if (quomData != null && quomData.getBoolean("isActive")) {
+						// Should suppress nearby liquids
+						// ArcanaCraft.logger.info("Supressing");
+						int x = (int) event.player.posX;
+						int y = (int) event.player.posY;
+						int z = (int) event.player.posZ;
+						
+						for (int j = -QuomQuell.radius; j <= QuomQuell.radius; j++) {
+							for (int i = -QuomQuell.radius; i <= QuomQuell.radius; i++) {
+								for (int k = -QuomQuell.radius; k <= QuomQuell.radius; k++) {
+									if (i * i + j * j + k * k >= QuomQuell.radius
+				 * QuomQuell.radius) {
+										continue;
+									}
+									
+									int x1 = x + i, y1 = y + j, z1 = z + k;
+									
+									TileEntity tileEntity = event.player.worldObj.getTileEntity(x1,
+											y1, z1);
+									if (tileEntity == null) {
+										Block block = event.player.worldObj.getBlock(x1, y1, z1);
+										int metadata = event.player.worldObj.getBlockMetadata(x1,
+												y1, z1);
+										
+										if (block == Blocks.air) continue;
+										
+										if (block instanceof BlockLiquid) {
+											event.player.worldObj.setBlock(x1, y1, z1,
+													ACBlocks.falseAir);
+											
+											tileEntity = event.player.worldObj.getTileEntity(x1,
+													y1, z1);
+											if (tileEntity instanceof TileEntityFalseAir) {
+												TileEntityFalseAir tileFalseAir = (TileEntityFalseAir) tileEntity;
+												tileFalseAir.setBlock(block, metadata);
+												tileFalseAir.setTicksTillDeath(100);
+											}
+											
+										}
+									}
+									else if (tileEntity instanceof TileEntityFalseAir) {
+										// System.out.println("Reset Duration");
+										((TileEntityFalseAir) tileEntity).setTicksTillDeath(100);
+									}
+								}
+							}
+						}
+						arcanePlayer.addQuomData(QuomQuell.dataKey, quomData);
+					}
+				}
+				 */
 			}
 			else if (event.side == Side.CLIENT) {
 				if (arcanePlayer.getSmokeTick() > 0) {
@@ -219,6 +273,8 @@ public class ArcanaCraft extends PluginBase implements IFuelHandler {
 	public void eventHandler(PlayerInteractEvent event) {
 		ExtendedArcanePlayer arcanePlayer = (ExtendedArcanePlayer) ExtendedEntity.getExtended(
 				event.entityPlayer, ExtendedArcanePlayer.class);
+		if (arcanePlayer == null)
+			return;
 		if (arcanePlayer.isPlayerArcaic()) {
 			// ArcanaCraft.logger.info("Check for discoveries");
 			arcanePlayer.checkForDiscoveries(0, event.action, event.entityPlayer.getHeldItem());

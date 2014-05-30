@@ -13,9 +13,9 @@ public class QuomFireBall extends Quom {
 	}
 
 	@Override
-	public void onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world, int x,
+	public boolean onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world, int x,
 			int y, int z, int side, Cast castTier) {
-		
+		return false;
 	}
 	
 	@Override

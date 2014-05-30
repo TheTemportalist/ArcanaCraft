@@ -14,9 +14,9 @@ public class QuomEvaporate extends Quom {
 	}
 	
 	@Override
-	public void onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world, int x,
+	public boolean onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world, int x,
 			int y, int z, int side, Cast castTier) {
-		this.onRightClick(player, arcanePlayer, world, castTier);
+		return false;
 	}
 	
 	@Override

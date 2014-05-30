@@ -17,13 +17,13 @@ public class QuomExtract extends Quom {
 	}
 	
 	@Override
-	public void onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world, int x,
-			int y, int z, int side, Cast castTier) {
+	public boolean onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,
+			int x, int y, int z, int side, Cast castTier) {
 		Block block = world.getBlock(x, y, z);
 		int meta = world.getBlockMetadata(x, y, z);
 		
 		if (!arcanePlayer.player.canPlayerEdit(x, y, z, side, null)) {
-			return;
+			return false;
 		}
 		
 		ItemStack result = ExtractRecipes.getOutput(new ItemMeta(block, meta));
@@ -37,9 +37,11 @@ public class QuomExtract extends Quom {
 				Block newBlock = Block.getBlockFromItem(result.getItem());
 				int newMeta = result.getItemDamage();
 				world.setBlock(x, y, z, newBlock, newMeta, 3);
+				return true;
+				
 			}
-			
 		}
+		return false;
 	}
 	
 	@Override

@@ -21,7 +21,7 @@ public class QuomLuminize extends Quom {
 	}
 	
 	@Override
-	public void onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world, int x,
+	public boolean onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world, int x,
 			int y, int z, int side, Cast castTier) {
 		int x1 = x, y1 = y, z1 = z;
 		String blockText = "";
@@ -58,6 +58,7 @@ public class QuomLuminize extends Quom {
 		if (!world.isRemote)
 			player.addChatMessage(new ChatComponentText("The light level of " + blockText + " is "
 					+ lightValue));
+		return true;
 	}
 	
 	@Override

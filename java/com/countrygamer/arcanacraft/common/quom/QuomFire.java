@@ -33,23 +33,25 @@ public class QuomFire extends Quom {
 	}
 	
 	@Override
-	public void onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world, int x,
-			int y, int z, int side, Tiers.Cast castTier) {
+	public boolean onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,
+			int x, int y, int z, int side, Tiers.Cast castTier) {
 		int[] newCoords = UtilCursor.getNewCoordsFromSide(x, y, z, side);
 		x = newCoords[0];
 		y = newCoords[1];
 		z = newCoords[2];
 		
 		if (!player.canPlayerEdit(x, y, z, side, new ItemStack(Items.flint_and_steel))) {
-			return;
+			return false;
 		}
 		else {
 			if (world.isAirBlock(x, y, z)) {
 				world.playSoundEffect((double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D,
 						"fire.ignite", 1.0F, (new Random()).nextFloat() * 0.4F + 0.8F);
 				world.setBlock(x, y, z, Blocks.fire);
+				return true;
 			}
 		}
+		return false;
 	}
 	
 	@Override

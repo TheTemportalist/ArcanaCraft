@@ -20,13 +20,13 @@ public class QuomBind extends Quom {
 	}
 	
 	@Override
-	public void onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world, int x,
-			int y, int z, int side, Cast castTier) {
-		if (castTier == Tiers.Cast.HAND) return;
+	public boolean onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,
+			int x, int y, int z, int side, Cast castTier) {
+		if (castTier == Tiers.Cast.HAND) return false;
 		
 		if (world.getBlock(x, y, z) == ACBlocks.bindableCore) {
 			world.setBlock(x, y, z, ACBlocks.quomBinder, 0, 3);
-			return;
+			return true;
 		}
 		
 		// ArcanaCraft.logger.info("Quom Bind");
@@ -34,7 +34,7 @@ public class QuomBind extends Quom {
 		@SuppressWarnings("rawtypes")
 		List list = world.getEntitiesWithinAABB(EntityItem.class,
 				AxisAlignedBB.getBoundingBox(x - 0, y + 1, z - 0, x + 1, y + 2, z + 1));
-		if (list.isEmpty()) return;
+		if (list.isEmpty()) return false;
 		List<EntityItem> ents = new ArrayList<EntityItem>();
 		for (Object obj : list) {
 			if (obj instanceof EntityItem) ents.add((EntityItem) obj);
@@ -44,7 +44,6 @@ public class QuomBind extends Quom {
 		
 		ItemStack output = null;
 		BindRecipes recipes = BindRecipes.getRecipes();
-		recipeSearch:
 		for (EntityItem ent1 : ents) {
 			for (EntityItem ent2 : ents) {
 				if (!ent1.equals(ent2)) {
@@ -83,12 +82,12 @@ public class QuomBind extends Quom {
 						if (!world.isRemote)
 							world.spawnEntityInWorld(new EntityItem(world, avgX, avgY, avgZ, output));
 						
-						break recipeSearch;
+						return true;
 					}
 				}
 			}
 		}
-		
+		return false;
 	}
 	
 	private int getLowestSize(ItemStack[] inputs) {
@@ -110,7 +109,6 @@ public class QuomBind extends Quom {
 		else
 			ent2.setDead();
 	}
-	
 	
 	@Override
 	public void onRightClick(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,

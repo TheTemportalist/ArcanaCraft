@@ -18,12 +18,13 @@ public class ItemArcana extends ItemBase {
 	}
 	
 	@Override
-	public ItemStack onItemRightClick(ItemStack itemStack, World world,
-			EntityPlayer player) {
-		ExtendedArcanePlayer arcanePlayer = (ExtendedArcanePlayer) ExtendedEntity
-				.getExtended(player, ExtendedArcanePlayer.class);
+	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
+		ExtendedArcanePlayer arcanePlayer = (ExtendedArcanePlayer) ExtendedEntity.getExtended(
+				player, ExtendedArcanePlayer.class);
+		if (arcanePlayer == null) return itemStack;
+		
 		if (!arcanePlayer.isPlayerArcaic()) arcanePlayer.setArcaic(true);
-
+		
 		boolean debug = false;
 		if (debug) {
 			String cS = (player.worldObj.isRemote ? "Client" : "Server");
@@ -32,14 +33,12 @@ public class ItemArcana extends ItemBase {
 			
 		}
 		else {
-			int id = player.isSneaking() ? ACOptions.arcanaGuiReset
-					: ACOptions.arcanaGui;
-			player.openGui(ArcanaCraft.pluginID, id, world, (int) player.posX,
-					(int) player.posY, (int) player.posZ);
+			int id = player.isSneaking() ? ACOptions.arcanaGuiReset : ACOptions.arcanaGui;
+			player.openGui(ArcanaCraft.pluginID, id, world, (int) player.posX, (int) player.posY,
+					(int) player.posZ);
 		}
 		
 		return itemStack;
 	}
-	
 	
 }

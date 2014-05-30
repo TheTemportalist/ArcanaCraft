@@ -7,24 +7,25 @@ import java.util.Map;
 
 public class QuomRegistry {
 	
-	public static final Map<String, Integer>	quomKeys		= new HashMap<String, Integer>();
-	public static final List<Quom>				quomRegistry	= new ArrayList<Quom>();
+	public static final Map<String, Integer> quomKeys = new HashMap<String, Integer>();
+	public static final List<Quom> quomRegistry = new ArrayList<Quom>();
 	
-	public static Quom							dig;
+	public static Quom dig;
 	
-	public static Quom							lightFire;
-	public static Quom							fireBall;
-	public static Quom							furnace;
-	public static Quom							extract;
-	public static Quom							bind;
-	public static Quom							teleport;
-	public static Quom							fastTravel;
-	public static Quom							flash;
-	public static Quom							barrier;
-	public static Quom							icePath;
-	public static Quom							luminize;
-	public static Quom							illuminate;
-	public static Quom							data;
+	public static Quom lightFire;
+	public static Quom fireBall;
+	public static Quom furnace;
+	public static Quom extract;
+	public static Quom bind;
+	public static Quom teleport;
+	public static Quom fastTravel;
+	public static Quom flash;
+	public static Quom barrier;
+	public static Quom icePath;
+	public static Quom luminize;
+	public static Quom illuminate;
+	public static Quom data;
+	//public static Quom quell;
 	
 	public static void registerQuoms() {
 		
@@ -47,6 +48,8 @@ public class QuomRegistry {
 		QuomRegistry.teleport = new QuomTeleport("Teleport", null);
 		
 		QuomRegistry.fastTravel = new QuomEvaporate("Evaporate", null);
+		
+		//QuomRegistry.quell = new QuomQuell("Quell", null);
 		
 	}
 	

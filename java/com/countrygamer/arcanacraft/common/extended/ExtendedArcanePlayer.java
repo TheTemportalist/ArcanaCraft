@@ -21,29 +21,29 @@ import com.countrygamer.countrygamercore.lib.LogBlock;
 
 public class ExtendedArcanePlayer extends ExtendedEntity {
 	
-	public static final int		maxManusTicks	= 20 * 5;
-	public static final int		maxSmokeTicks	= 20 * 6;
+	public static final int maxManusTicks = 20 * 5;
+	public static final int maxSmokeTicks = 20 * 6;
 	
-	private boolean				isActive;
+	private boolean isActive;
 	
-	private int					manus, maxManus;
-	private int					manusTick;
+	private int manus, maxManus;
+	private int manusTick;
 	
-	private int					internalDormantFlux;
+	private int internalDormantFlux;
 	
-	private String				currentArcanaPage;
+	private String currentArcanaPage;
 	
-	private Quom[]				discoveredQuoms, learnedQuoms;
-	private Quom[]				hotBar;
-	private int					currentSelectedHotBarIndex;
+	private Quom[] discoveredQuoms, learnedQuoms;
+	private Quom[] hotBar;
+	private int currentSelectedHotBarIndex;
 	
-	private EnumSmokeAction		turningToSmoke;
-	private int					smokeTick;
+	private EnumSmokeAction turningToSmoke;
+	private int smokeTick;
 	
-	private double[]			teleportationDestination;
-	private boolean				isSmoke			= false;
+	private double[] teleportationDestination;
+	private boolean isSmoke = false;
 	
-	private Map<String, String>	quomData		= new HashMap<String, String>();
+	private Map<String, NBTTagCompound> quomData = new HashMap<String, NBTTagCompound>();
 	
 	public ExtendedArcanePlayer(EntityPlayer player) {
 		super(player);
@@ -65,7 +65,7 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	public void init(Entity entity, World world) {
 		// check for other quoms
 		if (this.discoveredQuoms.length != QuomRegistry.quomRegistry.size()) {
-			ArcanaCraft.logger.info("Not Same Size");
+			ArcanaCraft.logger.info("\n\nNot Same Size\n\n");
 			Quom[] tempDisc = this.discoveredQuoms;
 			Quom[] tempLear = this.learnedQuoms;
 			this.discoveredQuoms = new Quom[QuomRegistry.quomRegistry.size()];
@@ -76,6 +76,9 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 					this.learnedQuoms[i] = tempLear[i];
 				}
 			}
+		}
+		else {
+			ArcanaCraft.logger.info("\n\nSame Size Quoms\n\n");
 		}
 		this.syncEntity();
 	}
@@ -135,6 +138,15 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 		compound.setInteger("dormantFlux", this.internalDormantFlux);
 		compound.setBoolean("isSmoke", this.isSmoke);
 		
+		NBTTagList quomDataList = new NBTTagList();
+		for (final String key : this.quomData.keySet()) {
+			NBTTagCompound quomDataTag = new NBTTagCompound();
+			quomDataTag.setString("key", key);
+			quomDataTag.setTag(key, this.quomData.get(key));
+			quomDataList.appendTag(quomDataTag);
+		}
+		compound.setTag("quomData", quomDataList);
+		
 	}
 	
 	@Override
@@ -184,6 +196,14 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 		
 		this.internalDormantFlux = compound.getInteger("dormantFlux");
 		this.isSmoke = compound.getBoolean("isSmoke");
+		
+		this.quomData.clear();
+		NBTTagList quomDataList = compound.getTagList("quomData", 10);
+		for (int i = 0; i < quomDataList.tagCount(); i++) {
+			NBTTagCompound quomDataTag = quomDataList.getCompoundTagAt(i);
+			String key = quomDataTag.getString("key");
+			this.quomData.put(key, quomDataTag.getCompoundTag(key));
+		}
 		
 	}
 	
@@ -492,6 +512,26 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	public void revertSmoke() {
 		this.isSmoke = false;
 		this.syncEntity();
+	}
+	
+	public void clearQuomData() {
+		this.quomData.clear();
+		this.syncEntity();
+	}
+	
+	public void addQuomData(String key, NBTTagCompound data) {
+		this.quomData.put(key, data);
+		this.syncEntity();
+	}
+	
+	public NBTTagCompound getQuomData(String key) {
+		return this.quomData.get(key);
+	}
+	
+	public NBTTagCompound removeQuomData(String key) {
+		NBTTagCompound data = this.quomData.remove(key);
+		this.syncEntity();
+		return data;
 	}
 	
 }

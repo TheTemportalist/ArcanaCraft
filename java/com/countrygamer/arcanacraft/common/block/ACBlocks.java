@@ -29,10 +29,15 @@ public class ACBlocks implements PluginBlockRegistry {
 	public static Block quomBinder, itemBinder, liquidBinder;
 	public static Block augmentedTank;
 	
+	public static Block falseAir;
+	
 	@Override
 	public void registryTileEntities() {
 		GameRegistry.registerTileEntity(TileEntityAugmentedTank.class, ArcanaCraft.pluginID
 				+ "_AugmentedTank");
+		
+		// GameRegistry.registerTileEntity(TileEntityFalseAir.class, ArcanaCraft.pluginID
+		// + "_FalseAir");
 		
 	}
 	
@@ -71,6 +76,9 @@ public class ACBlocks implements PluginBlockRegistry {
 		ACBlocks.augmentedTank = new BlockAugmentedTank(Material.ground, ArcanaCraft.pluginID,
 				"Augmented Tank", TileEntityAugmentedTank.class);
 		Core.addBlockToTab(ACBlocks.augmentedTank);
+		
+		// ACBlocks.falseAir = new BlockFalseAir(Material.cloth, ArcanaCraft.pluginID, "False Air",
+		// TileEntityFalseAir.class);
 		
 	}
 	

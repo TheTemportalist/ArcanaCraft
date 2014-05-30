@@ -22,7 +22,7 @@ public class QuomSmelt extends Quom {
 	}
 	
 	@Override
-	public void onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world, int x,
+	public boolean onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world, int x,
 			int y, int z, int side, Tiers.Cast castTier) {		
 		FurnaceRecipes recipes = FurnaceRecipes.smelting();
 		
@@ -67,9 +67,8 @@ public class QuomSmelt extends Quom {
 							itemEnt.setDead();
 						}
 						
-						return;
+						return true;
 					}
-					
 				}
 			}
 		}
@@ -88,11 +87,14 @@ public class QuomSmelt extends Quom {
 			stackSize = result.stackSize;
 			world.setBlock(x, y, z, Block.getBlockFromItem(result.getItem()),
 					result.getItemDamage(), 3);
+			
+			this.spawnOrbs(arcanePlayer.player, stackSize, xp);
+			// TODO, dormat flux
+			
+			return true;
 		}
 		
-		this.spawnOrbs(arcanePlayer.player, stackSize, xp);
-		// TODO, dormat flux
-		
+		return false;
 	}
 	
 	private void spawnOrbs(EntityPlayer player, int i, float xp) {
