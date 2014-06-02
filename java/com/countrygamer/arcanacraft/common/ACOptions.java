@@ -15,15 +15,16 @@ public class ACOptions implements PluginOptionRegistry {
 	
 	public static final int arcanaGui = 0;
 	public static final int arcanaGuiReset = 1;
+	public static final int binderGui = 2;
+	public static final int deriverGui = 3;
 	
-	public static final ResourceLocation icons = new ResourceLocation(
-			ArcanaCraft.pluginID, "textures/gui/GuiIcons.png");
+	public static final ResourceLocation icons = new ResourceLocation(ArcanaCraft.pluginID,
+			"textures/gui/GuiIcons.png");
 	
-	public static final ResourceLocation quomIcons = new ResourceLocation(
-			ArcanaCraft.pluginID, "textures/quoms/Teleport.png");
+	public static final ResourceLocation quomIcons = new ResourceLocation(ArcanaCraft.pluginID,
+			"textures/quoms/Teleport.png");
 	
-	public static final Enchantment arcaneSocerery = new PluginEnchantment(
-			"Arcane Socerery", 1) {
+	public static final Enchantment arcaneSocerery = new PluginEnchantment("Arcane Socerery", 1) {
 		
 		@Override
 		public int getMaxLevel() {

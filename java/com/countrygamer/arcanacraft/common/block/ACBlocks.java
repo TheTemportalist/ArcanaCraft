@@ -8,8 +8,9 @@ import net.minecraftforge.fluids.FluidRegistry;
 
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.tile.TileEntityAugmentedTank;
+import com.countrygamer.arcanacraft.common.tile.TileEntityBinder;
+import com.countrygamer.arcanacraft.common.tile.TileEntityDeriver;
 import com.countrygamer.core.Base.Plugin.registry.PluginBlockRegistry;
-import com.countrygamer.core.Base.common.block.BlockBase;
 import com.countrygamer.countrygamercore.common.Core;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -22,15 +23,18 @@ public class ACBlocks implements PluginBlockRegistry {
 			.setDensity(500).setViscosity(3000).setTemperature(500);
 	public static Fluid dormantFluxFluid = new Fluid("Dormant Flux").setLuminosity(30)
 			.setDensity(500).setViscosity(3000).setTemperature(500);
+	public static Fluid liquidManus = new Fluid("Liquid Manus");
 	
 	public static Block petrified_log;
 	public static Block petrified_leaves;
 	
 	public static Block bindableCore;
-	public static Block quomBinder, itemBinder, liquidBinder;
+	public static Block quomBinder, itemBinder, fluidBinder;
 	public static Block augmentedTank;
 	
 	public static Block falseAir;
+	
+	public static Block deriver;
 	
 	@Override
 	public void registryTileEntities() {
@@ -40,12 +44,17 @@ public class ACBlocks implements PluginBlockRegistry {
 		// GameRegistry.registerTileEntity(TileEntityFalseAir.class, ArcanaCraft.pluginID
 		// + "_FalseAir");
 		
+		GameRegistry.registerTileEntity(TileEntityBinder.class, ArcanaCraft.pluginID + "_Binder");
+		
+		GameRegistry.registerTileEntity(TileEntityDeriver.class, ArcanaCraft.pluginID + "_Deriver");
+		
 	}
 	
 	@Override
 	public void registerBlocks() {
 		FluidRegistry.registerFluid(ACBlocks.enchantedFluxFluid);
 		FluidRegistry.registerFluid(ACBlocks.dormantFluxFluid);
+		FluidRegistry.registerFluid(ACBlocks.liquidManus);
 		
 		ACBlocks.enchantedFluxBlock = new BlockEnchantedFlux(ACBlocks.enchantedFluxFluid,
 				ACBlocks.enchantedFluxMaterial);
@@ -55,6 +64,7 @@ public class ACBlocks implements PluginBlockRegistry {
 		ACBlocks.enchantedFluxFluid.setUnlocalizedName(ACBlocks.enchantedFluxBlock
 				.getUnlocalizedName());
 		ACBlocks.dormantFluxFluid.setUnlocalizedName("dormant flux");
+		ACBlocks.liquidManus.setUnlocalizedName("liquid manus");
 		
 		ACBlocks.petrified_log = new BlockPetrifiedLog(Material.rock, ArcanaCraft.pluginID,
 				"Petrified Log");
@@ -68,15 +78,17 @@ public class ACBlocks implements PluginBlockRegistry {
 				"Bindable Core");
 		Core.addBlockToTab(ACBlocks.bindableCore);
 		
-		ACBlocks.quomBinder = new BlockBase(Material.ground, ArcanaCraft.pluginID, "Quom Binder");
+		ACBlocks.quomBinder = new BlockBinderQuom(Material.ground, ArcanaCraft.pluginID,
+				"Quom Binder");
 		Core.addBlockToTab(ACBlocks.quomBinder);
 		
-		ACBlocks.itemBinder = new BlockBase(Material.ground, ArcanaCraft.pluginID, "Item Binder");
+		ACBlocks.itemBinder = new BlockBinderItem(Material.ground, ArcanaCraft.pluginID,
+				"Item Binder");
 		Core.addBlockToTab(ACBlocks.itemBinder);
 		
-		ACBlocks.liquidBinder = new BlockBase(Material.ground, ArcanaCraft.pluginID,
-				"Liquid Binder");
-		Core.addBlockToTab(ACBlocks.liquidBinder);
+		ACBlocks.fluidBinder = new BlockBinderFluid(Material.ground, ArcanaCraft.pluginID,
+				"Fluid Binder");
+		Core.addBlockToTab(ACBlocks.fluidBinder);
 		
 		ACBlocks.augmentedTank = new BlockAugmentedTank(Material.ground, ArcanaCraft.pluginID,
 				"Augmented Tank", TileEntityAugmentedTank.class);
@@ -84,6 +96,9 @@ public class ACBlocks implements PluginBlockRegistry {
 		
 		// ACBlocks.falseAir = new BlockFalseAir(Material.cloth, ArcanaCraft.pluginID, "False Air",
 		// TileEntityFalseAir.class);
+		
+		ACBlocks.deriver = new BlockDeriver(Material.ground, ArcanaCraft.pluginID, "Deriver", null);
+		Core.addBlockToTab(ACBlocks.deriver);
 		
 	}
 	

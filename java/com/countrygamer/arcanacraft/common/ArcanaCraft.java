@@ -20,16 +20,18 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import com.countrygamer.arcanacraft.client.particle.Particles;
 import com.countrygamer.arcanacraft.commom.network.MessageCastQuom;
+import com.countrygamer.arcanacraft.commom.network.MessageGuiAddFluid;
+import com.countrygamer.arcanacraft.commom.network.MessageNewBindingQuom;
 import com.countrygamer.arcanacraft.commom.network.MessageSelectQuom;
 import com.countrygamer.arcanacraft.common.biome.ACBiomes;
 import com.countrygamer.arcanacraft.common.block.ACBlocks;
 import com.countrygamer.arcanacraft.common.extended.EnumSmokeAction;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.item.ACItems;
-import com.countrygamer.arcanacraft.common.quom.BindRecipes;
 import com.countrygamer.arcanacraft.common.quom.ExtractRecipes;
 import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.quom.QuomRegistry;
+import com.countrygamer.arcanacraft.common.tile.BinderRecipes;
 import com.countrygamer.core.Base.Plugin.PluginBase;
 import com.countrygamer.core.Base.Plugin.extended.ExtendedEntity;
 import com.countrygamer.core.Base.common.network.PacketHandler;
@@ -79,7 +81,7 @@ public class ArcanaCraft extends PluginBase implements IFuelHandler {
 		this.registerHandlers(this, this);
 		
 		this.regsiterPacketHandler(ArcanaCraft.pluginID, MessageCastQuom.class,
-				MessageSelectQuom.class);
+				MessageSelectQuom.class, MessageNewBindingQuom.class, MessageGuiAddFluid.class);
 		
 		this.registerExtendedPlayer("Extended Arcane Player", ExtendedArcanePlayer.class, true);
 		if (event.getSide() == Side.CLIENT) {
@@ -87,7 +89,7 @@ public class ArcanaCraft extends PluginBase implements IFuelHandler {
 			FMLCommonHandler.instance().bus().register(ArcanaCraft.keyHandler);
 		}
 		QuomRegistry.registerQuoms();
-		BindRecipes.registerRecipes();
+		BinderRecipes.registerRecipes();
 		ExtractRecipes.registerRecipes();
 		
 	}

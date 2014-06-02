@@ -2,4 +2,8 @@
 [ ] Make Embroidered Book recipe cheaper (for early game usage)
 [ ] Make quom signifying "Let there be light"; discovered on crafting of torch
 
+[ ] Stabilizer (from dormant flux and enchanted flux to liquid manus)
+[ ] Deriver (from items to liquid manus)
+[ ] ?
+
 [ ] Minions

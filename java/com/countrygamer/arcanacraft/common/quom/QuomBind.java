@@ -12,6 +12,8 @@ import net.minecraft.world.World;
 import com.countrygamer.arcanacraft.common.block.ACBlocks;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
+import com.countrygamer.arcanacraft.common.tile.BinderRecipes;
+import com.countrygamer.arcanacraft.common.tile.EnumBinderType;
 
 public class QuomBind extends Quom {
 	
@@ -43,15 +45,13 @@ public class QuomBind extends Quom {
 		// ArcanaCraft.logger.info("Searching...");
 		
 		ItemStack output = null;
-		BindRecipes recipes = BindRecipes.getRecipes();
+		BinderRecipes recipes = BinderRecipes.getRecipes();
 		for (EntityItem ent1 : ents) {
 			for (EntityItem ent2 : ents) {
 				if (!ent1.equals(ent2)) {
 					// ArcanaCraft.logger.info("Found 2 stacks");
-					ItemStack[] inputs = new ItemStack[] {
-							ent1.getEntityItem(), ent2.getEntityItem()
-					};
-					output = recipes.getRecipeOutput(BindRecipes.Type.QUOM, inputs);
+					output = (ItemStack) recipes.getRecipeOutput(EnumBinderType.BIND_QUOM,
+							ent1.getEntityItem(), ent2.getEntityItem())[0];
 					if (output != null) {
 						// ArcanaCraft.logger.info("Found Output");
 						
@@ -65,7 +65,9 @@ public class QuomBind extends Quom {
 							this.checkStacks(ent1Stack, ent1, ent2Stack, ent2);
 						}
 						else if (castTier == Tiers.Cast.ADVANCED) {
-							int maxOutput = getLowestSize(inputs);
+							int maxOutput = getLowestSize(new ItemStack[] {
+									ent1.getEntityItem(), ent2.getEntityItem()
+							});
 							output.stackSize = maxOutput;
 							
 							ItemStack ent1Stack = ent1.getEntityItem().copy();

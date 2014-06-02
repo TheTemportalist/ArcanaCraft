@@ -47,7 +47,7 @@ public class TileEntityATRenderer extends TileEntitySpecialRenderer {
 		this.renderSide(-0.501, +0.475, +0.475, +0.501, +0.501, +0.501, ACBlocks.augmentedTank, 0);
 		this.renderSide(-0.501, -0.501, +0.475, +0.501, -0.475, +0.501, ACBlocks.augmentedTank, 0);
 		
-		FluidStack fluidStored = tankTE.getFluidStored();
+		FluidStack fluidStored = tankTE.getFluidStack();
 		if (fluidStored != null && fluidStored.getFluid() != null
 				&& fluidStored.getFluid().getStillIcon() != null) {
 			GL11.glDisable(GL11.GL_LIGHTING);

@@ -1,6 +1,6 @@
 package com.countrygamer.arcanacraft.client.model;
 
-import com.countrygamer.core.Base.client.ModelBase;
+import com.countrygamer.countrygamercore.Base.client.ModelBase;
 
 public class ModelFocus extends ModelBase {
 	

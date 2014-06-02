@@ -4,26 +4,22 @@ import java.util.ArrayList;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
 
 import com.countrygamer.arcanacraft.common.block.ACBlocks;
 import com.countrygamer.core.Base.common.tileentity.TileEntityBase;
 
-public class TileEntityAugmentedTank extends TileEntityBase implements IFluidHandler {
+public class TileEntityAugmentedTank extends TileEntityBase {
 	
-	private FluidTank	tank;
+	// private FluidTank tank;
 	
 	public TileEntityAugmentedTank() {
-		super();
-		this.tank = new FluidTank(FluidContainerRegistry.BUCKET_VOLUME * 10);
+		super(FluidContainerRegistry.BUCKET_VOLUME * 10);
+		// this.tank = new FluidTank(FluidContainerRegistry.BUCKET_VOLUME * 10);
 	}
 	
+	/*
 	@Override
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
 		int fluidAmount = this.tank.fill(resource, doFill);
@@ -106,35 +102,27 @@ public class TileEntityAugmentedTank extends TileEntityBase implements IFluidHan
 	public int getFluidStored_Amount() {
 		return this.getFluidStored() != null ? this.getFluidStored().amount : 0;
 	}
-	
+	 */
 	public double getFluidRatio() {
-		return (double) this.tank.getFluidAmount() / (double) this.tank.getCapacity();
+		FluidStack fluidStack = this.getFluidStack();
+		if (fluidStack != null) {
+			return (double) fluidStack.amount / (double) this.getTankCapacity();
+		}
+		return 0;
 	}
 	
 	@Override
 	public void getTileEntityDrops(ArrayList<ItemStack> drops) {
 		ItemStack dropStack = new ItemStack(ACBlocks.augmentedTank, 1, 0);
-		if (this.getFluidStored_Amount() > 0) {
+		if (this.getFluidStack() != null && this.getFluidStack().amount > 0) {
 			NBTTagCompound tankTag = new NBTTagCompound();
-			this.tank.writeToNBT(tankTag);
+			this.writeTankToNBT(tankTag);
 			// ArcanaCraft.logger.info("Wrote");
 			if (!dropStack.hasTagCompound()) dropStack.setTagCompound(new NBTTagCompound());
 			dropStack.getTagCompound().setTag("tank", tankTag);
 		}
 		drops.clear();
 		drops.add(dropStack);
-	}
-	
-	public boolean loadTankFromNBT(NBTTagCompound tankTag) {
-		if (this.tank != null) {
-			this.tank.readFromNBT(tankTag);
-			return true;
-		}
-		return false;
-	}
-	
-	public void clearTank() {
-		this.tank.setFluid(null);
 	}
 	
 }

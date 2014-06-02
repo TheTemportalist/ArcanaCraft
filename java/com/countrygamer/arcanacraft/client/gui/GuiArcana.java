@@ -16,11 +16,11 @@ import com.countrygamer.core.Base.client.gui.GuiScreenBase;
 
 public class GuiArcana extends GuiScreenBase {
 	
-	private String						currPage;
-	private Map<String, ComponentPage>	pages	= new HashMap<String, ComponentPage>();
-	private GuiButton					infoTab, quomiTab, skillTab;
+	private String currPage;
+	private Map<String, ComponentPage> pages = new HashMap<String, ComponentPage>();
+	private GuiButton infoTab, quomiTab, skillTab;
 	
-	private ExtendedArcanePlayer		arcanePlayer;
+	private ExtendedArcanePlayer arcanePlayer;
 	
 	public GuiArcana(EntityPlayer player, boolean revertPages) {
 		super("", new ResourceLocation(ArcanaCraft.pluginID, "textures/gui/Scroll.png"));
@@ -36,7 +36,7 @@ public class GuiArcana extends GuiScreenBase {
 			this.currPage = this.arcanePlayer.getCurrentArcanaPage();
 		}
 		
-		//this.arcanePlayer.printQuoms();
+		// this.arcanePlayer.printQuoms();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -56,8 +56,7 @@ public class GuiArcana extends GuiScreenBase {
 		
 		ComponentPageQuomi page = (ComponentPageQuomi) this.pages.get("Quomi");
 		page.selected = arcanePlayer.getCurrentSelectedQuomIndex();
-		//Quom[] hotbar = arcanePlayer.getHotBar();
-		
+		// Quom[] hotbar = arcanePlayer.getHotBar();
 		
 	}
 	
@@ -170,5 +169,6 @@ public class GuiArcana extends GuiScreenBase {
 			
 		}
 	}
+	
 	
 }

@@ -9,8 +9,8 @@ import net.minecraftforge.fluids.FluidStack;
 import com.countrygamer.arcanacraft.common.block.ACBlocks;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
-import com.countrygamer.arcanacraft.common.tile.TileEntityAugmentedTank;
 import com.countrygamer.core.Base.common.block.BlockBase;
+import com.countrygamer.core.Base.common.tileentity.TileEntityBase;
 import com.countrygamer.countrygamercore.lib.CoreUtil;
 
 public class QuomData extends Quom {
@@ -20,8 +20,8 @@ public class QuomData extends Quom {
 	}
 	
 	@Override
-	public boolean onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world, int x,
-			int y, int z, int side, Cast castTier) {
+	public boolean onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,
+			int x, int y, int z, int side, Cast castTier) {
 		Block block = world.getBlock(x, y, z);
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		
@@ -30,11 +30,24 @@ public class QuomData extends Quom {
 			return true;
 		}
 		
-		if (block == ACBlocks.augmentedTank && tileEntity != null
-				&& tileEntity instanceof TileEntityAugmentedTank) {
-			TileEntityAugmentedTank tankTE = (TileEntityAugmentedTank) tileEntity;
+		if (block == ACBlocks.deriver) {
+			System.out.println("Has TE: " + (tileEntity != null));
+		}
+		
+		if (tileEntity != null) {
+			if (tileEntity instanceof TileEntityBase) {
+				this.tankClick(player, (TileEntityBase) tileEntity);
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	private void tankClick(EntityPlayer player, TileEntityBase tileEntity) {
+		if (tileEntity.canModifyTank()) {
+			FluidStack storedFluid = tileEntity.getFluidStack();
 			
-			FluidStack storedFluid = tankTE.getFluidStored();
 			String message = "";
 			if (storedFluid != null) {
 				message = "That tank is holding " + storedFluid.amount + " mB of "
@@ -45,12 +58,8 @@ public class QuomData extends Quom {
 			}
 			
 			CoreUtil.sendMessageToPlayer(player, message);
-			return true;
 		}
-		
-		return false;
 	}
-
 	
 	@Override
 	public void onRightClick(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,

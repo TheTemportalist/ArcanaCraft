@@ -1,5 +1,18 @@
+tile.Enchanted Flux.name=Enchanted Flux
+tile.Petrified Log.name=Petrified Log
+tile.Petrified Leaves.name=Petrified Leaves
+tile.Bindable Core.name=Bindable Core
+tile.Quom Binder.name=Quom Binder
+tile.Item Binder.name=Item Binder
+tile.Fluid Binder.name=Fluid Binder
+tile.Augmented Tank.name=Augmented Tank
+tile.Deriver.name=Deriver
+
 item.Embroidered Book.name=Embroidered Book
 item.The Arcana.name=The Arcana
+item.Basic Focus.name=Basic Focus
+item.Advanced Focus.name=Advanced Focus
+item.Enchanted Flux Bucket.name=Enchanted Flux Bucket
 
 key.arcanacraft.category=ArcanaCraft
 key.cast.desc=Cast Quom Key

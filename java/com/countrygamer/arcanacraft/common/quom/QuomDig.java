@@ -3,12 +3,11 @@ package com.countrygamer.arcanacraft.common.quom;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
-import com.countrygamer.countrygamercore.lib.CoreUtil;
+import com.countrygamer.countrygamercore.lib.UtilDrops;
 
 public class QuomDig extends Quom {
 	
@@ -17,8 +16,8 @@ public class QuomDig extends Quom {
 	}
 	
 	@Override
-	public boolean onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world, int x,
-			int y, int z, int side, Cast castTier) {
+	public boolean onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,
+			int x, int y, int z, int side, Cast castTier) {
 		if (!arcanePlayer.player.canPlayerEdit(x, y, z, side, null)) {
 			return false;
 		}
@@ -32,9 +31,14 @@ public class QuomDig extends Quom {
 					world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
 					block.onBlockDestroyedByPlayer(world, x, y, z, meta);
 					if (!arcanePlayer.player.capabilities.isCreativeMode) {
+						/*
 						for (final ItemStack stack : block.getDrops(world, x, y, z, meta, 0)) {
 							CoreUtil.dropItemStack(world, stack.copy(), x, y, z);
+							UtilDrops.spawnItemStack(world, x, y, z, itemStack, random);
 						}
+						*/
+						UtilDrops.spawnDrops(world, x + 0.5, y, z + 0.5,
+								block.getDrops(world, x, y, z, meta, 0));
 					}
 					return true;
 				}

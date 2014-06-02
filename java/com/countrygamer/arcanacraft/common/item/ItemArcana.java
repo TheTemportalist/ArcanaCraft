@@ -1,21 +1,23 @@
 package com.countrygamer.arcanacraft.common.item;
 
-import java.util.Random;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
 
 import com.countrygamer.arcanacraft.common.ACOptions;
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
+import com.countrygamer.arcanacraft.common.block.ACBlocks;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
-import com.countrygamer.arcanacraft.common.lib.TempTreeGen;
 import com.countrygamer.core.Base.Plugin.extended.ExtendedEntity;
 import com.countrygamer.core.Base.common.item.ItemBase;
+import com.countrygamer.core.Base.common.tileentity.TileEntityBase;
 
 public class ItemArcana extends ItemBase {
 	
-	boolean debug = true;
+	boolean debug = false;
 	
 	public ItemArcana(String modid, String name) {
 		super(modid, name);
@@ -31,9 +33,6 @@ public class ItemArcana extends ItemBase {
 		if (!arcanePlayer.isPlayerArcaic()) arcanePlayer.setArcaic(true);
 		
 		if (debug) {
-			String cS = (player.worldObj.isRemote ? "Client" : "Server");
-			
-			// System.out.println("Manus|" + cS + ": " + arcanePlayer.getManus());
 			
 		}
 		else {
@@ -49,9 +48,12 @@ public class ItemArcana extends ItemBase {
 	public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y,
 			int z, int side, float par8, float par9, float par10) {
 		if (debug) {
-			if (!player.worldObj.isRemote)
-				TempTreeGen.generatePetrifiedTree(world, x, y + 1, z,
-						(new Random()).nextInt(11 - 4) + 4);
+			TileEntity tileEntity = world.getTileEntity(x, y, z);
+			if (tileEntity != null && tileEntity instanceof TileEntityBase) {
+				((TileEntityBase) tileEntity).fill(ForgeDirection.UNKNOWN, new FluidStack(
+						ACBlocks.liquidManus, 1000), true);
+			}
+			return true;
 		}
 		return false;
 	}
