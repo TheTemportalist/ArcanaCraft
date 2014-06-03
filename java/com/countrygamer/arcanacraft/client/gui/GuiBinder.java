@@ -15,9 +15,9 @@ import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.tile.EnumBinderType;
 import com.countrygamer.arcanacraft.common.tile.TileEntityAugmentedTank;
 import com.countrygamer.arcanacraft.common.tile.TileEntityBinder;
-import com.countrygamer.core.Base.Plugin.extended.ExtendedEntity;
-import com.countrygamer.core.Base.common.inventory.ContainerBase;
-import com.countrygamer.core.Base.common.network.PacketHandler;
+import com.countrygamer.countrygamercore.Base.Plugin.extended.ExtendedEntity;
+import com.countrygamer.countrygamercore.Base.common.inventory.ContainerBase;
+import com.countrygamer.countrygamercore.Base.common.network.PacketHandler;
 
 public class GuiBinder extends GuiManusPowered {
 	

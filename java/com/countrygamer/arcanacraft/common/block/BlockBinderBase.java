@@ -9,7 +9,7 @@ import com.countrygamer.arcanacraft.common.ACOptions;
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.tile.EnumBinderType;
 import com.countrygamer.arcanacraft.common.tile.TileEntityBinder;
-import com.countrygamer.core.Base.common.block.BlockContainerBase;
+import com.countrygamer.countrygamercore.Base.common.block.BlockContainerBase;
 
 public abstract class BlockBinderBase extends BlockContainerBase {
 	

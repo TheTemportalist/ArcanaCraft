@@ -12,7 +12,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import com.countrygamer.core.Base.common.block.BlockBase;
+import com.countrygamer.countrygamercore.Base.common.block.BlockBase;
 import com.countrygamer.countrygamercore.lib.UtilHex;
 
 import cpw.mods.fml.relauncher.Side;

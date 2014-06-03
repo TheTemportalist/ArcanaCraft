@@ -6,7 +6,7 @@ import net.minecraft.world.World;
 
 import com.countrygamer.arcanacraft.common.container.ContainerBinder;
 import com.countrygamer.arcanacraft.common.tile.TileEntityBinder;
-import com.countrygamer.core.Base.Plugin.PluginCommonProxy;
+import com.countrygamer.countrygamercore.Base.Plugin.PluginCommonProxy;
 
 public class CommonProxy implements PluginCommonProxy {
 	

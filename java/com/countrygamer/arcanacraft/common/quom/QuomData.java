@@ -9,8 +9,8 @@ import net.minecraftforge.fluids.FluidStack;
 import com.countrygamer.arcanacraft.common.block.ACBlocks;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
-import com.countrygamer.core.Base.common.block.BlockBase;
-import com.countrygamer.core.Base.common.tileentity.TileEntityBase;
+import com.countrygamer.countrygamercore.Base.common.block.BlockBase;
+import com.countrygamer.countrygamercore.Base.common.tileentity.TileEntityBase;
 import com.countrygamer.countrygamercore.lib.CoreUtil;
 
 public class QuomData extends Quom {

@@ -9,7 +9,7 @@ import org.lwjgl.input.Keyboard;
 
 import com.countrygamer.arcanacraft.commom.network.MessageCastQuom;
 import com.countrygamer.arcanacraft.commom.network.MessageSelectQuom;
-import com.countrygamer.core.Base.common.network.PacketHandler;
+import com.countrygamer.countrygamercore.Base.common.network.PacketHandler;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;

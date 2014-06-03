@@ -8,7 +8,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
 import com.countrygamer.arcanacraft.common.block.ACBlocks;
-import com.countrygamer.core.Base.common.tileentity.TileEntityInventoryBase;
+import com.countrygamer.countrygamercore.Base.common.tileentity.TileEntityInventoryBase;
 
 public class TileEntityManusPowered extends TileEntityInventoryBase {
 	

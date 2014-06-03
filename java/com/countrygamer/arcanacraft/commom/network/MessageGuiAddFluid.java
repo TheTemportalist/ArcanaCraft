@@ -6,8 +6,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
 import com.countrygamer.arcanacraft.common.lib.ACUtil;
-import com.countrygamer.core.Base.common.network.AbstractMessage;
-import com.countrygamer.core.Base.common.tileentity.TileEntityBase;
+import com.countrygamer.countrygamercore.Base.common.network.AbstractMessage;
+import com.countrygamer.countrygamercore.Base.common.tileentity.TileEntityBase;
 
 public class MessageGuiAddFluid extends AbstractMessage {
 	

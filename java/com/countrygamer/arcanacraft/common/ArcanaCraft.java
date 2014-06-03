@@ -32,9 +32,9 @@ import com.countrygamer.arcanacraft.common.quom.ExtractRecipes;
 import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.quom.QuomRegistry;
 import com.countrygamer.arcanacraft.common.tile.BinderRecipes;
-import com.countrygamer.core.Base.Plugin.PluginBase;
-import com.countrygamer.core.Base.Plugin.extended.ExtendedEntity;
-import com.countrygamer.core.Base.common.network.PacketHandler;
+import com.countrygamer.countrygamercore.Base.Plugin.PluginBase;
+import com.countrygamer.countrygamercore.Base.Plugin.extended.ExtendedEntity;
+import com.countrygamer.countrygamercore.Base.common.network.PacketHandler;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.IFuelHandler;

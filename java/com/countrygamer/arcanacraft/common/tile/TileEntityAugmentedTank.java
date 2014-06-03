@@ -8,7 +8,7 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 import com.countrygamer.arcanacraft.common.block.ACBlocks;
-import com.countrygamer.core.Base.common.tileentity.TileEntityBase;
+import com.countrygamer.countrygamercore.Base.common.tileentity.TileEntityBase;
 
 public class TileEntityAugmentedTank extends TileEntityBase {
 	

@@ -4,8 +4,8 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
-import com.countrygamer.core.Base.Plugin.extended.ExtendedEntity;
-import com.countrygamer.core.Base.common.network.AbstractMessage;
+import com.countrygamer.countrygamercore.Base.Plugin.extended.ExtendedEntity;
+import com.countrygamer.countrygamercore.Base.common.network.AbstractMessage;
 
 public class MessageSelectQuom extends AbstractMessage {
 	

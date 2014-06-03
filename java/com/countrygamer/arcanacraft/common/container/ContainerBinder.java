@@ -5,7 +5,7 @@ import net.minecraft.inventory.Slot;
 
 import com.countrygamer.arcanacraft.common.tile.EnumBinderType;
 import com.countrygamer.arcanacraft.common.tile.TileEntityBinder;
-import com.countrygamer.core.Base.common.inventory.ContainerBase;
+import com.countrygamer.countrygamercore.Base.common.inventory.ContainerBase;
 
 public class ContainerBinder extends ContainerBase {
 	

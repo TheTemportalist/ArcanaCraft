@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 import com.countrygamer.arcanacraft.common.ACOptions;
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.tile.TileEntityDeriver;
-import com.countrygamer.core.Base.common.block.BlockContainerBase;
+import com.countrygamer.countrygamercore.Base.common.block.BlockContainerBase;
 
 public class BlockDeriver extends BlockContainerBase {
 	

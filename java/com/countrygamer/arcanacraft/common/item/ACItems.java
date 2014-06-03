@@ -8,8 +8,8 @@ import net.minecraftforge.fluids.FluidRegistry;
 
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.block.ACBlocks;
-import com.countrygamer.core.Base.Plugin.registry.PluginItemRegistry;
-import com.countrygamer.core.Base.common.item.ItemBase;
+import com.countrygamer.countrygamercore.Base.Plugin.registry.PluginItemRegistry;
+import com.countrygamer.countrygamercore.Base.common.item.ItemBase;
 import com.countrygamer.countrygamercore.common.Core;
 
 import cpw.mods.fml.common.registry.GameRegistry;

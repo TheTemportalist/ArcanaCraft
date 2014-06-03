@@ -3,7 +3,7 @@ package com.countrygamer.arcanacraft.common.tile;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 
-import com.countrygamer.core.Base.common.tileentity.TileEntityBase;
+import com.countrygamer.countrygamercore.Base.common.tileentity.TileEntityBase;
 
 public class TileEntityFalseAir extends TileEntityBase {
 	

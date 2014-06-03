@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 
 import com.countrygamer.arcanacraft.common.lib.ACUtil;
 import com.countrygamer.arcanacraft.common.tile.TileEntityAugmentedTank;
-import com.countrygamer.core.Base.common.block.BlockContainerBase;
+import com.countrygamer.countrygamercore.Base.common.block.BlockContainerBase;
 
 public class BlockAugmentedTank extends BlockContainerBase {
 	

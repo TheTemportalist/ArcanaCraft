@@ -8,7 +8,7 @@ import net.minecraft.server.MinecraftServer;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.quom.QuomRegistry;
-import com.countrygamer.core.Base.Plugin.extended.ExtendedEntity;
+import com.countrygamer.countrygamercore.Base.Plugin.extended.ExtendedEntity;
 
 public class ACCommand extends CommandBase {
 	

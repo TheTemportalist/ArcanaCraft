@@ -8,7 +8,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 
 import com.countrygamer.arcanacraft.common.ACOptions;
-import com.countrygamer.core.Base.common.item.ItemBase;
+import com.countrygamer.countrygamercore.Base.common.item.ItemBase;
 
 public class ItemEmbroideredBook extends ItemBase {
 	

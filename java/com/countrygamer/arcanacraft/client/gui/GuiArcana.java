@@ -11,8 +11,8 @@ import net.minecraftforge.common.IExtendedEntityProperties;
 
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
-import com.countrygamer.core.Base.Plugin.extended.ExtendedEntity;
-import com.countrygamer.core.Base.client.gui.GuiScreenBase;
+import com.countrygamer.countrygamercore.Base.Plugin.extended.ExtendedEntity;
+import com.countrygamer.countrygamercore.Base.client.gui.GuiScreenBase;
 
 public class GuiArcana extends GuiScreenBase {
 	
