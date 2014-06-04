@@ -25,7 +25,10 @@ public class QuomRegistry {
 	public static Quom luminize;
 	public static Quom illuminate;
 	public static Quom data;
-	//public static Quom quell;
+	public static Quom connector;
+	// public static Quom quell;
+	
+	public static Quom manus_Creative;
 	
 	public static void registerQuoms() {
 		
@@ -49,7 +52,13 @@ public class QuomRegistry {
 		
 		QuomRegistry.fastTravel = new QuomEvaporate("Evaporate", null);
 		
-		//QuomRegistry.quell = new QuomQuell("Quell", null);
+		// QuomRegistry.quell = new QuomQuell("Quell", null);
+		
+		QuomRegistry.connector = new QuomConnector("Connector", null);
+		
+		QuomRegistry.manus_Creative = new QuomCreateManus("Manus");
+		
+		
 		
 	}
 	

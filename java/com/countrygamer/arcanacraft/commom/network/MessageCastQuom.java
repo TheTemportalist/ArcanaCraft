@@ -28,7 +28,6 @@ public class MessageCastQuom extends AbstractMessage {
 	public void handleOnClient(EntityPlayer player) {
 	}
 	
-	
 	@Override
 	public void handleOnServer(EntityPlayer player) {
 		IExtendedEntityProperties props = ExtendedEntity.getExtended(player,

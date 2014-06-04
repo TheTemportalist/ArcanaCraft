@@ -49,42 +49,30 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 		super(player);
 		this.isActive = false;
 		this.maxManus = 20;
-		this.manus = 0;
+		this.manus = 20;
 		this.currentArcanaPage = "Info";
 		this.turningToSmoke = EnumSmokeAction.NONE;
 		
 		this.hotBar = new Quom[9];
 		this.currentSelectedHotBarIndex = 0;
 		
-		this.removeAllQuoms();
-		this.learnStartingQuoms();
+		// ArcanaCraft.logger.info("Constructor");
+		if (this.discoveredQuoms == null) {
+			this.discoveredQuoms = new Quom[QuomRegistry.quomRegistry.size()];
+		}
+		if (this.learnedQuoms == null) {
+			this.discoveredQuoms = new Quom[QuomRegistry.quomRegistry.size()];
+		}
 		
 	}
 	
 	@Override
 	public void init(Entity entity, World world) {
-		// check for other quoms
-		if (this.discoveredQuoms.length != QuomRegistry.quomRegistry.size()) {
-			ArcanaCraft.logger.info("\n\nNot Same Size\n\n");
-			Quom[] tempDisc = this.discoveredQuoms;
-			Quom[] tempLear = this.learnedQuoms;
-			this.discoveredQuoms = new Quom[QuomRegistry.quomRegistry.size()];
-			this.learnedQuoms = new Quom[QuomRegistry.quomRegistry.size()];
-			for (int i = 0; i < this.discoveredQuoms.length; i++) {
-				if (i < tempDisc.length) {
-					this.discoveredQuoms[i] = tempDisc[i];
-					this.learnedQuoms[i] = tempLear[i];
-				}
-			}
-		}
-		else {
-			ArcanaCraft.logger.info("\n\nSame Size Quoms\n\n");
-		}
-		this.syncEntity();
 	}
 	
 	@Override
 	public void saveNBTData(NBTTagCompound compound) {
+		ArcanaCraft.logger.info("Save");
 		compound.setBoolean("isActive", this.isActive);
 		compound.setInteger("staminaCounter", this.manusTick);
 		compound.setInteger("maxStamina", this.maxManus);
@@ -92,24 +80,28 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 		compound.setString("currentPage", this.currentArcanaPage);
 		compound.setInteger("currentHotBarIndex", this.currentSelectedHotBarIndex);
 		
-		compound.setInteger("discoveredQuoms_length", this.discoveredQuoms.length);
 		NBTTagList discoveredList = new NBTTagList();
-		for (int i = 0; i < this.discoveredQuoms.length; i++) {
-			if (this.discoveredQuoms[i] != null) {
-				NBTTagCompound quomTag = new NBTTagCompound();
-				quomTag.setInteger("quomID", this.discoveredQuoms[i].getID());
-				discoveredList.appendTag(quomTag);
+		if (this.discoveredQuoms != null) {
+			compound.setInteger("discoveredQuoms_length", this.discoveredQuoms.length);
+			for (int i = 0; i < this.discoveredQuoms.length; i++) {
+				if (this.discoveredQuoms[i] != null) {
+					NBTTagCompound quomTag = new NBTTagCompound();
+					quomTag.setInteger("quomID", this.discoveredQuoms[i].getID());
+					discoveredList.appendTag(quomTag);
+				}
 			}
 		}
 		compound.setTag("discoveredQuoms", discoveredList);
 		
-		compound.setInteger("learnedQuoms_length", this.learnedQuoms.length);
 		NBTTagList learnedList = new NBTTagList();
-		for (int i = 0; i < this.learnedQuoms.length; i++) {
-			if (this.learnedQuoms[i] != null) {
-				NBTTagCompound quomTag = new NBTTagCompound();
-				quomTag.setInteger("quomID", this.learnedQuoms[i].getID());
-				learnedList.appendTag(quomTag);
+		if (this.learnedQuoms != null) {
+			compound.setInteger("learnedQuoms_length", this.learnedQuoms.length);
+			for (int i = 0; i < this.learnedQuoms.length; i++) {
+				if (this.learnedQuoms[i] != null) {
+					NBTTagCompound quomTag = new NBTTagCompound();
+					quomTag.setInteger("quomID", this.learnedQuoms[i].getID());
+					learnedList.appendTag(quomTag);
+				}
 			}
 		}
 		compound.setTag("learnedQuoms", learnedList);
@@ -151,6 +143,7 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	
 	@Override
 	public void loadNBTData(NBTTagCompound compound) {
+		ArcanaCraft.logger.info("Load");
 		this.isActive = compound.getBoolean("isActive");
 		this.manusTick = compound.getInteger("staminaCounter");
 		this.maxManus = compound.getInteger("maxStamina");
@@ -209,13 +202,12 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	
 	public void setArcaic(boolean value) {
 		this.isActive = value;
+		this.syncEntity();
+		
+		this.removeAllQuoms();
 		if (this.isActive) {
 			this.learnStartingQuoms();
 		}
-		else {
-			this.removeAllQuoms();
-		}
-		this.syncEntity();
 	}
 	
 	public boolean isPlayerArcaic() {
@@ -397,7 +389,11 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	
 	public boolean hasDiscoveredQuom(Quom quom) {
 		for (int i = 0; i < this.discoveredQuoms.length; i++) {
-			if (quom.equals(this.discoveredQuoms[i])) return true;
+			if (quom != null && this.discoveredQuoms[i] == null)
+				return false;
+			else if (quom == null)
+				return false;
+			else if (quom.equals(this.discoveredQuoms[i])) return true;
 		}
 		return false;
 	}
@@ -424,6 +420,8 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	}
 	
 	public boolean learnQuom(Quom quom) {
+		if (!quom.canLearnNormally(this)) return false;
+		
 		if (this.hasDiscoveredQuom(quom) && !this.hasLearnedQuom(quom)) {
 			this.learnedQuoms[quom.getID()] = quom;
 			this.syncEntity();
@@ -459,6 +457,9 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	public void learnStartingQuoms() {
 		for (int i = 0; i < QuomRegistry.quomRegistry.size(); i++) {
 			Quom quom = QuomRegistry.quomRegistry.get(i);
+			
+			if (!quom.canLearnNormally(this)) continue;
+			
 			if (quom.getParent() == null) {
 				this.forceLearnQuom(quom, false);
 			}
@@ -466,8 +467,50 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	}
 	
 	public void removeAllQuoms() {
-		this.discoveredQuoms = this.learnedQuoms = new Quom[QuomRegistry.quomRegistry.size()];
-		// this.printQuoms();
+		System.out.println("Removing all quoms");
+		int size = QuomRegistry.quomRegistry.size();
+		this.discoveredQuoms = new Quom[size];
+		this.learnedQuoms = new Quom[size];
+		this.syncEntity();
+	}
+	
+	public void verifyQuoms() {
+		int actualSize = QuomRegistry.quomRegistry.size();
+		
+		if (this.discoveredQuoms != null && this.discoveredQuoms.length != actualSize) {
+			Quom[] savedQuoms = this.discoveredQuoms;
+			
+			this.discoveredQuoms = new Quom[actualSize];
+			
+			for (int i = 0; i < actualSize; i++) {
+				if (i < savedQuoms.length) {
+					if (savedQuoms[i] != null) {
+						Quom quom = savedQuoms[i].copy();
+						if (quom != null) {
+							this.discoveredQuoms[quom.getID()] = quom.copy();
+						}
+					}
+				}
+			}
+		}
+		
+		if (this.learnedQuoms != null && this.learnedQuoms.length != actualSize) {
+			Quom[] savedQuoms = this.learnedQuoms;
+			
+			this.learnedQuoms = new Quom[actualSize];
+			
+			for (int i = 0; i < actualSize; i++) {
+				if (i < savedQuoms.length) {
+					if (savedQuoms[i] != null) {
+						Quom quom = savedQuoms[i].copy();
+						if (quom != null) {
+							this.learnedQuoms[quom.getID()] = quom.copy();
+						}
+					}
+				}
+			}
+		}
+		
 		this.syncEntity();
 	}
 	

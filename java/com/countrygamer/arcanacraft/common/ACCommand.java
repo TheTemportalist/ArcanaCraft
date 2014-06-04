@@ -9,6 +9,7 @@ import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.quom.QuomRegistry;
 import com.countrygamer.countrygamercore.Base.Plugin.extended.ExtendedEntity;
+import com.countrygamer.countrygamercore.lib.CoreUtil;
 
 public class ACCommand extends CommandBase {
 	
@@ -26,6 +27,7 @@ public class ACCommand extends CommandBase {
 	public void processCommand(ICommandSender sender, String[] args) {
 		if (sender instanceof EntityPlayer) {
 			EntityPlayer senderPlayer = (EntityPlayer) sender;
+			boolean didSomething = false;
 			
 			if (args.length < 2) return;
 			
@@ -64,19 +66,21 @@ public class ACCommand extends CommandBase {
 							arcanePlayer.forceLearnQuom(QuomRegistry.quomRegistry.get(i), true);
 						}
 						ArcanaCraft.logger.info("Added all Quoms");
-						return;
+						didSomething = true;
 					}
 					else {
 						// adding a specific quom
 						// arcana PLAYER quom add QUOMNAME
 						
-						Quom quom = QuomRegistry.getQuom(this.getQuomKey(args[3]));
-						if (!arcanePlayer.hasDiscoveredQuom(quom)
-								|| !arcanePlayer.hasLearnedQuom(quom)) {
+						String quomKey = this.getQuomKey(args[3]);
+						System.out.println(quomKey);
+						Quom quom = QuomRegistry.getQuom(quomKey);
+						if (quom != null
+								&& (!arcanePlayer.hasDiscoveredQuom(quom) || !arcanePlayer
+										.hasLearnedQuom(quom))) {
 							arcanePlayer.forceLearnQuom(quom, true);
 						}
-						
-						return;
+						didSomething = true;
 					}
 					
 				}
@@ -93,24 +97,30 @@ public class ACCommand extends CommandBase {
 						arcanePlayer.removeAllQuoms();
 						arcanePlayer.learnStartingQuoms();
 						ArcanaCraft.logger.info("Removed all quoms");
-						return;
+						didSomething = true;
 					}
 					else {
 						// removing a specific quom (add there for all it's children)
 						// cannot be a starting quom
 						// arcana PLAYER quom remove QUOMNAME
 						
-						Quom quom = QuomRegistry.getQuom(this.getQuomKey(args[3]));
-						if (arcanePlayer.hasDiscoveredQuom(quom)
-								|| arcanePlayer.hasLearnedQuom(quom)) {
+						String quomKey = this.getQuomKey(args[3]);
+						System.out.println(quomKey);
+						Quom quom = QuomRegistry.getQuom(quomKey);
+						if (quom != null
+								&& (arcanePlayer.hasDiscoveredQuom(quom) || arcanePlayer
+										.hasLearnedQuom(quom))) {
 							arcanePlayer.forceRemoveQuom(quom, false);
 						}
-						
-						return;
+						didSomething = true;
 					}
 				}
 			}
 			ExtendedEntity.syncEntity(arcanePlayer);
+			
+			if (!didSomething) {
+				CoreUtil.sendMessageToPlayer(senderPlayer, "Something was invalid");
+			}
 		}
 	}
 	

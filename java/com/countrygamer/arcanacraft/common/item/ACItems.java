@@ -21,6 +21,7 @@ public class ACItems implements PluginItemRegistry {
 	public static Item enchantedFluxBucket;
 	public static Item focusBasic;
 	public static Item focusAdvanced;
+	public static Item stave;
 	
 	@Override
 	public void registerItems() {
@@ -36,6 +37,9 @@ public class ACItems implements PluginItemRegistry {
 		
 		ACItems.focusAdvanced = new ItemBase(ArcanaCraft.pluginID, "Advanced Focus");
 		Core.addItemToTab(ACItems.focusAdvanced);
+		
+		ACItems.stave = new ItemBase(ArcanaCraft.pluginID, "Stave");
+		Core.addItemToTab(ACItems.stave);
 		
 	}
 	

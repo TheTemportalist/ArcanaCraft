@@ -14,7 +14,7 @@ public class Tiers {
 				return Tiers.Cast.HAND;
 			else if (heldStack.getItem() == ACItems.focusBasic)
 				return Tiers.Cast.BASIC;
-			else if (heldStack.getItem() == ACItems.focusAdvanced)
+			else if (heldStack.getItem() == ACItems.stave)
 				return Tiers.Cast.ADVANCED;
 			else
 				return null;

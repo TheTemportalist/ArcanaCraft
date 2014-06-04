@@ -36,7 +36,7 @@ public class GuiArcana extends GuiScreenBase {
 			this.currPage = this.arcanePlayer.getCurrentArcanaPage();
 		}
 		
-		// this.arcanePlayer.printQuoms();
+		//this.arcanePlayer.printQuoms();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -56,7 +56,6 @@ public class GuiArcana extends GuiScreenBase {
 		
 		ComponentPageQuomi page = (ComponentPageQuomi) this.pages.get("Quomi");
 		page.selected = arcanePlayer.getCurrentSelectedQuomIndex();
-		// Quom[] hotbar = arcanePlayer.getHotBar();
 		
 	}
 	
@@ -163,6 +162,7 @@ public class GuiArcana extends GuiScreenBase {
 				if (slot != null && this.isMouseOver(slot.x, slot.y, 18, 18, mouseX, mouseY)) {
 					if (slot.quom != null) {
 						hoverInfo.add(slot.quom.getName());
+						slot.quom.addHoverInfo(this.arcanePlayer, hoverInfo);
 					}
 				}
 			}

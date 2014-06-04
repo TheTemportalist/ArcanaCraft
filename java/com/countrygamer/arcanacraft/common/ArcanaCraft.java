@@ -51,6 +51,7 @@ import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemSmeltedEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import cpw.mods.fml.relauncher.Side;
@@ -136,6 +137,13 @@ public class ArcanaCraft extends PluginBase implements IFuelHandler {
 		else
 			return null;
 		
+	}
+	
+	@SubscribeEvent
+	public void playerLogin(PlayerLoggedInEvent event) {
+		ExtendedArcanePlayer arcanePlayer = (ExtendedArcanePlayer) ExtendedEntity.getExtended(
+				event.player, ExtendedArcanePlayer.class);
+		arcanePlayer.verifyQuoms();
 	}
 	
 	@SubscribeEvent

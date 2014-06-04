@@ -1,5 +1,7 @@
 package com.countrygamer.arcanacraft.common.quom;
 
+import java.util.List;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.EntityLivingBase;
@@ -181,6 +183,13 @@ public abstract class Quom {
 	
 	public boolean canDiscover_Smelt(ExtendedArcanePlayer arcanePlayer, ItemStack itemStack) {
 		return false;
+	}
+	
+	public boolean canLearnNormally(ExtendedArcanePlayer arcanePlayer) {
+		return true;
+	}
+	
+	public void addHoverInfo(ExtendedArcanePlayer player, List<String> info) {
 	}
 	
 }
