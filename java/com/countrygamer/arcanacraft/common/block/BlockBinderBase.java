@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 
 import com.countrygamer.arcanacraft.common.ACOptions;
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
-import com.countrygamer.arcanacraft.common.tile.EnumBinderType;
+import com.countrygamer.arcanacraft.common.recipes.EnumBinderType;
 import com.countrygamer.arcanacraft.common.tile.TileEntityBinder;
 import com.countrygamer.countrygamercore.Base.common.block.BlockContainerBase;
 

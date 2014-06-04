@@ -1,4 +1,4 @@
-package com.countrygamer.arcanacraft.common.quom;
+package com.countrygamer.arcanacraft.common.recipes;
 
 import java.util.HashMap;
 import java.util.Map;

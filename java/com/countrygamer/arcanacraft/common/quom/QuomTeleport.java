@@ -14,7 +14,7 @@ public class QuomTeleport extends Quom {
 	}
 	
 	@Override
-	public double getReachLength(Cast castTier) {
+	public double getReachLength(Cast castTier, boolean isCreative) {
 		return 500.0D;
 	}
 	

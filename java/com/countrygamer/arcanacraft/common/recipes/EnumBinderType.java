@@ -1,4 +1,4 @@
-package com.countrygamer.arcanacraft.common.tile;
+package com.countrygamer.arcanacraft.common.recipes;
 
 public enum EnumBinderType {
 	BIND_QUOM(0, ""), QUOM(1, "Quom"), ITEM(2, "Item"), FLUID(3, "Fluid");
@@ -14,6 +14,10 @@ public enum EnumBinderType {
 	@Override
 	public String toString() {
 		return this.name;
+	}
+	
+	public int getID() {
+		return this.id;
 	}
 	
 	public static EnumBinderType getTypeFromID(int id) {

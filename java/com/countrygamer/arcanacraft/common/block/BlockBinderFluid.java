@@ -5,7 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
 import com.countrygamer.arcanacraft.common.lib.ACUtil;
-import com.countrygamer.arcanacraft.common.tile.EnumBinderType;
+import com.countrygamer.arcanacraft.common.recipes.EnumBinderType;
 import com.countrygamer.arcanacraft.common.tile.TileEntityBinder;
 
 public class BlockBinderFluid extends BlockBinderBase {

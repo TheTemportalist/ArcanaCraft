@@ -39,6 +39,8 @@ public class QuomConnector extends Quom {
 				
 				CoreUtil.sendMessageToPlayer(player, "Set source tank's coordinates");
 				arcanePlayer.addQuomData(this.getName(), data);
+				this.checkForConnection(world, player, arcanePlayer, sourceTileCoords,
+						targetTileCoords);
 				return true;
 			}
 			else if (targetTileCoords.length == 0 && tileEntity instanceof TileEntityManusPowered) {
@@ -50,6 +52,8 @@ public class QuomConnector extends Quom {
 				
 				CoreUtil.sendMessageToPlayer(player, "Set target's coordinates");
 				arcanePlayer.addQuomData(this.getName(), data);
+				this.checkForConnection(world, player, arcanePlayer, sourceTileCoords,
+						targetTileCoords);
 				return true;
 			}
 			
@@ -81,23 +85,27 @@ public class QuomConnector extends Quom {
 						+ ", " + targetTileCoords[1] + ", " + targetTileCoords[2]);
 			}
 			
-			if (sourceTileCoords.length != 0 && targetTileCoords.length != 0) {
-				// connect the two
-				TileEntityManusPowered poweredTE = (TileEntityManusPowered) world.getTileEntity(
-						targetTileCoords[0], targetTileCoords[1], targetTileCoords[2]);
-				
-				if (poweredTE != null) {
-					poweredTE.setSourceTankCoords(sourceTileCoords);
-					
-					CoreUtil.sendMessageToPlayer(player, "Notified target of source tank");
-					
-					arcanePlayer.removeQuomData(this.getName());
-				}
-			}
-			
 		}
 		else
 			arcanePlayer.addQuomData(this.getName(), new NBTTagCompound());
+	}
+	
+	private void checkForConnection(World world, EntityPlayer player,
+			ExtendedArcanePlayer arcanePlayer, int[] sourceTileCoords, int[] targetTileCoords) {
+		if (sourceTileCoords.length != 0 && targetTileCoords.length != 0) {
+			// connect the two
+			TileEntityManusPowered poweredTE = (TileEntityManusPowered) world.getTileEntity(
+					targetTileCoords[0], targetTileCoords[1], targetTileCoords[2]);
+			
+			if (poweredTE != null) {
+				poweredTE.setSourceTankCoords(sourceTileCoords);
+				
+				CoreUtil.sendMessageToPlayer(player, "Notified target of source tank");
+				
+				arcanePlayer.removeQuomData(this.getName());
+			}
+		}
+		
 	}
 	
 }

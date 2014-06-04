@@ -3,7 +3,7 @@ package com.countrygamer.arcanacraft.common.container;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 
-import com.countrygamer.arcanacraft.common.tile.EnumBinderType;
+import com.countrygamer.arcanacraft.common.recipes.EnumBinderType;
 import com.countrygamer.arcanacraft.common.tile.TileEntityBinder;
 import com.countrygamer.countrygamercore.Base.common.inventory.ContainerBase;
 

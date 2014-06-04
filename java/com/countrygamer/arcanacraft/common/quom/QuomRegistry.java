@@ -26,6 +26,8 @@ public class QuomRegistry {
 	public static Quom illuminate;
 	public static Quom data;
 	public static Quom connector;
+	public static Quom growth;
+	public static Quom tempest;
 	// public static Quom quell;
 	
 	public static Quom manus_Creative;
@@ -58,7 +60,9 @@ public class QuomRegistry {
 		
 		QuomRegistry.manus_Creative = new QuomCreateManus("Manus");
 		
+		QuomRegistry.growth = new QuomGrowth("Growth", null);
 		
+		QuomRegistry.tempest = new QuomTempest("Tempest", null);
 		
 	}
 	

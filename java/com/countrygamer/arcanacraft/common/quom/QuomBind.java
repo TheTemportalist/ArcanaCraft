@@ -12,8 +12,8 @@ import net.minecraft.world.World;
 import com.countrygamer.arcanacraft.common.block.ACBlocks;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
-import com.countrygamer.arcanacraft.common.tile.BinderRecipes;
-import com.countrygamer.arcanacraft.common.tile.EnumBinderType;
+import com.countrygamer.arcanacraft.common.recipes.BinderRecipes;
+import com.countrygamer.arcanacraft.common.recipes.EnumBinderType;
 
 public class QuomBind extends Quom {
 	

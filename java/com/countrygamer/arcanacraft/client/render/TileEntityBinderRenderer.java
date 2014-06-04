@@ -15,7 +15,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.countrygamer.arcanacraft.client.model.ModelBinder;
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
-import com.countrygamer.arcanacraft.common.tile.EnumBinderType;
+import com.countrygamer.arcanacraft.common.recipes.EnumBinderType;
 import com.countrygamer.arcanacraft.common.tile.TileEntityBinder;
 import com.countrygamer.countrygamercore.lib.CoreUtilRender;
 

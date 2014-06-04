@@ -1,27 +1,20 @@
-package com.countrygamer.arcanacraft.common.tile;
+package com.countrygamer.arcanacraft.common.recipes;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.crash.CrashReport;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.block.ACBlocks;
 import com.countrygamer.arcanacraft.common.item.ACItems;
 import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.quom.QuomRegistry;
 import com.countrygamer.countrygamercore.lib.ItemMeta;
-
-import cpw.mods.fml.common.FMLCommonHandler;
+import com.countrygamer.countrygamercore.lib.UtilCrash;
 
 public class BinderRecipes {
 	
@@ -29,10 +22,10 @@ public class BinderRecipes {
 		
 		public final EnumBinderType bindType;
 		
-		public final ItemMeta input;
+		public final ItemStack input;
 		
 		public final Quom bindingQuom;
-		public final ItemMeta bindingItem;
+		public final ItemStack bindingItem;
 		public final FluidStack bindingFluid;
 		
 		public final int manusCost;
@@ -40,82 +33,70 @@ public class BinderRecipes {
 		public final ItemMeta output;
 		public final int outputQuantity;
 		
-		public BindRecipe(EnumBinderType type, ItemMeta input, Quom bindingQuom, int manusCost,
+		public BindRecipe(EnumBinderType type, ItemStack input, Object binding, int manusCost,
 				ItemStack output) {
 			this.bindType = type;
-			
 			this.input = input;
-			this.bindingQuom = bindingQuom;
-			this.bindingItem = null;
-			this.bindingFluid = null;
-			
 			this.manusCost = manusCost;
-			
 			this.output = ItemMeta.getFromStack(output);
 			this.outputQuantity = output.stackSize;
 			
-			if (this.bindType != EnumBinderType.QUOM) {
-				this.throwCrashReport(this.bindType);
+			if (binding != null) {
+				if (this.bindType == EnumBinderType.QUOM) {
+					if (!(binding instanceof Quom)) {
+						this.throwCrashReport(this.bindType);
+						
+					}
+					this.bindingQuom = (Quom) binding;
+					this.bindingItem = null;
+					this.bindingFluid = null;
+					
+				}
+				else if (this.bindType == EnumBinderType.BIND_QUOM
+						|| this.bindType == EnumBinderType.ITEM) {
+					if (!(binding instanceof ItemStack)) {
+						this.throwCrashReport(this.bindType);
+						
+					}
+					this.bindingQuom = null;
+					this.bindingItem = (ItemStack) binding;
+					this.bindingFluid = null;
+					
+				}
+				else if (this.bindType == EnumBinderType.FLUID) {
+					if (!(binding instanceof FluidStack)) {
+						this.throwCrashReport(this.bindType);
+						
+					}
+					this.bindingQuom = null;
+					this.bindingItem = null;
+					this.bindingFluid = (FluidStack) binding;
+					
+				}
+				else {
+					UtilCrash.throwCrashReport("No valid BinderType found", "EnumBinderType "
+							+ this.bindType + " is not a valid type to pass!");
+					
+					this.bindingQuom = null;
+					this.bindingItem = null;
+					this.bindingFluid = null;
+					
+				}
+				
 			}
-		}
-		
-		public BindRecipe(EnumBinderType type, ItemMeta input, ItemMeta bindingItem, int manusCost,
-				ItemStack output) {
-			this.bindType = type;
-			
-			this.input = input;
-			this.bindingQuom = null;
-			this.bindingItem = bindingItem;
-			this.bindingFluid = null;
-			
-			this.manusCost = manusCost;
-			
-			this.output = ItemMeta.getFromStack(output);
-			this.outputQuantity = output.stackSize;
-			
-			if (this.bindType != EnumBinderType.BIND_QUOM && this.bindType != EnumBinderType.ITEM) {
-				this.throwCrashReport(this.bindType);
+			else {
+				this.bindingQuom = null;
+				this.bindingItem = null;
+				this.bindingFluid = null;
+				
 			}
-		}
-		
-		public BindRecipe(EnumBinderType type, ItemMeta input, FluidStack bindingFluid,
-				int manusCost, ItemStack output) {
-			this.bindType = type;
 			
-			this.input = input;
-			this.bindingQuom = null;
-			this.bindingItem = null;
-			this.bindingFluid = bindingFluid;
-			
-			this.manusCost = manusCost;
-			
-			this.output = ItemMeta.getFromStack(output);
-			this.outputQuantity = output.stackSize;
-			
-			if (this.bindType != EnumBinderType.FLUID) {
-				this.throwCrashReport(this.bindType);
-			}
 		}
 		
 		private void throwCrashReport(EnumBinderType type) {
-			CrashReport crashreport = new CrashReport(
+			UtilCrash.makeCrashReport(
 					"Cannot send item binding info to a non item binding recipe type!",
-					new Throwable("Cannot send item info to a recipe with type " + type.toString()));
-			File file1 = new File(new File(new File("."), "crash-reports"), "crash-"
-					+ (new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss")).format(new Date())
-					+ "-server.txt");
-			
-			if (crashreport.saveToFile(file1)) {
-				ArcanaCraft.logger.info("This crash report has been saved to: "
-						+ file1.getAbsolutePath());
-			}
-			else {
-				ArcanaCraft.logger.info("We were unable to save this crash report to disk.");
-			}
-			
-			FMLCommonHandler.instance().expectServerStopped(); // has to come before finalTick
-			// to avoid race conditions
-			Minecraft.getMinecraft().crashed(crashreport);
+					"Cannot send item info to a recipe with type " + type.toString());
 		}
 		
 		@Override
@@ -140,13 +121,26 @@ public class BinderRecipes {
 		public boolean hasInputs(ItemStack input, Object binding) {
 			if (binding == null) return false;
 			// ArcanaCraft.logger.info("Checking inputs");
-			if (this.input.equals(ItemMeta.getFromStack(input))) {
+			if (this.input.getItem() == input.getItem()
+					&& this.input.getItemDamage() == input.getItemDamage()) {
+				
+				// System.out.println("Valid input");
+				
 				if (binding instanceof Quom && this.bindType == EnumBinderType.QUOM) {
+					
+					// System.out.println("Valid Quom");
+					
 					return this.bindingQuom.equals((Quom) binding);
 				}
-				else if (binding instanceof ItemMeta
+				else if (binding instanceof ItemStack
 						&& (this.bindType == EnumBinderType.BIND_QUOM || this.bindType == EnumBinderType.ITEM)) {
-					return this.bindingItem.equals((ItemMeta) binding);
+					
+					// System.out.println("Valid BindingItemStack");
+					ItemStack bindingStack = (ItemStack) binding;
+					
+					return this.bindingItem.getItem() == bindingStack.getItem()
+							&& this.bindingItem.getItemDamage() == bindingStack.getItemDamage()
+							&& this.bindingItem.stackSize <= bindingStack.stackSize;
 				}
 				else if (binding instanceof FluidStack && this.bindType == EnumBinderType.FLUID) {
 					FluidStack inputFluid = (FluidStack) binding;
@@ -155,6 +149,9 @@ public class BinderRecipes {
 								.equals(inputFluid.tag) : false)
 								: inputFluid.tag == null;
 						if (validTags) {
+							
+							// System.out.println("Valid Fluidstack");
+							
 							return this.bindingFluid.amount <= inputFluid.amount;
 						}
 					}
@@ -171,31 +168,87 @@ public class BinderRecipes {
 		// @formatter:off
 		recipes.addRecipe(new BindRecipe(
 				EnumBinderType.BIND_QUOM,
-				new ItemMeta(Blocks.iron_block, 0),
-				new ItemMeta(ACItems.focusBasic, 0),
+				new ItemStack(Blocks.iron_block, 1, 0),
+				new ItemStack(ACItems.focusBasic, 1, 0),
 				0,
 				new ItemStack(ACBlocks.bindableCore, 1, 0)));
 		
 		recipes.addRecipe(new BindRecipe(
 				EnumBinderType.QUOM,
-				new ItemMeta(ACBlocks.bindableCore, 0),
+				new ItemStack(ACBlocks.bindableCore, 1, 0),
 				QuomRegistry.bind.copy(),
 				0,
 				new ItemStack(ACBlocks.itemBinder, 1, 0)));
 		
 		recipes.addRecipe(new BindRecipe(
 				EnumBinderType.ITEM,
-				new ItemMeta(ACBlocks.bindableCore, 0),
-				new ItemMeta(Items.bucket, 0),
+				new ItemStack(ACBlocks.bindableCore, 1, 0),
+				new ItemStack(Items.bucket, 1, 0),
 				0,
 				new ItemStack(ACBlocks.fluidBinder, 1, 0)));
 		
 		recipes.addRecipe(new BindRecipe(
+				EnumBinderType.ITEM,
+				new ItemStack(Items.water_bucket, 1, 0),
+				new ItemStack(Items.blaze_powder, 4, 0),
+				0,
+				new ItemStack(Items.ghast_tear, 4, 0)));
+		
+		recipes.addRecipe(new BindRecipe(
+				EnumBinderType.ITEM,
+				new ItemStack(Blocks.stone, 2, 0),
+				new ItemStack(Items.blaze_powder, 1, 0),
+				0,
+				new ItemStack(Blocks.netherrack, 2, 0)));
+		
+		recipes.addRecipe(new BindRecipe(
+				EnumBinderType.ITEM,
+				new ItemStack(Blocks.gravel, 2, 0),
+				new ItemStack(Items.blaze_powder, 1, 0),
+				0,
+				new ItemStack(Blocks.soul_sand, 2, 0)));
+		
+		recipes.addRecipe(new BindRecipe(
+				EnumBinderType.ITEM,
+				new ItemStack(Items.brick, 3, 0),
+				new ItemStack(Items.blaze_powder, 1, 0),
+				0,
+				new ItemStack(Items.netherbrick, 3, 0)));
+		
+		recipes.addRecipe(new BindRecipe(
 				EnumBinderType.FLUID,
-				new ItemMeta(Items.stick, 0),
+				new ItemStack(Items.stick, 4, 0),
 				new FluidStack(FluidRegistry.LAVA, 1000),
 				0,
 				new ItemStack(Items.blaze_rod, 2, 0)));
+		
+		recipes.addRecipe(new BindRecipe(
+				EnumBinderType.FLUID,
+				new ItemStack(Items.string, 1, 0),
+				null,
+				100,
+				new ItemStack(Items.lead, 1, 0)));
+		
+		recipes.addRecipe(new BindRecipe(
+				EnumBinderType.FLUID,
+				new ItemStack(Items.rotten_flesh, 1, 0),
+				null,
+				50,
+				new ItemStack(Items.leather, 2, 0)));
+		
+		recipes.addRecipe(new BindRecipe(
+				EnumBinderType.FLUID,
+				new ItemStack(Items.spider_eye, 1, 0),
+				new FluidStack(ACBlocks.dormantFluxFluid, 100),
+				0,
+				new ItemStack(Items.fermented_spider_eye, 1, 0)));
+		
+		recipes.addRecipe(new BindRecipe(
+				EnumBinderType.FLUID,
+				new ItemStack(Items.sugar, 3, 0),
+				new FluidStack(ACBlocks.dormantFluxFluid, 100),
+				0,
+				new ItemStack(Items.rotten_flesh, 1, 0)));
 		
 		// @formatter:on
 	}
@@ -226,7 +279,8 @@ public class BinderRecipes {
 					}
 					return new Object[] {
 							recipe.output.getItemStack(recipes.get(i).outputQuantity).copy(),
-							fluidAmount
+							fluidAmount, recipe.bindingItem.stackSize, recipe.manusCost,
+							recipe.input.stackSize
 					};
 				}
 			}

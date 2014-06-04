@@ -5,7 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 
 import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.quom.QuomRegistry;
-import com.countrygamer.arcanacraft.common.tile.EnumBinderType;
+import com.countrygamer.arcanacraft.common.recipes.EnumBinderType;
 import com.countrygamer.arcanacraft.common.tile.TileEntityBinder;
 import com.countrygamer.countrygamercore.Base.common.network.AbstractMessage;
 

@@ -90,7 +90,7 @@ public abstract class Quom {
 		return QuomRegistry.getQuom(this.parentName);
 	}
 	
-	public double getReachLength(Tiers.Cast castTier) {
+	public double getReachLength(Tiers.Cast castTier, boolean isCreative) {
 		return 5.0D;
 	}
 	
@@ -106,7 +106,7 @@ public abstract class Quom {
 		
 		boolean usedOnEntity = false;
 		MovingObjectPosition mop = UtilCursor.getMOPFromPlayer(world, player,
-				this.getReachLength(castTier));
+				this.getReachLength(castTier, player.capabilities.isCreativeMode));
 		if (mop != null) {
 			if (mop.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
 				// ArcanaCraft.logger.info("Found Entity");
@@ -125,7 +125,8 @@ public abstract class Quom {
 		
 		if (!usedOnEntity) {
 			UtilCursor.MovingObjectPositionTarget mopT = UtilCursor.getBlockFromCursor(world,
-					arcanePlayer.player, this.getReachLength(castTier));
+					arcanePlayer.player,
+					this.getReachLength(castTier, player.capabilities.isCreativeMode));
 			if (mopT != null) {
 				if (this.onUse(player, arcanePlayer, world, mopT.x, mopT.y, mopT.z, mopT.side,
 						castTier)) return;

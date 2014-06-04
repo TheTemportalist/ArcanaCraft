@@ -28,8 +28,8 @@ public class QuomFire extends Quom {
 	}
 	
 	@Override
-	public double getReachLength(Tiers.Cast castTier) {
-		return Tiers.Cast.tierToInt(castTier) * 5.0D;
+	public double getReachLength(Tiers.Cast castTier, boolean isCreative) {
+		return isCreative ? 1000.0 : Tiers.Cast.tierToInt(castTier) * 5.0D;
 	}
 	
 	@Override
