@@ -24,7 +24,7 @@ public class QuomCreateManus extends QuomCreative {
 			int x, int y, int z, int side, Cast castTier) {
 		this.checkData(arcanePlayer);
 		
-		NBTTagCompound data = arcanePlayer.getQuomData(this.getName());
+		NBTTagCompound data = arcanePlayer.getData("Quom_" + this.getName());
 		
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		if (tileEntity != null && tileEntity instanceof IFluidHandler) {
@@ -48,7 +48,7 @@ public class QuomCreateManus extends QuomCreative {
 			Cast castTier) {
 		this.checkData(arcanePlayer);
 		
-		NBTTagCompound data = arcanePlayer.getQuomData(this.getName());
+		NBTTagCompound data = arcanePlayer.getData("Quom_" + this.getName());
 		
 		if (player.isSneaking()) {
 			int manusCreationAmount = data.getInteger("manusAmount");
@@ -70,17 +70,17 @@ public class QuomCreateManus extends QuomCreative {
 			}
 		}
 		
-		arcanePlayer.addQuomData(this.getName(), data);
+		arcanePlayer.addData("Quom_" + this.getName(), data);
 		
 	}
 	
 	private void checkData(ExtendedArcanePlayer arcanePlayer) {
-		NBTTagCompound data = arcanePlayer.getQuomData(this.getName());
+		NBTTagCompound data = arcanePlayer.getData("Quom_" + this.getName());
 		
 		if (data == null) {
 			data = new NBTTagCompound();
 			data.setInteger("manusAmount", 100);
-			arcanePlayer.addQuomData(this.getName(), data);
+			arcanePlayer.addData("Quom_" + this.getName(), data);
 		}
 	}
 	

@@ -97,7 +97,7 @@ public class ACBlocks implements PluginBlockRegistry {
 		// ACBlocks.falseAir = new BlockFalseAir(Material.cloth, ArcanaCraft.pluginID, "False Air",
 		// TileEntityFalseAir.class);
 		
-		ACBlocks.deriver = new BlockDeriver(Material.ground, ArcanaCraft.pluginID, "Deriver", null);
+		ACBlocks.deriver = new BlockDeriver(Material.ground, ArcanaCraft.pluginID, "Deriver", TileEntityDeriver.class);
 		Core.addBlockToTab(ACBlocks.deriver);
 		
 	}

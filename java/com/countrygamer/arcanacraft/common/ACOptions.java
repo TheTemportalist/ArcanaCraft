@@ -17,6 +17,7 @@ public class ACOptions implements PluginOptionRegistry {
 	public static final int arcanaGuiReset = 1;
 	public static final int binderGui = 2;
 	public static final int deriverGui = 3;
+	public static final int sackGui = 4;
 	
 	public static final ResourceLocation icons = new ResourceLocation(ArcanaCraft.pluginID,
 			"textures/gui/GuiIcons.png");

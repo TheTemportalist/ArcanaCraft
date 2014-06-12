@@ -8,14 +8,14 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 import com.countrygamer.arcanacraft.common.block.ACBlocks;
-import com.countrygamer.countrygamercore.Base.common.tileentity.TileEntityBase;
+import com.countrygamer.countrygamercore.Base.common.tile.TileEntityTankBase;
 
-public class TileEntityAugmentedTank extends TileEntityBase {
+public class TileEntityAugmentedTank extends TileEntityTankBase {
 	
 	// private FluidTank tank;
 	
 	public TileEntityAugmentedTank() {
-		super(FluidContainerRegistry.BUCKET_VOLUME * 10);
+		super("Augmented Tank", FluidContainerRegistry.BUCKET_VOLUME * 10);
 		// this.tank = new FluidTank(FluidContainerRegistry.BUCKET_VOLUME * 10);
 	}
 	

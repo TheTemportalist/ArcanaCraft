@@ -1,4 +1,4 @@
-package com.countrygamer.arcanacraft.common.container;
+package com.countrygamer.arcanacraft.common.inventory;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;

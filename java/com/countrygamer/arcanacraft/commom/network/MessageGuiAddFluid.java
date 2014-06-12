@@ -7,7 +7,7 @@ import net.minecraft.tileentity.TileEntity;
 
 import com.countrygamer.arcanacraft.common.lib.ACUtil;
 import com.countrygamer.countrygamercore.Base.common.network.AbstractMessage;
-import com.countrygamer.countrygamercore.Base.common.tileentity.TileEntityBase;
+import com.countrygamer.countrygamercore.Base.common.tile.TileEntityTankBase;
 
 public class MessageGuiAddFluid extends AbstractMessage {
 	
@@ -52,7 +52,7 @@ public class MessageGuiAddFluid extends AbstractMessage {
 	private void addFluid(EntityPlayer player) {
 		TileEntity tileEntity = player.worldObj.getTileEntity(x, y, z);
 		if (tileEntity != null) {
-			ItemStack retStack = ACUtil.addFluidWithGui(player, (TileEntityBase) tileEntity,
+			ItemStack retStack = ACUtil.addFluidWithGui(player, (TileEntityTankBase) tileEntity,
 					player.inventory.getItemStack());
 			if (!ItemStack.areItemStacksEqual(player.inventory.getItemStack(), retStack)) {
 				player.inventory.setItemStack(retStack);

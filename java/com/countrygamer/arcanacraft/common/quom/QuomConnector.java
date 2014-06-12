@@ -24,7 +24,7 @@ public class QuomConnector extends Quom {
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		
 		if (tileEntity != null) {
-			NBTTagCompound data = arcanePlayer.getQuomData(this.getName());
+			NBTTagCompound data = arcanePlayer.getData("Quom_" + this.getName());
 			if (data == null) data = new NBTTagCompound();
 			
 			int[] sourceTileCoords = data.getIntArray("sourceTileEntity");
@@ -38,7 +38,7 @@ public class QuomConnector extends Quom {
 				data.setIntArray("sourceTileEntity", sourceTileCoords);
 				
 				CoreUtil.sendMessageToPlayer(player, "Set source tank's coordinates");
-				arcanePlayer.addQuomData(this.getName(), data);
+				arcanePlayer.addData(this.getName(), data);
 				this.checkForConnection(world, player, arcanePlayer, sourceTileCoords,
 						targetTileCoords);
 				return true;
@@ -51,7 +51,7 @@ public class QuomConnector extends Quom {
 				data.setIntArray("targetTankTileEntity", targetTileCoords);
 				
 				CoreUtil.sendMessageToPlayer(player, "Set target's coordinates");
-				arcanePlayer.addQuomData(this.getName(), data);
+				arcanePlayer.addData(this.getName(), data);
 				this.checkForConnection(world, player, arcanePlayer, sourceTileCoords,
 						targetTileCoords);
 				return true;
@@ -65,11 +65,11 @@ public class QuomConnector extends Quom {
 	@Override
 	public void onRightClick(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,
 			Cast castTier) {
-		NBTTagCompound data = arcanePlayer.getQuomData(this.getName());
+		NBTTagCompound data = arcanePlayer.getData("Quom_" + this.getName());
 		if (data != null) {
 			
 			if (player.isSneaking()) {
-				arcanePlayer.addQuomData(this.getName(), new NBTTagCompound());
+				arcanePlayer.addData("Quom_" + this.getName(), new NBTTagCompound());
 				return;
 			}
 			
@@ -87,7 +87,7 @@ public class QuomConnector extends Quom {
 			
 		}
 		else
-			arcanePlayer.addQuomData(this.getName(), new NBTTagCompound());
+			arcanePlayer.addData("Quom_" + this.getName(), new NBTTagCompound());
 	}
 	
 	private void checkForConnection(World world, EntityPlayer player,
@@ -102,7 +102,7 @@ public class QuomConnector extends Quom {
 				
 				CoreUtil.sendMessageToPlayer(player, "Notified target of source tank");
 				
-				arcanePlayer.removeQuomData(this.getName());
+				arcanePlayer.removeData("Quom_" + this.getName());
 			}
 		}
 		

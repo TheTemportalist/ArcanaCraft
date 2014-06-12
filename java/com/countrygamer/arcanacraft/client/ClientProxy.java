@@ -11,6 +11,7 @@ import net.minecraftforge.common.MinecraftForge;
 import com.countrygamer.arcanacraft.client.gui.ArcaneOverlay;
 import com.countrygamer.arcanacraft.client.gui.GuiArcana;
 import com.countrygamer.arcanacraft.client.gui.GuiBinder;
+import com.countrygamer.arcanacraft.client.gui.GuiSack;
 import com.countrygamer.arcanacraft.client.render.ItemATRenderer;
 import com.countrygamer.arcanacraft.client.render.ItemBinderRenderer;
 import com.countrygamer.arcanacraft.client.render.TileEntityATRenderer;
@@ -18,7 +19,8 @@ import com.countrygamer.arcanacraft.client.render.TileEntityBinderRenderer;
 import com.countrygamer.arcanacraft.common.ACOptions;
 import com.countrygamer.arcanacraft.common.CommonProxy;
 import com.countrygamer.arcanacraft.common.block.ACBlocks;
-import com.countrygamer.arcanacraft.common.container.ContainerBinder;
+import com.countrygamer.arcanacraft.common.inventory.ContainerBinder;
+import com.countrygamer.arcanacraft.common.inventory.InventorySack;
 import com.countrygamer.arcanacraft.common.recipes.EnumBinderType;
 import com.countrygamer.arcanacraft.common.tile.TileEntityAugmentedTank;
 import com.countrygamer.arcanacraft.common.tile.TileEntityBinder;
@@ -56,6 +58,9 @@ public class ClientProxy extends CommonProxy {
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		if (ID == ACOptions.arcanaGui || ID == ACOptions.arcanaGuiReset) {
 			return new GuiArcana(player, ID == ACOptions.arcanaGuiReset);
+		}
+		else if (ID == ACOptions.sackGui) {
+			return new GuiSack(player, new InventorySack(player.getHeldItem()));
 		}
 		else if (tileEntity != null) {
 			if (tileEntity instanceof TileEntityBinder && ID == ACOptions.binderGui) {

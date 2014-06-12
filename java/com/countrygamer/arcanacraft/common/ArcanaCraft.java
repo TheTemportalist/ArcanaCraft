@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -22,9 +23,11 @@ import com.countrygamer.arcanacraft.client.particle.Particles;
 import com.countrygamer.arcanacraft.commom.network.MessageCastQuom;
 import com.countrygamer.arcanacraft.commom.network.MessageGuiAddFluid;
 import com.countrygamer.arcanacraft.commom.network.MessageNewBindingQuom;
+import com.countrygamer.arcanacraft.commom.network.MessageSaveSackName;
 import com.countrygamer.arcanacraft.commom.network.MessageSelectQuom;
 import com.countrygamer.arcanacraft.common.biome.ACBiomes;
 import com.countrygamer.arcanacraft.common.block.ACBlocks;
+import com.countrygamer.arcanacraft.common.extended.Caste;
 import com.countrygamer.arcanacraft.common.extended.EnumSmokeAction;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.item.ACItems;
@@ -34,7 +37,10 @@ import com.countrygamer.arcanacraft.common.recipes.BinderRecipes;
 import com.countrygamer.arcanacraft.common.recipes.ExtractRecipes;
 import com.countrygamer.countrygamercore.Base.Plugin.PluginBase;
 import com.countrygamer.countrygamercore.Base.Plugin.extended.ExtendedEntity;
+import com.countrygamer.countrygamercore.Base.common.multiblock.MultiBlockHandler;
+import com.countrygamer.countrygamercore.Base.common.multiblock.MultiBlockStructure;
 import com.countrygamer.countrygamercore.Base.common.network.PacketHandler;
+import com.countrygamer.countrygamercore.Base.common.tile.TileEntityMultiBlockComponent;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.IFuelHandler;
@@ -82,7 +88,8 @@ public class ArcanaCraft extends PluginBase implements IFuelHandler {
 		this.registerHandlers(this, this);
 		
 		this.regsiterPacketHandler(ArcanaCraft.pluginID, MessageCastQuom.class,
-				MessageSelectQuom.class, MessageNewBindingQuom.class, MessageGuiAddFluid.class);
+				MessageSelectQuom.class, MessageNewBindingQuom.class, MessageGuiAddFluid.class,
+				MessageSaveSackName.class);
 		
 		this.registerExtendedPlayer("Extended Arcane Player", ExtendedArcanePlayer.class, true);
 		if (event.getSide() == Side.CLIENT) {
@@ -92,6 +99,11 @@ public class ArcanaCraft extends PluginBase implements IFuelHandler {
 		QuomRegistry.registerQuoms();
 		BinderRecipes.registerRecipes();
 		ExtractRecipes.registerRecipes();
+		Caste.registerCastes();
+		
+		MultiBlockStructure simple = new MultiBlockStructure("SimpleACMB", true);
+		simple.addBlock(+0, +1, +1, Blocks.cobblestone, 0, TileEntityMultiBlockComponent.class);
+		MultiBlockHandler.registerMultiBlock(new MultiBlockHandler(simple));
 		
 	}
 	

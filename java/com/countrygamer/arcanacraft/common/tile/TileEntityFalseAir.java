@@ -3,7 +3,7 @@ package com.countrygamer.arcanacraft.common.tile;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 
-import com.countrygamer.countrygamercore.Base.common.tileentity.TileEntityBase;
+import com.countrygamer.countrygamercore.Base.common.tile.TileEntityBase;
 
 public class TileEntityFalseAir extends TileEntityBase {
 	
@@ -13,7 +13,7 @@ public class TileEntityFalseAir extends TileEntityBase {
 	private int ticksTillDeath;
 	
 	public TileEntityFalseAir() {
-		super();
+		super("False Air");
 		
 		this.containedBlock = null;
 		this.containedMetadata = 0;

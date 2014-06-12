@@ -17,7 +17,7 @@ import com.countrygamer.arcanacraft.client.model.ModelBinder;
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.recipes.EnumBinderType;
 import com.countrygamer.arcanacraft.common.tile.TileEntityBinder;
-import com.countrygamer.countrygamercore.lib.CoreUtilRender;
+import com.countrygamer.countrygamercore.lib.UtilRender;
 
 public class TileEntityBinderRenderer extends TileEntitySpecialRenderer {
 	
@@ -31,10 +31,10 @@ public class TileEntityBinderRenderer extends TileEntitySpecialRenderer {
 	
 	public TileEntityBinderRenderer() {
 		
-		this.bindableRender = CoreUtilRender.basicRender;
+		this.bindableRender = UtilRender.basicRender;
 		this.bindableRender.setRenderManager(RenderManager.instance);
 		
-		this.bindingItemRender = CoreUtilRender.basicRender;
+		this.bindingItemRender = UtilRender.basicRender;
 		this.bindingItemRender.setRenderManager(RenderManager.instance);
 		
 	}
@@ -52,7 +52,7 @@ public class TileEntityBinderRenderer extends TileEntitySpecialRenderer {
 		TileEntityBinderRenderer.model.renderModel(f5);
 		
 		if (binderTE.getStackInSlot(0) != null) {
-			CoreUtilRender.renderItem(binderTE, this.bindableRender, binderTE.getStackInSlot(0)
+			UtilRender.renderItem(binderTE, this.bindableRender, binderTE.getStackInSlot(0)
 					.copy(), 0.0F, +0.15F, 0.0F);
 		}
 		
@@ -61,7 +61,7 @@ public class TileEntityBinderRenderer extends TileEntitySpecialRenderer {
 		}
 		else if (binderTE.binderType == EnumBinderType.ITEM) {
 			if (binderTE.getStackInSlot(1) != null) {
-				CoreUtilRender.renderItem(binderTE, this.bindingItemRender, binderTE
+				UtilRender.renderItem(binderTE, this.bindingItemRender, binderTE
 						.getStackInSlot(1).copy(), 0.0F, -0.37F, 0.0F);
 			}
 		}

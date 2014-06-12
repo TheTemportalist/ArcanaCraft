@@ -5,20 +5,18 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
 
 import com.countrygamer.arcanacraft.common.block.ACBlocks;
-import com.countrygamer.countrygamercore.Base.common.tileentity.TileEntityInventoryBase;
+import com.countrygamer.countrygamercore.Base.common.tile.TileEntityTankBase;
 
-public class TileEntityManusPowered extends TileEntityInventoryBase {
+public class TileEntityManusPowered extends TileEntityTankBase {
 	
 	private final int ticksPerManusSearch = 20 * 5;
 	private int ticksTillManusSearch = 0;
 	private int[] sourceTankCoords = null;
 	
 	public TileEntityManusPowered(String name, int inventorySize, int maxStackSize) {
-		super(name, inventorySize, maxStackSize);
-		this.setTank(new FluidTank(FluidContainerRegistry.BUCKET_VOLUME * 10));
+		super(name, inventorySize, maxStackSize, FluidContainerRegistry.BUCKET_VOLUME * 10);
 		this.ticksTillManusSearch = this.ticksPerManusSearch;
 		
 	}

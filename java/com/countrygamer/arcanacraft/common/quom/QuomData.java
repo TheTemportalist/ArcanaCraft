@@ -10,7 +10,7 @@ import com.countrygamer.arcanacraft.common.block.ACBlocks;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
 import com.countrygamer.countrygamercore.Base.common.block.BlockBase;
-import com.countrygamer.countrygamercore.Base.common.tileentity.TileEntityBase;
+import com.countrygamer.countrygamercore.Base.common.tile.TileEntityTankBase;
 import com.countrygamer.countrygamercore.lib.CoreUtil;
 
 public class QuomData extends Quom {
@@ -35,8 +35,8 @@ public class QuomData extends Quom {
 		}
 		
 		if (tileEntity != null) {
-			if (tileEntity instanceof TileEntityBase) {
-				this.tankClick(player, (TileEntityBase) tileEntity);
+			if (tileEntity instanceof TileEntityTankBase) {
+				this.tankClick(player, (TileEntityTankBase) tileEntity);
 				return true;
 			}
 		}
@@ -44,7 +44,7 @@ public class QuomData extends Quom {
 		return false;
 	}
 	
-	private void tankClick(EntityPlayer player, TileEntityBase tileEntity) {
+	private void tankClick(EntityPlayer player, TileEntityTankBase tileEntity) {
 		if (tileEntity.canModifyTank()) {
 			FluidStack storedFluid = tileEntity.getFluidStack();
 			

@@ -13,7 +13,7 @@ import com.countrygamer.arcanacraft.common.block.ACBlocks;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.countrygamercore.Base.Plugin.extended.ExtendedEntity;
 import com.countrygamer.countrygamercore.Base.common.item.ItemBase;
-import com.countrygamer.countrygamercore.Base.common.tileentity.TileEntityBase;
+import com.countrygamer.countrygamercore.Base.common.tile.TileEntityTankBase;
 
 public class ItemArcana extends ItemBase {
 	
@@ -49,8 +49,8 @@ public class ItemArcana extends ItemBase {
 			int z, int side, float par8, float par9, float par10) {
 		if (debug) {
 			TileEntity tileEntity = world.getTileEntity(x, y, z);
-			if (tileEntity != null && tileEntity instanceof TileEntityBase) {
-				((TileEntityBase) tileEntity).fill(ForgeDirection.UNKNOWN, new FluidStack(
+			if (tileEntity != null && tileEntity instanceof TileEntityTankBase) {
+				((TileEntityTankBase) tileEntity).fill(ForgeDirection.UNKNOWN, new FluidStack(
 						ACBlocks.liquidManus, 1000), true);
 			}
 			return true;

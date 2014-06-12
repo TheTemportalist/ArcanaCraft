@@ -1,6 +1,8 @@
 package com.countrygamer.arcanacraft.common.extended;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import net.minecraft.entity.Entity;
@@ -43,7 +45,8 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	private double[] teleportationDestination;
 	private boolean isSmoke = false;
 	
-	private Map<String, NBTTagCompound> quomData = new HashMap<String, NBTTagCompound>();
+	private Map<String, NBTTagCompound> magicData = new HashMap<String, NBTTagCompound>();
+	private List<Caste> castes = new ArrayList<Caste>();
 	
 	public ExtendedArcanePlayer(EntityPlayer player) {
 		super(player);
@@ -72,7 +75,7 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	
 	@Override
 	public void saveNBTData(NBTTagCompound compound) {
-		ArcanaCraft.logger.info("Save");
+		//ArcanaCraft.logger.info("Save");
 		compound.setBoolean("isActive", this.isActive);
 		compound.setInteger("staminaCounter", this.manusTick);
 		compound.setInteger("maxStamina", this.maxManus);
@@ -133,20 +136,28 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 		compound.setInteger("dormantFlux", this.internalDormantFlux);
 		compound.setBoolean("isSmoke", this.isSmoke);
 		
-		NBTTagList quomDataList = new NBTTagList();
-		for (final String key : this.quomData.keySet()) {
-			NBTTagCompound quomDataTag = new NBTTagCompound();
-			quomDataTag.setString("key", key);
-			quomDataTag.setTag(key, this.quomData.get(key));
-			quomDataList.appendTag(quomDataTag);
+		NBTTagList magicDataList = new NBTTagList();
+		for (final String key : this.magicData.keySet()) {
+			NBTTagCompound magicDataTag = new NBTTagCompound();
+			magicDataTag.setString("key", key);
+			magicDataTag.setTag(key, this.magicData.get(key));
+			magicDataList.appendTag(magicDataTag);
 		}
-		compound.setTag("quomData", quomDataList);
+		compound.setTag("magicData", magicDataList);
+		
+		NBTTagList casteList = new NBTTagList();
+		for (final Caste caste : this.castes) {
+			NBTTagCompound casteTag = new NBTTagCompound();
+			casteTag.setString("casteName", caste.getName());
+			casteList.appendTag(casteTag);
+		}
+		compound.setTag("casteList", casteList);
 		
 	}
 	
 	@Override
 	public void loadNBTData(NBTTagCompound compound) {
-		ArcanaCraft.logger.info("Load");
+		//ArcanaCraft.logger.info("Load");
 		this.isActive = compound.getBoolean("isActive");
 		this.manusTick = compound.getInteger("staminaCounter");
 		this.maxManus = compound.getInteger("maxStamina");
@@ -197,12 +208,19 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 		this.internalDormantFlux = compound.getInteger("dormantFlux");
 		this.isSmoke = compound.getBoolean("isSmoke");
 		
-		this.quomData.clear();
-		NBTTagList quomDataList = compound.getTagList("quomData", 10);
-		for (int i = 0; i < quomDataList.tagCount(); i++) {
-			NBTTagCompound quomDataTag = quomDataList.getCompoundTagAt(i);
-			String key = quomDataTag.getString("key");
-			this.quomData.put(key, quomDataTag.getCompoundTag(key));
+		this.magicData.clear();
+		NBTTagList magicDataList = compound.getTagList("magicData", 10);
+		for (int i = 0; i < magicDataList.tagCount(); i++) {
+			NBTTagCompound magicDataTag = magicDataList.getCompoundTagAt(i);
+			String key = magicDataTag.getString("key");
+			this.magicData.put(key, magicDataTag.getCompoundTag(key));
+		}
+		
+		this.castes.clear();
+		NBTTagList casteList = compound.getTagList("casteList", 10);
+		for (int i = 0; i < casteList.tagCount(); i++) {
+			NBTTagCompound casteTag = casteList.getCompoundTagAt(i);
+			this.castes.add(Caste.getCaste(casteTag.getString("casteName")));
 		}
 		
 	}
@@ -565,21 +583,21 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	}
 	
 	public void clearQuomData() {
-		this.quomData.clear();
+		this.magicData.clear();
 		this.syncEntity();
 	}
 	
-	public void addQuomData(String key, NBTTagCompound data) {
-		this.quomData.put(key, data);
+	public void addData(String key, NBTTagCompound data) {
+		this.magicData.put(key, data);
 		this.syncEntity();
 	}
 	
-	public NBTTagCompound getQuomData(String key) {
-		return this.quomData.get(key);
+	public NBTTagCompound getData(String key) {
+		return this.magicData.get(key);
 	}
 	
-	public NBTTagCompound removeQuomData(String key) {
-		NBTTagCompound data = this.quomData.remove(key);
+	public NBTTagCompound removeData(String key) {
+		NBTTagCompound data = this.magicData.remove(key);
 		this.syncEntity();
 		return data;
 	}

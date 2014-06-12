@@ -28,7 +28,8 @@ public class TileEntityBinder extends TileEntityManusPowered {
 	
 	public void setBinderType(EnumBinderType type) {
 		this.binderType = type;
-		this.name = this.binderType.toString() + " Binder";
+		this.setName(this.binderType.toString() + " Binder");
+		
 	}
 	
 	public boolean canModifyBindingTank() {

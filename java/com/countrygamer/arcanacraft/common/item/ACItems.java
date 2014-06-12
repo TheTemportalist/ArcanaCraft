@@ -23,10 +23,12 @@ public class ACItems implements PluginItemRegistry {
 	public static Item focusAdvanced;
 	public static Item stave;
 	
+	public static Item charm;
+	public static Item inventorySack;
+	
 	@Override
 	public void registerItems() {
-		ACItems.embroideredBook = new ItemEmbroideredBook(ArcanaCraft.pluginID,
-				"Embroidered Book");
+		ACItems.embroideredBook = new ItemEmbroideredBook(ArcanaCraft.pluginID, "Embroidered Book");
 		Core.addItemToTab(ACItems.embroideredBook);
 		
 		ACItems.arcana = new ItemArcana(ArcanaCraft.pluginID, "The Arcana");
@@ -41,30 +43,32 @@ public class ACItems implements PluginItemRegistry {
 		ACItems.stave = new ItemBase(ArcanaCraft.pluginID, "Stave");
 		Core.addItemToTab(ACItems.stave);
 		
+		CharmRegister.INSTANCE.registerObjects();
+		ACItems.charm = new ItemCharm(ArcanaCraft.pluginID, "Charm");
+		Core.addItemToTab(ACItems.charm);
+		
+		ACItems.inventorySack = new ItemInventorySack(ArcanaCraft.pluginID, "Player Sack");
+		Core.addItemToTab(ACItems.inventorySack);
+		
 	}
 	
 	public void registerItemsPostBlock() {
-		ACItems.enchantedFluxBucket = new ItemEnchantedFluxBucket(
-				ArcanaCraft.pluginID, ACBlocks.enchantedFluxBlock);
-		GameRegistry.registerItem(ACItems.enchantedFluxBucket,
-				"Enchanted Flux Bucket");
-		FluidContainerRegistry.registerFluidContainer(
-				FluidRegistry.getFluidStack("Enchanted Flux".toLowerCase(),
-						FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(
-						ACItems.enchantedFluxBucket), new ItemStack(Items.bucket));
-		ArcanaCraft.buckets.put(ACBlocks.enchantedFluxBlock,
-				ACItems.enchantedFluxBucket);
+		ACItems.enchantedFluxBucket = new ItemEnchantedFluxBucket(ArcanaCraft.pluginID,
+				ACBlocks.enchantedFluxBlock);
+		GameRegistry.registerItem(ACItems.enchantedFluxBucket, "Enchanted Flux Bucket");
+		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(
+				"Enchanted Flux".toLowerCase(), FluidContainerRegistry.BUCKET_VOLUME),
+				new ItemStack(ACItems.enchantedFluxBucket), new ItemStack(Items.bucket));
+		ArcanaCraft.buckets.put(ACBlocks.enchantedFluxBlock, ACItems.enchantedFluxBucket);
 		Core.addItemToTab(ACItems.enchantedFluxBucket);
 		
 	}
 	
 	@Override
 	public void registerItemCraftingRecipes() {
-		GameRegistry.addRecipe(new ItemStack(ACItems.embroideredBook, 1, 0),
-				new Object[] {
-						"glg", "ppp", "glg", 'g', Items.gold_nugget, 'l',
-						Items.leather, 'p', Items.paper
-				});
+		GameRegistry.addRecipe(new ItemStack(ACItems.embroideredBook, 1, 0), new Object[] {
+				"glg", "ppp", "glg", 'g', Items.gold_nugget, 'l', Items.leather, 'p', Items.paper
+		});
 		
 	}
 	

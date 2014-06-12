@@ -25,15 +25,15 @@ public class QuomQuell extends Quom {
 	@Override
 	public void onRightClick(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,
 			Cast castTier) {
-		NBTTagCompound quomData = arcanePlayer.getQuomData(QuomQuell.dataKey);
+		NBTTagCompound quomData = arcanePlayer.getData("Quom_" + QuomQuell.dataKey);
 		boolean isSuppressing = quomData != null ? quomData.getBoolean("isActive") : false;
 		if (isSuppressing) {
-			arcanePlayer.removeQuomData(QuomQuell.dataKey);
+			arcanePlayer.removeData("Quom_" + QuomQuell.dataKey);
 		}
 		else {
 			NBTTagCompound data = new NBTTagCompound();
 			data.setBoolean("isActive", true);
-			arcanePlayer.addQuomData(QuomQuell.dataKey, data);
+			arcanePlayer.addData("Quom_" + QuomQuell.dataKey, data);
 		}
 		// NOTE: The actual suppressing of liquids is performed in the playerTick in
 		// ArcanaCraft.java

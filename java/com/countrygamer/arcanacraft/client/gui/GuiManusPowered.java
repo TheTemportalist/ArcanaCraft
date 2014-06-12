@@ -13,6 +13,7 @@ import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.countrygamercore.Base.Plugin.extended.ExtendedEntity;
 import com.countrygamer.countrygamercore.Base.client.gui.GuiContainerBase;
 import com.countrygamer.countrygamercore.Base.common.inventory.ContainerBase;
+import com.countrygamer.countrygamercore.Base.common.tile.TileEntityTankBase;
 
 public class GuiManusPowered extends GuiContainerBase {
 	
@@ -54,7 +55,7 @@ public class GuiManusPowered extends GuiContainerBase {
 		int powerPosX = this.guiLeft + this.powerGuiX;
 		int powerPosY = this.guiTop + this.powerGuiY;
 		
-		FluidStack storedFluid = this.getTileEntity().getFluidStack();
+		FluidStack storedFluid = ((TileEntityTankBase) this.getTileEntity()).getFluidStack();
 		if (storedFluid != null && storedFluid.getFluid().getStillIcon() != null) {
 			IIcon renderIndex = storedFluid.getFluid().getStillIcon();
 			
