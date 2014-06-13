@@ -81,7 +81,7 @@ public class ComponentPageQuomi extends ComponentPage {
 	}
 	
 	@Override
-	public void drawBackground() {
+	public void drawBackground(int mouseX, int mouseY, float renderPartialTicks) {
 		int[] coords = this.quomSlots[0].getCoords();
 		int x = coords[0];
 		int y = coords[1];

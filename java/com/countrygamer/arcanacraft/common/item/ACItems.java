@@ -1,5 +1,6 @@
 package com.countrygamer.arcanacraft.common.item;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -69,6 +70,8 @@ public class ACItems implements PluginItemRegistry {
 		GameRegistry.addRecipe(new ItemStack(ACItems.embroideredBook, 1, 0), new Object[] {
 				"glg", "ppp", "glg", 'g', Items.gold_nugget, 'l', Items.leather, 'p', Items.paper
 		});
+		GameRegistry.addRecipe(new ItemStack(ACItems.inventorySack), "s s", "wcw", "www", 's',
+				Items.string, 'w', Blocks.wool, 'c', Blocks.chest);
 		
 	}
 	

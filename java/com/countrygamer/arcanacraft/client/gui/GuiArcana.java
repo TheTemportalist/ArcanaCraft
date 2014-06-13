@@ -36,7 +36,7 @@ public class GuiArcana extends GuiScreenBase {
 			this.currPage = this.arcanePlayer.getCurrentArcanaPage();
 		}
 		
-		//this.arcanePlayer.printQuoms();
+		// this.arcanePlayer.printQuoms();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -83,7 +83,7 @@ public class GuiArcana extends GuiScreenBase {
 			}
 			
 			@Override
-			public void drawBackground() {
+			public void drawBackground(int mouseX, int mouseY, float renderPartialTicks) {
 				
 			}
 			
@@ -91,27 +91,7 @@ public class GuiArcana extends GuiScreenBase {
 		
 		this.pages.put("Quomi", new ComponentPageQuomi(a, b, c, d, e, this.arcanePlayer));
 		
-		this.pages.put("Skill Tree", new ComponentPage(a, b, c, d, e) {
-			
-			@Override
-			public void init() {
-				
-			}
-			
-			@Override
-			public void drawForeground() {
-				String title = "Quom Skill Tree";
-				mc.fontRenderer.drawString(title, this.guiLeft + (this.xSize / 2)
-						- (mc.fontRenderer.getStringWidth(title) / 2), this.guiTop + 5,
-						this.grayColor);
-			}
-			
-			@Override
-			public void drawBackground() {
-				
-			}
-			
-		});
+		this.pages.put("Skill Tree", new ComponentPageTree(a, b, c, d, e));
 		
 	}
 	
@@ -147,10 +127,15 @@ public class GuiArcana extends GuiScreenBase {
 		}
 	}
 	
-	protected void backgroundObjects() {
+	@Override
+	protected void drawGuiContainerBackgroundLayer(float renderPartialTicks, int i, int j) {
+		super.drawGuiContainerBackgroundLayer(renderPartialTicks, i, j);
 		if (this.pages.containsKey(this.currPage)) {
-			this.pages.get(this.currPage).drawBackground();
+			this.pages.get(this.currPage).drawBackground(i, j, renderPartialTicks);
 		}
+	}
+	
+	protected void backgroundObjects() {
 	}
 	
 	public void addHoverInfomation(int mouseX, int mouseY, List<String> hoverInfo) {
@@ -169,6 +154,5 @@ public class GuiArcana extends GuiScreenBase {
 			
 		}
 	}
-	
 	
 }

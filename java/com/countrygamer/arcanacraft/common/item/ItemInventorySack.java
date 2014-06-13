@@ -1,24 +1,32 @@
 package com.countrygamer.arcanacraft.common.item;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 
 import com.countrygamer.arcanacraft.common.ACOptions;
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.inventory.InventorySack;
 import com.countrygamer.countrygamercore.Base.common.inventory.ContainerBase;
-import com.countrygamer.countrygamercore.Base.common.item.ItemBase;
 import com.countrygamer.countrygamercore.Base.common.item.ItemInvBase;
 import com.countrygamer.countrygamercore.lib.CoreUtil;
 
-public class ItemInventorySack extends ItemBase {
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
+public class ItemInventorySack extends ItemInvBase {
 	
 	public static String sackName = "sackName";
 	
@@ -36,6 +44,7 @@ public class ItemInventorySack extends ItemBase {
 	@Override
 	public void onUpdate(ItemStack itemstack, World world, Entity entity, int par4,
 			boolean isCurrentItem) {
+		super.onUpdate(itemstack, world, entity, par4, isCurrentItem);
 		if (!world.isRemote && entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
 			if (player.openContainer != null && player.openContainer instanceof ContainerBase
@@ -48,14 +57,6 @@ public class ItemInventorySack extends ItemBase {
 	
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
-		// Open inventory without sneaking
-		// if Sneaking
-		/*
-			Try to swap with player inv
-			Try to swap with connected chest
-			
-		 */
-		
 		if (!player.isSneaking()) {
 			player.openGui(ArcanaCraft.instance, ACOptions.sackGui, world, (int) player.posX,
 					(int) player.posY, (int) player.posZ);
@@ -78,7 +79,8 @@ public class ItemInventorySack extends ItemBase {
 				TileEntity tileEntity = world.getTileEntity(x, y, z);
 				if (tileEntity != null && tileEntity instanceof TileEntityChest) {
 					
-					this.swapInventory(itemStack, invSack, (TileEntityChest) tileEntity, 0);
+					this.swapInventory(itemStack, invSack, (TileEntityChest) tileEntity, 9, 0);
+					this.spawnSwapParticles(player.worldObj, x + 0.5, y - 0.75, z + 0.5, 1, 1);
 					
 				}
 				else {
@@ -89,7 +91,10 @@ public class ItemInventorySack extends ItemBase {
 				// Swap with player
 				InventoryPlayer invPlayer = player.inventory;
 				
-				this.swapInventory(itemStack, invSack, invPlayer, 4);
+				this.swapInventory(itemStack, invSack, invPlayer, 0, 4);
+				if (player.worldObj.isRemote)
+					this.spawnSwapParticles(player.worldObj, player.posX, player.posY - 2,
+							player.posZ, player.width, player.height);
 				
 			}
 		}
@@ -97,22 +102,37 @@ public class ItemInventorySack extends ItemBase {
 		return itemStack;
 	}
 	
-	private void swapInventory(ItemStack itemStack, InventorySack inv, IInventory thatInventory,
-			int thatExtraSlots) {
-		int idOffset = inv.getSizeInventory() - (thatInventory.getSizeInventory() - thatExtraSlots);
+	private void swapInventory(ItemStack itemStack, InventorySack invSack,
+			IInventory thatInventory, int primaryOffset, int thatExtraSlots) {
 		for (int i = 0; i < thatInventory.getSizeInventory() - thatExtraSlots; i++) {
-			// System.out.println();
-			ItemStack thatStack = thatInventory.getStackInSlot(i);
-			boolean valid = thatStack == null ? true : inv.isItemValidForSlot(i + idOffset,
-					thatStack);
-			if (valid) {
-				thatInventory.setInventorySlotContents(i, inv.getStackInSlot(i + idOffset));
-				inv.setInventorySlotContents(i + idOffset, thatStack);
-				// System.out.println("Writing for loop slot " + i);
-				inv.writeToNBT(itemStack.getTagCompound().getCompoundTag(
-						ItemInvBase.inventoryDataKey));
+			if ((i + primaryOffset) < invSack.getSizeInventory()) {
+				ItemStack thatStack = thatInventory.getStackInSlot(i);
+				if (thatStack == null || invSack.isItemValidForSlot((i + primaryOffset), thatStack)) {
+					
+					thatInventory.setInventorySlotContents(i,
+							invSack.getStackInSlot((i + primaryOffset)));
+					invSack.setInventorySlotContents((i + primaryOffset), thatStack);
+				}
 			}
 		}
+		invSack.writeToNBT(itemStack.getTagCompound().getCompoundTag(ItemInvBase.inventoryDataKey));
+		
+	}
+	
+	private void spawnSwapParticles(World world, double x, double y, double z, double w, double h) {
+		Random random = new Random();
+		
+		for (int i = 0; i < 128; i++) {
+			float velX = (random.nextFloat() - 0.5F) * 0.2F;
+			float velY = (random.nextFloat() - 0.5F) * 0.2F;
+			float velZ = (random.nextFloat() - 0.5F) * 0.2F;
+			double x1 = x + (random.nextDouble() - 0.5D) * w * 2.0D;
+			double y1 = y + random.nextDouble() * h;
+			double z1 = z + (random.nextDouble() - 0.5D) * w * 2.0D;
+			
+			world.spawnParticle("portal", x1, y1, z1, velX, velY, velZ);
+		}
+		
 	}
 	
 	@Override
@@ -125,7 +145,7 @@ public class ItemInventorySack extends ItemBase {
 						: new NBTTagCompound();
 				NBTTagCompound genericData = tagCom.getCompoundTag(ItemInvBase.basicDataKey);
 				
-				NBTTagCompound chestTag = new NBTTagCompound();
+				NBTTagCompound chestTag = genericData.getCompoundTag("chest");
 				
 				if (!chestTag.getBoolean("hasLink")) {
 					chestTag.setBoolean("hasLink", true);
@@ -141,7 +161,14 @@ public class ItemInventorySack extends ItemBase {
 							+ z);
 				}
 				else {
-					this.removeLink(player, itemStack);
+					if (x == chestTag.getInteger("x") && y == chestTag.getInteger("y")
+							&& z == chestTag.getInteger("z")) {
+						this.removeLink(player, itemStack);
+					}
+					else {
+						CoreUtil.sendMessageToPlayer(player,
+								"Cannot link until the old link is removed.");
+					}
 				}
 				return true;
 			}
@@ -154,5 +181,44 @@ public class ItemInventorySack extends ItemBase {
 		CoreUtil.sendMessageToPlayer(player, "Removed link to chest");
 	}
 	
+	@SuppressWarnings({
+			"rawtypes", "unchecked"
+	})
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean par4) {
+		super.addInformation(itemStack, player, list, par4);
+		if (itemStack.hasTagCompound())
+			list.add(1, itemStack.getTagCompound().getCompoundTag(ItemInvBase.basicDataKey)
+					.getString(ItemInventorySack.sackName));
+		
+	}
 	
+	@SuppressWarnings({
+			"rawtypes", "unchecked"
+	})
+	@SideOnly(Side.CLIENT)
+	@Override
+	public List addInformationWithShift(ItemStack itemStack, EntityPlayer player, List list,
+			boolean par4) {
+		if (itemStack.hasTagCompound()) {
+			NBTTagList stacks = itemStack.getTagCompound()
+					.getCompoundTag(ItemInvBase.inventoryDataKey).getTagList("Stacks", 10);
+			List<ItemStack> inventory = new ArrayList<ItemStack>();
+			for (int index = 0; index < stacks.tagCount(); index++) {
+				NBTTagCompound stackTag = stacks.getCompoundTagAt(index);
+				int slot = stackTag.getInteger("Slot");
+				if (slot >= inventory.size()) {
+					inventory.add(ItemStack.loadItemStackFromNBT(stackTag));
+				}
+				else {
+					inventory.add(slot, ItemStack.loadItemStackFromNBT(stackTag));
+				}
+			}
+			for (final ItemStack stack : inventory) {
+				list.add(EnumChatFormatting.DARK_GREEN + "   " + stack.getDisplayName());
+			}
+		}
+		return list;
+	}
 }

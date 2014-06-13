@@ -2,6 +2,7 @@ package com.countrygamer.arcanacraft.common.inventory;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 
 import com.countrygamer.countrygamercore.Base.common.inventory.ContainerBase;
 
@@ -34,5 +35,11 @@ public class ContainerSack extends ContainerBase {
 			this.player.inventory.currentItem
 		});
 	}
+	
+	@Override
+	protected int getSlotIDForItemStack(ItemStack stackToProcess) {
+		return 0;
+	}
+	
 	
 }

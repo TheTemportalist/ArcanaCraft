@@ -16,9 +16,10 @@ public abstract class ComponentPage {
 	
 	public abstract void drawForeground();
 	
-	public abstract void drawBackground();
+	public abstract void drawBackground(int mouseX, int mouseY, float renderPartialTicks);
 	
 	public void onMouseClick(int x, int y, int mouseButton) {
 	}
+	
 	
 }
