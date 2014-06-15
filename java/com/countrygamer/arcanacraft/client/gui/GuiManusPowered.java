@@ -102,5 +102,11 @@ public class GuiManusPowered extends GuiContainerBase {
 				par3Icon.getMinV()); // Top left
 		tessellator.draw();
 	}
+
+	
+	@Override
+	protected void buttonPress(int id) {
+		
+	}
 	
 }

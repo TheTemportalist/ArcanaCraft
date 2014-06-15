@@ -67,4 +67,9 @@ public class GuiSack extends GuiContainerBase {
 	protected void addHoverInfomation(int mouseX, int mouseY, List<String> hoverInfo) {
 	}
 	
+	@Override
+	protected void buttonPress(int id) {
+		
+	}
+	
 }

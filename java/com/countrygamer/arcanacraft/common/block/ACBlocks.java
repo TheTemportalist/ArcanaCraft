@@ -7,6 +7,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
+import com.countrygamer.arcanacraft.common.tile.TileEntityActuator;
 import com.countrygamer.arcanacraft.common.tile.TileEntityAugmentedTank;
 import com.countrygamer.arcanacraft.common.tile.TileEntityBinder;
 import com.countrygamer.arcanacraft.common.tile.TileEntityDeriver;
@@ -35,6 +36,7 @@ public class ACBlocks implements PluginBlockRegistry {
 	public static Block falseAir;
 	
 	public static Block deriver;
+	public static Block actuator;
 	
 	@Override
 	public void registryTileEntities() {
@@ -47,6 +49,9 @@ public class ACBlocks implements PluginBlockRegistry {
 		GameRegistry.registerTileEntity(TileEntityBinder.class, ArcanaCraft.pluginID + "_Binder");
 		
 		GameRegistry.registerTileEntity(TileEntityDeriver.class, ArcanaCraft.pluginID + "_Deriver");
+		
+		GameRegistry.registerTileEntity(TileEntityActuator.class, ArcanaCraft.pluginID
+				+ "_Actuator");
 		
 	}
 	
@@ -97,8 +102,13 @@ public class ACBlocks implements PluginBlockRegistry {
 		// ACBlocks.falseAir = new BlockFalseAir(Material.cloth, ArcanaCraft.pluginID, "False Air",
 		// TileEntityFalseAir.class);
 		
-		ACBlocks.deriver = new BlockDeriver(Material.ground, ArcanaCraft.pluginID, "Deriver", TileEntityDeriver.class);
+		ACBlocks.deriver = new BlockDeriver(Material.ground, ArcanaCraft.pluginID, "Deriver",
+				TileEntityDeriver.class);
 		Core.addBlockToTab(ACBlocks.deriver);
+		
+		ACBlocks.actuator = new BlockActuator(Material.ground, ArcanaCraft.pluginID, "Actuator",
+				TileEntityActuator.class);
+		Core.addBlockToTab(ACBlocks.actuator);
 		
 	}
 	
