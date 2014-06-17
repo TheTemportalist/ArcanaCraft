@@ -12,7 +12,9 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import com.countrygamer.arcanacraft.common.ACOptions;
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
+import com.countrygamer.arcanacraft.common.tile.TileEntityActuator;
 import com.countrygamer.countrygamercore.Base.common.block.BlockContainerBase;
+import com.countrygamer.countrygamercore.client.BlockCamouflageRender;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -46,29 +48,6 @@ public class BlockActuator extends BlockContainerBase {
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player,
 			int side, float x1, float y1, float z1) {
-		/*
-		TileEntity tileEntity = world.getTileEntity(x, y, z);
-		if (tileEntity != null && tileEntity instanceof TileEntityActuator) {
-			TileEntityActuator actuatorTE = (TileEntityActuator) tileEntity;
-			if (actuatorTE.getStackInSlot(0) == null) {
-				if (player.getHeldItem() != null) {
-					actuatorTE.setInventorySlotContents(0,
-							player.inventory.decrStackSize(player.inventory.currentItem, 1).copy());
-					return true;
-				}
-			}
-			else {
-				if (player.isSneaking()) {
-					UtilDrops.spawnItemStack(world, player.posX, player.posY, player.posZ,
-							actuatorTE.decrStackSize(0, 1), new Random());
-				}
-				else {
-					actuatorTE.rightClick();
-				}
-				return true;
-			}
-		}
-		 */
 		if (!player.isSneaking()) {
 			player.openGui(ArcanaCraft.instance, ACOptions.actuatorGui, world, x, y, z);
 			return true;
@@ -92,6 +71,18 @@ public class BlockActuator extends BlockContainerBase {
 								.getOpposite().ordinal(), 3);
 			}
 		}
+		TileEntity tileEntity = world.getTileEntity(x, y, z);
+		if (tileEntity != null && tileEntity instanceof TileEntityActuator
+				&& itemStack.hasTagCompound() && itemStack.getTagCompound().getBoolean("hasStats")) {
+			TileEntityActuator actuatorTE = (TileEntityActuator) tileEntity;
+			actuatorTE.readInventoryFromNBT(itemStack.getTagCompound().getCompoundTag("stats"));
+			actuatorTE.readStatsFromNBT(itemStack.getTagCompound().getCompoundTag("stats"));
+		}
+	}
+	
+	@Override
+	public int getRenderType() {
+		return BlockCamouflageRender.RENDER_ID;
 	}
 	
 }

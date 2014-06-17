@@ -91,7 +91,7 @@ public class GuiArcana extends GuiScreenBase {
 		
 		this.pages.put("Quomi", new ComponentPageQuomi(a, b, c, d, e, this.arcanePlayer));
 		
-		this.pages.put("Skill Tree", new ComponentPageTree(a, b, c, d, e));
+		this.pages.put("Skill Tree", new ComponentTree(a, b, c, d, e));
 		
 	}
 	
@@ -99,6 +99,14 @@ public class GuiArcana extends GuiScreenBase {
 		for (String pageKey : this.pages.keySet()) {
 			this.pages.get(pageKey).init();
 		}
+	}
+	
+	@Override
+	public void updateScreen() {
+		super.updateScreen();
+		
+		this.pages.get(this.currPage).update();
+		
 	}
 	
 	@Override

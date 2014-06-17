@@ -13,6 +13,7 @@ import com.countrygamer.arcanacraft.client.gui.GuiActuator;
 import com.countrygamer.arcanacraft.client.gui.GuiArcana;
 import com.countrygamer.arcanacraft.client.gui.GuiBinder;
 import com.countrygamer.arcanacraft.client.gui.GuiSack;
+import com.countrygamer.arcanacraft.client.gui.GuiTree;
 import com.countrygamer.arcanacraft.client.render.ItemATRenderer;
 import com.countrygamer.arcanacraft.client.render.ItemBinderRenderer;
 import com.countrygamer.arcanacraft.client.render.TileEntityATRenderer;
@@ -64,6 +65,9 @@ public class ClientProxy extends CommonProxy {
 		}
 		else if (ID == ACOptions.sackGui) {
 			return new GuiSack(player, new InventorySack(player.getHeldItem()));
+		}
+		else if (ID == ACOptions.filterGui) {
+			return new GuiTree();
 		}
 		else if (tileEntity != null) {
 			if (tileEntity instanceof TileEntityBinder && ID == ACOptions.binderGui) {

@@ -9,6 +9,7 @@ import net.minecraftforge.fluids.FluidStack;
 import com.countrygamer.arcanacraft.common.block.ACBlocks;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
+import com.countrygamer.arcanacraft.common.tile.TileEntityActuator;
 import com.countrygamer.countrygamercore.Base.common.block.BlockBase;
 import com.countrygamer.countrygamercore.Base.common.tile.TileEntityTankBase;
 import com.countrygamer.countrygamercore.lib.CoreUtil;
@@ -26,6 +27,9 @@ public class QuomData extends Quom {
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		
 		if (player.isSneaking() && block instanceof BlockBase) {
+			if (tileEntity instanceof TileEntityActuator) {
+				((TileEntityActuator)tileEntity).shouldDropStats = true;
+			}
 			world.setBlockToAir(x, y, z);
 			return true;
 		}

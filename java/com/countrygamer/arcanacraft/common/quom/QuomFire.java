@@ -16,8 +16,8 @@ import com.countrygamer.countrygamercore.lib.UtilCursor;
 
 public class QuomFire extends Quom {
 	
-	public QuomFire(String name, Quom parent) {
-		super(name, parent);
+	public QuomFire(String name, Quom parent, int col, int row) {
+		super(name, parent, col, row);
 	}
 	
 	@Override

@@ -1,16 +1,15 @@
 package com.countrygamer.arcanacraft.client.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
+import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.quom.QuomRegistry;
 
 import cpw.mods.fml.relauncher.Side;
@@ -30,7 +29,9 @@ public class ComponentPageTree extends ComponentPage {
 	int boxOffsetX = 0, boxOffsetY = 0;
 	int shownBoxX, shownBoxY;
 	
-	List<GuiButtonInquiry> inquires = new ArrayList<GuiButtonInquiry>();
+	protected double mainParentX, mainParentY;
+	
+	// List<GuiButtonInquiry> inquires = new ArrayList<GuiButtonInquiry>();
 	
 	public ComponentPageTree(int guiLeft, int xSize, int guiTop, int ySize, int grayColor) {
 		super(guiLeft, xSize, guiTop, ySize, grayColor);
@@ -45,7 +46,8 @@ public class ComponentPageTree extends ComponentPage {
 		this.shownBoxX = 88;
 		this.shownBoxY = 88;
 		
-		this.inquires.clear();
+		/*
+		//this.inquires.clear();
 		int baseX = this.boxX + 10;
 		int baseY = this.boxY + 10;
 		int x = baseX - 30;
@@ -56,8 +58,12 @@ public class ComponentPageTree extends ComponentPage {
 				y += 30;
 				x = baseX - 30;
 			}
-			this.inquires.add(new GuiButtonInquiry(0, x, y, 1, QuomRegistry.quomRegistry.get(i)));
+			//this.inquires.add(new GuiButtonInquiry(0, x, y, 1, QuomRegistry.quomRegistry.get(i)));
 		}
+		 */
+		
+		this.mainParentX = this.boxX + QuomRegistry.quomRegistry.get(0).displayColumn * 24 + 10;
+		this.mainParentY = this.boxY + QuomRegistry.quomRegistry.get(0).displayRow * 24 + 10;
 		
 	}
 	
@@ -117,24 +123,27 @@ public class ComponentPageTree extends ComponentPage {
 		GL11.glScalef(0.5F, 0.5F, 1.0F);
 		GL11.glPopMatrix();
 		
-		for (int i = 0; i < this.inquires.size(); ++i) {
-			GuiButtonInquiry inqu = ((GuiButtonInquiry) this.inquires.get(i));
+		int unknownX = MathHelper.floor_double(this.mainParentX + (this.boxX - this.mainParentX)
+				* renderPartialTicks);
+		int unknownY = MathHelper.floor_double(this.mainParentY + (this.boxY - this.mainParentY)
+				* renderPartialTicks);
+		
+		for (int i = 0; i < QuomRegistry.quomRegistry.size(); i++) {
+			Quom quom = QuomRegistry.quomRegistry.get(i);
 			
-			boolean min = (inqu.xPosition + 26 > this.boxX + offsetX)
-					&& (inqu.yPosition + 26 > this.boxY + offsetY);
-			boolean max = (inqu.xPosition + 26 < this.boxX + offsetX + (this.shownBoxX * 2))
-					&& (inqu.yPosition + 26 < this.boxY + offsetY + (this.shownBoxY * 2));
-			if (min && max) {
-				// System.out.println("Should draw");
-				
-				int uOffset = 0;
-				int vOffset = 0;
-				int wOffset = 0;
-				int hOffset = 0;
-				inqu.drawButtonWithOffsets(mc, mouseX, mouseY, -offsetX, -offsetY, uOffset,
-						vOffset, wOffset, hOffset);
-				
+			int inquiryOffsetX = quom.displayColumn * 24 - unknownX;
+			int inquiryOffsetY = quom.displayRow * 24 - unknownY;
+			
+			if (inquiryOffsetX < -24 || inquiryOffsetY < -24 || inquiryOffsetX > 224
+					|| inquiryOffsetY > 196) {
+				continue;
 			}
+			
+			int inquiryX = this.guiLeft + inquiryOffsetX;
+			int inquiryY = this.guiTop + inquiryOffsetY;
+			
+			System.out.println(inquiryX);
+			quom.draw(mc, gui, inquiryX, inquiryY);
 			
 		}
 		
@@ -146,10 +155,8 @@ public class ComponentPageTree extends ComponentPage {
 	
 	@Override
 	public void onMouseClick(int x, int y, int mouseButton) {
-		//boolean buttonUsed = false;
-		for (int i = 0; i < this.inquires.size(); i++) {
-			
-		}
+		// boolean buttonUsed = false;
+		
 		if (mouseButton == 0 && this.isInBox(x, y)) {
 			this.isMoving = true;
 			this.originalMousePosX = x;

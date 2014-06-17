@@ -19,13 +19,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class KeyHandler {
 	
-	private static final ArrayList<String>	descriptions	= new ArrayList<String>();
+	private static final ArrayList<String> descriptions = new ArrayList<String>();
 	
-	private static final int[]				keyValues		= {
+	private static final int[] keyValues = {
 			Keyboard.KEY_P, Keyboard.KEY_COMMA, Keyboard.KEY_PERIOD
-															};
+	};
 	
-	private final KeyBinding[]				keys;
+	private final KeyBinding[] keys;
 	
 	public KeyHandler() {
 		descriptions.add("key.cast.desc");
@@ -52,20 +52,21 @@ public class KeyHandler {
 		
 		if (cast.isPressed()) {
 			// System.out.println("Press Key");
-			//PacketCastQuom packet = new PacketCastQuom();
-			//ArcanaCraft.instance.packetChannel.sendToServer(packet);
+			// PacketCastQuom packet = new PacketCastQuom();
+			// ArcanaCraft.instance.packetChannel.sendToServer(packet);
+			PacketHandler.sendToAll(ArcanaCraft.pluginID, new MessageCastQuom());
 			PacketHandler.sendToServer(ArcanaCraft.pluginID, new MessageCastQuom());
 		}
 		
 		if (lastQuom.isPressed()) {
-			//PacketSelectQuom packet = new PacketSelectQuom(false);
-			//ArcanaCraft.instance.packetChannel.sendToServer(packet);
+			// PacketSelectQuom packet = new PacketSelectQuom(false);
+			// ArcanaCraft.instance.packetChannel.sendToServer(packet);
 			PacketHandler.sendToServer(ArcanaCraft.pluginID, new MessageSelectQuom(false));
 		}
 		
 		if (nextQuom.isPressed()) {
-			//PacketSelectQuom packet = new PacketSelectQuom(true);
-			//ArcanaCraft.instance.packetChannel.sendToServer(packet);
+			// PacketSelectQuom packet = new PacketSelectQuom(true);
+			// ArcanaCraft.instance.packetChannel.sendToServer(packet);
 			PacketHandler.sendToServer(ArcanaCraft.pluginID, new MessageSelectQuom(true));
 		}
 		

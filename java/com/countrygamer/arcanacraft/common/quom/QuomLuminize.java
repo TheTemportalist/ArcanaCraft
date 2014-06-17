@@ -12,8 +12,8 @@ import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
 
 public class QuomLuminize extends Quom {
 	
-	public QuomLuminize(String name, Quom parent) {
-		super(name, parent);
+	public QuomLuminize(String name, Quom parent, int col, int row) {
+		super(name, parent, col, row);
 	}
 	
 	public boolean canDiscover_Craft(ExtendedArcanePlayer arcanePlayer, ItemStack itemStack) {
@@ -54,7 +54,7 @@ public class QuomLuminize extends Quom {
 		else
 			blockText = "that block";
 		
-		int lightValue = world.getBlockLightValue(x1, y1, z1);
+		int lightValue = world.getFullBlockLightValue(x1, y1, z1);
 		if (!world.isRemote)
 			player.addChatMessage(new ChatComponentText("The light level of " + blockText + " is "
 					+ lightValue));
@@ -65,7 +65,7 @@ public class QuomLuminize extends Quom {
 	public void onRightClick(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,
 			Cast castTier) {
 		if (player.isSneaking()) {
-			int lightValue = world.getBlockLightValue((int) Math.floor(player.posX),
+			int lightValue = world.getFullBlockLightValue((int) Math.floor(player.posX),
 					(int) Math.floor(player.posY + 1), (int) Math.floor(player.posZ));
 			String blockText = "the space above the block you are standing on";
 			if (!world.isRemote)

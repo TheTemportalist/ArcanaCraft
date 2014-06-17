@@ -17,8 +17,8 @@ import com.countrygamer.arcanacraft.common.recipes.EnumBinderType;
 
 public class QuomBind extends Quom {
 	
-	public QuomBind(String name, Quom parent) {
-		super(name, parent);
+	public QuomBind(String name, Quom parent, int col, int row) {
+		super(name, parent, col, row);
 	}
 	
 	@Override

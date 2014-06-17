@@ -24,15 +24,40 @@ public abstract class Quom {
 	private int id;
 	private ResourceLocation iconSource;
 	
+	public final int displayColumn, displayRow;
+	
 	public Quom(String name) {
 		this(name, null);
 	}
 	
 	public Quom(String name, Quom parent) {
+		this(name, parent, 0, 0);
+	}
+	
+	public Quom(String name, Quom parent, int col, int row) {
 		this.name = name;
 		this.parentName = parent == null ? "" : parent.getName();
 		this.iconSource = new ResourceLocation(ArcanaCraft.pluginID, "textures/quoms/" + this.name
 				+ ".png");
+		
+		this.displayColumn = col;
+		this.displayRow = row;
+		
+		if (this.displayColumn < QuomRegistry.minDisplayColumn) {
+			QuomRegistry.minDisplayColumn = this.displayColumn;
+		}
+		
+		if (this.displayRow < QuomRegistry.minDisplayRow) {
+			QuomRegistry.minDisplayRow = this.displayRow;
+		}
+		
+		if (this.displayColumn > QuomRegistry.maxDisplayColumn) {
+			QuomRegistry.maxDisplayColumn = this.displayColumn;
+		}
+		
+		if (this.displayRow > QuomRegistry.maxDisplayRow) {
+			QuomRegistry.maxDisplayRow = this.displayRow;
+		}
 		
 		this.id = QuomRegistry.quomRegistry.size();
 		QuomRegistry.registerQuom(this);

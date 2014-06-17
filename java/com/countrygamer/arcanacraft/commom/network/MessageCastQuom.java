@@ -26,10 +26,15 @@ public class MessageCastQuom extends AbstractMessage {
 	
 	@Override
 	public void handleOnClient(EntityPlayer player) {
+		this.handle(player);
 	}
 	
 	@Override
 	public void handleOnServer(EntityPlayer player) {
+		this.handle(player);
+	}
+	
+	public void handle(EntityPlayer player) {
 		IExtendedEntityProperties props = ExtendedEntity.getExtended(player,
 				ExtendedArcanePlayer.class);
 		// System.out.println(props.getClass().getSimpleName());

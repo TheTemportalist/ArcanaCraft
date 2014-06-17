@@ -13,8 +13,8 @@ import com.countrygamer.countrygamercore.lib.ItemMeta;
 
 public class QuomExtract extends Quom {
 	
-	public QuomExtract(String name) {
-		super(name);
+	public QuomExtract(String name, int col, int row) {
+		super(name, null, col, row);
 	}
 	
 	@Override

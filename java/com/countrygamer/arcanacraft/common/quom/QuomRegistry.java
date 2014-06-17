@@ -10,6 +10,15 @@ public class QuomRegistry {
 	public static final Map<String, Integer> quomKeys = new HashMap<String, Integer>();
 	public static final List<Quom> quomRegistry = new ArrayList<Quom>();
 	
+	/** Is the smallest column used to display a achievement on the GUI. */
+	public static int minDisplayColumn;
+	/** Is the smallest row used to display a achievement on the GUI. */
+	public static int minDisplayRow;
+	/** Is the biggest column used to display a achievement on the GUI. */
+	public static int maxDisplayColumn;
+	/** Is the biggest row used to display a achievement on the GUI. */
+	public static int maxDisplayRow;
+	
 	public static Quom dig;
 	
 	public static Quom lightFire;
@@ -30,24 +39,27 @@ public class QuomRegistry {
 	public static Quom tempest;
 	// public static Quom quell;
 	
+	public static Quom filter;
+	
 	public static Quom manus_Creative;
 	
 	public static void registerQuoms() {
 		
-		QuomRegistry.dig = new QuomDig("Dig");
+		QuomRegistry.dig = new QuomDig("Dig", 0, 0);
 		
-		QuomRegistry.luminize = new QuomLuminize("Luminize", null);
+		QuomRegistry.luminize = new QuomLuminize("Luminize", null, 2, 0);
 		
-		QuomRegistry.extract = new QuomExtract("Rescindo");
+		QuomRegistry.extract = new QuomExtract("Rescindo", 0, 2);
 		
-		QuomRegistry.lightFire = new QuomFire("Light Fire", null);
+		QuomRegistry.lightFire = new QuomFire("Light Fire", null, -2, 0);
 		
-		QuomRegistry.fireBall = new QuomFireBall("Fire Ball", null);
+		QuomRegistry.fireBall = new QuomFireBall("Fire Ball", null, 0, -2);
 		
-		QuomRegistry.furnace = new QuomSmelt("Furnace", null);
+		//QuomRegistry.furnace = new QuomSmelt("Furnace", null);
 		
-		QuomRegistry.bind = new QuomBind("Bind", null);
-		
+		QuomRegistry.bind = new QuomBind("Bind", null, 5, 5);
+
+		/*
 		QuomRegistry.data = new QuomData("Data", null);
 		
 		QuomRegistry.teleport = new QuomTeleport("Teleport", null);
@@ -63,6 +75,9 @@ public class QuomRegistry {
 		QuomRegistry.growth = new QuomGrowth("Growth", null);
 		
 		QuomRegistry.tempest = new QuomTempest("Tempest", null);
+		
+		*/
+		QuomRegistry.filter = new QuomFilter("Filter", null, -3, 2);
 		
 	}
 	

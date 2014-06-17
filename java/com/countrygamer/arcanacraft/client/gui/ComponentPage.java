@@ -21,5 +21,7 @@ public abstract class ComponentPage {
 	public void onMouseClick(int x, int y, int mouseButton) {
 	}
 	
+	public void update() {
+	}
 	
 }

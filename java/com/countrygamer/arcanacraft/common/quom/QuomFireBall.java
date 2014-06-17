@@ -8,8 +8,8 @@ import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
 
 public class QuomFireBall extends Quom {
 	
-	public QuomFireBall(String name, Quom parent) {
-		super(name, parent);
+	public QuomFireBall(String name, Quom parent, int col, int row) {
+		super(name, parent, col, row);
 	}
 
 	@Override

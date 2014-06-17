@@ -5,6 +5,7 @@ import java.util.List;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
+import com.countrygamer.arcanacraft.commom.network.MessageUpdateClick;
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.tile.TileEntityActuator;
 import com.countrygamer.countrygamercore.Base.client.gui.GuiButtonRedstone;
@@ -26,6 +27,7 @@ public class GuiActuator extends GuiContainerBase {
 	
 	GuiButtonRedstone redstoneStateButton;
 	GuiButtonActivity activityButton;
+	GuiButtonMouse mouseButton;
 	
 	public GuiActuator(ContainerBase container) {
 		super(container);
@@ -40,10 +42,12 @@ public class GuiActuator extends GuiContainerBase {
 		
 		TileEntityActuator actuatorTE = (TileEntityActuator) this.getTileEntity();
 		
-		this.buttonList.add(this.redstoneStateButton = new GuiButtonRedstone(0, this.guiLeft + 50,
-				this.guiTop + 29, actuatorTE.getRedstoneState(), true));
-		this.buttonList.add(this.activityButton = new GuiButtonActivity(1, this.guiLeft + 50,
-				this.guiTop + 48, actuatorTE.getActivity()));
+		this.buttonList.add(this.redstoneStateButton = new GuiButtonRedstone(0, this.guiLeft + 118,
+				this.guiTop + 21, actuatorTE.getRedstoneState(), true));
+		this.buttonList.add(this.activityButton = new GuiButtonActivity(1, this.guiLeft + 118,
+				this.guiTop + 39, actuatorTE.getActivity()));
+		this.buttonList.add(this.mouseButton = new GuiButtonMouse(2, this.guiLeft + 100,
+				this.guiTop + 21, actuatorTE.getClickType()));
 		
 	}
 	
@@ -61,8 +65,15 @@ public class GuiActuator extends GuiContainerBase {
 			this.activityButton.nextState();
 			PacketHandler.sendToServer(Core.pluginID, new MessageUpdateActivity(te.xCoord,
 					te.yCoord, te.zCoord, this.activityButton.activity));
-			PacketHandler.sendToAll(Core.pluginID, new MessageUpdateActivity(te.xCoord,
-					te.yCoord, te.zCoord, this.activityButton.activity));
+			PacketHandler.sendToAll(Core.pluginID, new MessageUpdateActivity(te.xCoord, te.yCoord,
+					te.zCoord, this.activityButton.activity));
+		}
+		else if (id == this.mouseButton.id) {
+			this.mouseButton.nextState();
+			PacketHandler.sendToServer(ArcanaCraft.pluginID, new MessageUpdateClick(te.xCoord,
+					te.yCoord, te.zCoord, this.mouseButton.type));
+			PacketHandler.sendToAll(ArcanaCraft.pluginID, new MessageUpdateClick(te.xCoord,
+					te.yCoord, te.zCoord, this.mouseButton.type));
 		}
 		
 	}

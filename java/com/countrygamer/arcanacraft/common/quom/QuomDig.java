@@ -11,8 +11,8 @@ import com.countrygamer.countrygamercore.lib.UtilDrops;
 
 public class QuomDig extends Quom {
 	
-	public QuomDig(String name) {
-		super(name);
+	public QuomDig(String name, int col, int row) {
+		super(name, null, col, row);
 	}
 	
 	@Override
