@@ -13,7 +13,7 @@ import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.countrygamercore.Base.Plugin.extended.ExtendedEntity;
 import com.countrygamer.countrygamercore.Base.client.gui.GuiScreenBase;
-import com.countrygamer.countrygamercore.lib.ResourceHelper;
+import com.countrygamer.countrygamercore.lib.UtilRender;
 
 public class GuiArcana extends GuiScreenBase {
 	
@@ -24,7 +24,7 @@ public class GuiArcana extends GuiScreenBase {
 	private ExtendedArcanePlayer arcanePlayer;
 	
 	public GuiArcana(EntityPlayer player, boolean revertPages) {
-		super("", ResourceHelper.getResource(ArcanaCraft.pluginID, "gui/", "Scroll"));
+		super("", UtilRender.getResource(ArcanaCraft.pluginID, "gui/", "Scroll"));
 		this.xSize = 200;
 		this.ySize = 200;
 		IExtendedEntityProperties props = ExtendedEntity.getExtended(player,
@@ -145,7 +145,7 @@ public class GuiArcana extends GuiScreenBase {
 		}
 	}
 	
-	final ResourceLocation frameBkgd = ResourceHelper.getResource(ArcanaCraft.pluginID, "gui/",
+	final ResourceLocation frameBkgd = UtilRender.getResource(ArcanaCraft.pluginID, "gui/",
 			"Scroll_Frame");
 	
 	@Override

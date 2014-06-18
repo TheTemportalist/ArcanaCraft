@@ -1,8 +1,5 @@
 package com.countrygamer.arcanacraft.client.gui;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
-
 import com.countrygamer.arcanacraft.common.ACOptions;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Quom;
@@ -14,12 +11,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class ComponentPageQuomi extends ComponentPage {
 	
-	Minecraft mc = Minecraft.getMinecraft();
-	Gui g = new Gui();
 	ExtendedArcanePlayer arcanePlayer;
 	final int number_of_slots;
 	
-	public ComponentPageQuomi(GuiScreenBase ownerGui, int a, int b, int c, int d, int e, ExtendedArcanePlayer arcanePlayer) {
+	public ComponentPageQuomi(GuiScreenBase ownerGui, int a, int b, int c, int d, int e,
+			ExtendedArcanePlayer arcanePlayer) {
 		super(ownerGui, a, b, c, d, e);
 		this.arcanePlayer = arcanePlayer;
 		this.number_of_slots = 9 + 1 + arcanePlayer.getLearnedQuoms().length;
@@ -76,9 +72,9 @@ public class ComponentPageQuomi extends ComponentPage {
 	@Override
 	public void drawForeground() {
 		String title = "My Quomi";
-		mc.fontRenderer.drawString(title,
-				this.guiLeft + (this.xSize / 2) - (mc.fontRenderer.getStringWidth(title) / 2),
-				this.guiTop + 5, this.grayColor);
+		this.ownerGui.mc.fontRenderer.drawString(title, this.guiLeft + (this.xSize / 2)
+				- (this.ownerGui.mc.fontRenderer.getStringWidth(title) / 2), this.guiTop + 5,
+				this.grayColor);
 	}
 	
 	@Override
@@ -87,9 +83,9 @@ public class ComponentPageQuomi extends ComponentPage {
 		int x = coords[0];
 		int y = coords[1];
 		for (int i = 0; i < this.quomSlots.length; i++) {
-			if (this.quomSlots[i] != null) this.quomSlots[i].draw();
+			if (this.quomSlots[i] != null) this.quomSlots[i].draw(this.ownerGui);
 		}
-		g.drawTexturedModalRect(x + (this.selected * 18), y, 18, 20, 18, 18);
+		this.ownerGui.drawTexturedModalRect(x + (this.selected * 18), y, 18, 20, 18, 18);
 		
 	}
 	
@@ -123,15 +119,15 @@ public class ComponentPageQuomi extends ComponentPage {
 				boolean validX = x >= coords[0] && x <= coords[0] + 18;
 				boolean validY = y >= coords[1] && y <= coords[1] + 18;
 				if (validX && validY) {
-					//System.out.println("Found clicked slot");
+					// System.out.println("Found clicked slot");
 					quomSlot = this.quomSlots[i];
 					break;
 				}
 			}
 			if (quomSlot != null) {
 				if (quomSlot.getQuom() != null) {
-					//System.out.println("Quom slot " + this.selected + "'s quom set to "
-					//		+ quomSlot.getQuom().getName());
+					// System.out.println("Quom slot " + this.selected + "'s quom set to "
+					// + quomSlot.getQuom().getName());
 					this.quomSlots[this.selected].setQuom(quomSlot.getQuom());
 					hotbar_has_changed = true;
 				}
@@ -139,7 +135,7 @@ public class ComponentPageQuomi extends ComponentPage {
 		}
 		
 		if (hotbar_has_changed) {
-			//System.out.println("Changed Hotbar");
+			// System.out.println("Changed Hotbar");
 			Quom[] hotBar = new Quom[9];
 			for (int i = 0; i < 9; i++) {
 				hotBar[i] = quomSlots[i].getQuom();

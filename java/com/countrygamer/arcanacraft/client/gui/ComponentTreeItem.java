@@ -4,7 +4,7 @@ import com.countrygamer.arcanacraft.common.ACOptions;
 import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.countrygamercore.Base.client.gui.GuiScreenBase;
 import com.countrygamer.countrygamercore.Base.client.gui.widget.Component;
-import com.countrygamer.countrygamercore.lib.ResourceHelper;
+import com.countrygamer.countrygamercore.lib.UtilRender;
 
 public class ComponentTreeItem extends Component {
 	
@@ -17,10 +17,14 @@ public class ComponentTreeItem extends Component {
 	}
 	
 	@Override
-	public void draw(GuiScreenBase gui, int x, int y) {
-		ResourceHelper.bindResource(ACOptions.icons);
-		this.owner.drawTexturedModalRect(x, y, 0, 128, 26, 26);
-		this.quom.draw(this.owner.mc, this.owner, x + 5, y + 5);
+	public void draw(GuiScreenBase gui, int x, int y, int leftOffset, int rightOffset,
+			int topOffset, int bottomOffset) {
+		UtilRender.bindResource(ACOptions.icons);
+		UtilRender.drawTextureWithOffsets(this.owner, x, y, 0, 128, 26, 26, leftOffset,
+				rightOffset, topOffset, bottomOffset);
+		this.quom.draw(this.owner, x + 5, y + 5, leftOffset > 0 ? leftOffset - 5 : 0,
+				rightOffset - 5 > 0 ? rightOffset - 5 : 0, topOffset > 0 ? topOffset - 5 : 0,
+				bottomOffset - 5 > 0 ? bottomOffset - 5 : 0);
 	}
 	
 }

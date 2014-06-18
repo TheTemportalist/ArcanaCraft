@@ -193,7 +193,7 @@ public class GuiTree extends GuiScreenBase {
 				GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 				this.drawTexturedModalRect(i5 - 2, j5 - 2, 0, 202, 26, 26);
 				
-				quom.draw(this.mc, this, i5 - 2 + 5, j5 - 2 + 5);
+				//quom.draw(this.mc, this, i5 - 2 + 5, j5 - 2 + 5);
 			}
 		}
 		

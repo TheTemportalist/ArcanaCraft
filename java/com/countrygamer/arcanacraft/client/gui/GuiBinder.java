@@ -8,9 +8,9 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 
-import com.countrygamer.arcanacraft.commom.network.MessageNewBindingQuom;
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
+import com.countrygamer.arcanacraft.common.network.MessageNewBindingQuom;
 import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.recipes.EnumBinderType;
 import com.countrygamer.arcanacraft.common.tile.TileEntityAugmentedTank;
@@ -197,9 +197,9 @@ public class GuiBinder extends GuiManusPowered {
 		int x = this.guiLeft, y = this.guiTop, u = 0, v = 0, w = 0, h = 0;
 		EnumBinderType type = ((TileEntityBinder) this.getTileEntity()).binderType;
 		if (type == EnumBinderType.QUOM) {
-			if (this.bindingQuomSlot != null) this.bindingQuomSlot.draw();
+			if (this.bindingQuomSlot != null) this.bindingQuomSlot.draw(this);
 			if (this.slots != null) for (int i = 0; i < this.slots.length; i++)
-				if (this.slots[i] != null) this.slots[i].draw();
+				if (this.slots[i] != null) this.slots[i].draw(this);
 		}
 		else if (type == EnumBinderType.ITEM) {
 			this.mc.getTextureManager().bindTexture(guiIcons);
@@ -252,4 +252,6 @@ public class GuiBinder extends GuiManusPowered {
 		}
 		
 	}
+	
+	
 }

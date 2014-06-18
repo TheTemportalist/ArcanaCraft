@@ -2,7 +2,6 @@ package com.countrygamer.arcanacraft.common.quom;
 
 import java.util.List;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,6 +15,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.countrygamercore.lib.UtilCursor;
+import com.countrygamer.countrygamercore.lib.UtilRender;
 
 public abstract class Quom {
 	
@@ -71,9 +71,15 @@ public abstract class Quom {
 		return this.id;
 	}
 	
-	public void draw(Minecraft mc, Gui g, int x, int y) {
-		mc.getTextureManager().bindTexture(this.iconSource);
-		g.drawTexturedModalRect(x, y, 0, 0, 16, 16);
+	public void draw(Gui gui, int x, int y) {
+		this.draw(gui, x, y, 0, 0, 0, 0);
+	}
+	
+	public void draw(Gui gui, int x, int y, int leftOffset, int rightOffset,
+			int topOffset, int bottomOffset) {
+		UtilRender.bindResource(this.iconSource);
+		UtilRender.drawTextureWithOffsets(gui, x, y, 0, 0, 16, 16, leftOffset, rightOffset,
+				topOffset, bottomOffset);
 	}
 	
 	public void saveToNBT(NBTTagCompound tagCom) {

@@ -5,8 +5,8 @@ import java.util.List;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
-import com.countrygamer.arcanacraft.commom.network.MessageUpdateClick;
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
+import com.countrygamer.arcanacraft.common.network.MessageUpdateClick;
 import com.countrygamer.arcanacraft.common.tile.TileEntityActuator;
 import com.countrygamer.countrygamercore.Base.client.gui.GuiButtonRedstone;
 import com.countrygamer.countrygamercore.Base.client.gui.GuiContainerBase;

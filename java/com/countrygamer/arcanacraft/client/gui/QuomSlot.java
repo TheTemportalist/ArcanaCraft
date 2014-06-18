@@ -1,16 +1,13 @@
 package com.countrygamer.arcanacraft.client.gui;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.ResourceLocation;
 
 import com.countrygamer.arcanacraft.common.ACOptions;
 import com.countrygamer.arcanacraft.common.quom.Quom;
+import com.countrygamer.countrygamercore.lib.UtilRender;
 
 public class QuomSlot {
-	
-	Minecraft mc = Minecraft.getMinecraft();
-	Gui g = new Gui();
 	
 	int x, y, u, v;
 	ResourceLocation reLoc;
@@ -28,12 +25,12 @@ public class QuomSlot {
 		this.reLoc = rl;
 	}
 	
-	public void draw() {
-		this.mc.getTextureManager().bindTexture(this.reLoc);
-		g.drawTexturedModalRect(this.x, this.y, this.u, this.v, 18, 18);
+	public void draw(Gui gui) {
+		UtilRender.bindResource(this.reLoc);
+		gui.drawTexturedModalRect(this.x, this.y, this.u, this.v, 18, 18);
 		if (this.quom != null) {
-			this.quom.draw(this.mc, g, this.x + 1, this.y + 1);
-			this.mc.getTextureManager().bindTexture(this.reLoc);
+			this.quom.draw(gui, this.x + 1, this.y + 1);
+			UtilRender.bindResource(this.reLoc);
 		}
 	}
 	

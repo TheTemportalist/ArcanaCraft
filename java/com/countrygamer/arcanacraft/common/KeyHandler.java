@@ -7,8 +7,8 @@ import net.minecraft.client.settings.KeyBinding;
 
 import org.lwjgl.input.Keyboard;
 
-import com.countrygamer.arcanacraft.commom.network.MessageCastQuom;
-import com.countrygamer.arcanacraft.commom.network.MessageSelectQuom;
+import com.countrygamer.arcanacraft.common.network.MessageCastQuom;
+import com.countrygamer.arcanacraft.common.network.MessageSelectQuom;
 import com.countrygamer.countrygamercore.Base.common.network.PacketHandler;
 
 import cpw.mods.fml.client.registry.ClientRegistry;

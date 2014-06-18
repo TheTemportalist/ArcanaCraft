@@ -76,7 +76,7 @@ public class ArcaneOverlay extends Gui {
 								"textures/gui/GuiIcons.png"));
 				this.drawTexturedModalRect(quomX, quomY, 0, 20, 18, 18);
 				Quom quom = arcanePlayer.getCurrentQuom();
-				if (quom != null) quom.draw(this.mc, this, quomX + 1, quomY + 1);
+				if (quom != null) quom.draw(this, quomX + 1, quomY + 1);
 				
 				this.mc.getTextureManager().bindTexture(
 						new ResourceLocation(ArcanaCraft.pluginID,

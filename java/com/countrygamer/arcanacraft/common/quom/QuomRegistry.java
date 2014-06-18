@@ -11,13 +11,13 @@ public class QuomRegistry {
 	public static final List<Quom> quomRegistry = new ArrayList<Quom>();
 	
 	/** Is the smallest column used to display a achievement on the GUI. */
-	public static int minDisplayColumn;
+	public static int minDisplayColumn = 0;
 	/** Is the smallest row used to display a achievement on the GUI. */
-	public static int minDisplayRow;
+	public static int minDisplayRow = 0;
 	/** Is the biggest column used to display a achievement on the GUI. */
-	public static int maxDisplayColumn;
+	public static int maxDisplayColumn = 0;
 	/** Is the biggest row used to display a achievement on the GUI. */
-	public static int maxDisplayRow;
+	public static int maxDisplayRow = 0;
 	
 	public static Quom dig;
 	
@@ -47,35 +47,35 @@ public class QuomRegistry {
 		
 		QuomRegistry.dig = new QuomDig("Dig", 0, 0);
 		
-		QuomRegistry.luminize = new QuomLuminize("Luminize", null, 0, -2);
+		QuomRegistry.luminize = new QuomLuminize("Luminize", null, 2, 0);
 		
-		QuomRegistry.extract = new QuomExtract("Rescindo", 2, -2);
+		QuomRegistry.extract = new QuomExtract("Rescindo", 4, 0);
 		
-		QuomRegistry.lightFire = new QuomFire("Light Fire", null, 2, 0);
+		QuomRegistry.lightFire = new QuomFire("Light Fire", null, 6, 0);
 		
-		QuomRegistry.fireBall = new QuomFireBall("Fire Ball", null, 2, 2);
+		QuomRegistry.fireBall = new QuomFireBall("Fire Ball", null, 0, 2);
 		
-		QuomRegistry.furnace = new QuomSmelt("Furnace", null, 0, 2);
+		QuomRegistry.furnace = new QuomSmelt("Furnace", null, 2, 2);
 		
-		QuomRegistry.bind = new QuomBind("Bind", null, -2, 2);
+		QuomRegistry.bind = new QuomBind("Bind", null, 4, 2);
 		
-		QuomRegistry.data = new QuomData("Data", null, -2, 0);
+		QuomRegistry.data = new QuomData("Data", null, 6, 2);
 		
-		QuomRegistry.teleport = new QuomTeleport("Teleport", null, -2, -2);
+		QuomRegistry.teleport = new QuomTeleport("Teleport", null, 0, 4);
 		
-		QuomRegistry.fastTravel = new QuomEvaporate("Evaporate", null, -2, -4);
+		QuomRegistry.fastTravel = new QuomEvaporate("Evaporate", null, 2, 4);
 		
 		// QuomRegistry.quell = new QuomQuell("Quell", null);
 		
-		QuomRegistry.connector = new QuomConnector("Connector", null, 0, -4);
+		QuomRegistry.connector = new QuomConnector("Connector", null, 4, 4);
 		
-		QuomRegistry.manus_Creative = new QuomCreateManus("Manus", 2, -4);
+		QuomRegistry.manus_Creative = new QuomCreateManus("Manus", 6, 4);
 		
-		QuomRegistry.growth = new QuomGrowth("Growth", null, 4, -4);
+		QuomRegistry.growth = new QuomGrowth("Growth", null, 0, 6);
 		
-		QuomRegistry.tempest = new QuomTempest("Tempest", null, 4, -2);
+		QuomRegistry.tempest = new QuomTempest("Tempest", null, 2, 6);
 		
-		QuomRegistry.filter = new QuomFilter("Filter", null, 4, 0);
+		QuomRegistry.filter = new QuomFilter("Filter", null, 4, 6);
 		
 	}
 	

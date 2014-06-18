@@ -53,7 +53,7 @@ public class GuiButtonInquiry extends GuiButton {
 					(this.tier - 1) * 26 + uOffset, 102 + (k * 26) + vOffset, this.width - wOffset,
 					this.height - hOffset);
 			
-			this.quom.draw(mc, this, this.xPosition + xOffset + 5, this.yPosition + yOffset + 5);
+			this.quom.draw(this, this.xPosition + xOffset + 5, this.yPosition + yOffset + 5);
 			
 			this.mouseDragged(mc, mouseX, mouseY);
 			
