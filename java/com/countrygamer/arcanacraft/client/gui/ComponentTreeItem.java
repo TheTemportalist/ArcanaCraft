@@ -1,5 +1,7 @@
 package com.countrygamer.arcanacraft.client.gui;
 
+import java.util.List;
+
 import com.countrygamer.arcanacraft.common.ACOptions;
 import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.countrygamercore.Base.client.gui.GuiScreenBase;
@@ -25,6 +27,17 @@ public class ComponentTreeItem extends Component {
 		this.quom.draw(this.owner, x + 5, y + 5, leftOffset > 0 ? leftOffset - 5 : 0,
 				rightOffset - 5 > 0 ? rightOffset - 5 : 0, topOffset > 0 ? topOffset - 5 : 0,
 				bottomOffset - 5 > 0 ? bottomOffset - 5 : 0);
+	}
+	
+	@Override
+	public void onClick() {
+		
+	}
+	
+	@Override
+	public void onHover(List<String> hoverInfo) {
+		hoverInfo.add(this.quom.getName());
+		
 	}
 	
 }

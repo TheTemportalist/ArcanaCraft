@@ -1,5 +1,7 @@
 package com.countrygamer.arcanacraft.client.gui;
 
+import java.util.List;
+
 import com.countrygamer.arcanacraft.common.ACOptions;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Quom;
@@ -142,6 +144,19 @@ public class ComponentPageQuomi extends ComponentPage {
 			}
 			arcanePlayer.setHotBar(hotBar);
 			// arcanePlayer.syncEntity();
+		}
+	}
+	
+	@Override
+	public void addHoverInformation(int mouseX, int mouseY, List<String> hoverInfo) {
+		for (int i = 0; i < this.quomSlots.length; i++) {
+			QuomSlot slot = this.quomSlots[i];
+			if (slot != null && this.ownerGui.isMouseOver(slot.x, slot.y, 18, 18, mouseX, mouseY)) {
+				if (slot.quom != null) {
+					hoverInfo.add(slot.quom.getName());
+					slot.quom.addHoverInfo(this.arcanePlayer, hoverInfo);
+				}
+			}
 		}
 	}
 	

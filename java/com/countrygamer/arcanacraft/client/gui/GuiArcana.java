@@ -164,21 +164,10 @@ public class GuiArcana extends GuiScreenBase {
 	protected void backgroundObjects() {
 	}
 	
-	public void addHoverInfomation(int mouseX, int mouseY, List<String> hoverInfo) {
-		if (this.currPage == "Quomi") {
-			ComponentPageQuomi page = (ComponentPageQuomi) this.pages.get("Quomi");
-			
-			for (int i = 0; i < page.quomSlots.length; i++) {
-				QuomSlot slot = page.quomSlots[i];
-				if (slot != null && this.isMouseOver(slot.x, slot.y, 18, 18, mouseX, mouseY)) {
-					if (slot.quom != null) {
-						hoverInfo.add(slot.quom.getName());
-						slot.quom.addHoverInfo(this.arcanePlayer, hoverInfo);
-					}
-				}
-			}
-			
-		}
+	@Override
+	public void addHoverInformation(int mouseX, int mouseY, List<String> hoverInfo) {
+		if (this.pages.containsKey(this.currPage))
+			this.pages.get(this.currPage).addHoverInformation(mouseX, mouseY, hoverInfo);
 	}
 	
 }

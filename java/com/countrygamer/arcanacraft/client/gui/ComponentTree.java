@@ -1,5 +1,7 @@
 package com.countrygamer.arcanacraft.client.gui;
 
+import java.util.List;
+
 import net.minecraft.util.ResourceLocation;
 
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
@@ -59,21 +61,9 @@ public class ComponentTree extends ComponentPage {
 		this.tree.onMouseClick(x, y, mouseButton);
 	}
 	
-	private void drawActualBackground(int mouseX, int mouseY, float renderPartialTicks) {
-		/*
-		GL11.glPushMatrix();
-		int right = k1 + (this.absolute_MaxCol_Pixel - this.absolute_MinCol_Pixel);
-		int bottom = l1 + (this.absolute_MaxRow_Pixel - this.absolute_MinRow_Pixel);
-		int vx = (int) ((k - k1) / Math.abs(k1 - bottom) * 288.0F);
-		int vy = (int) ((l - l1) / Math.abs(l1 - right) * 316.0F);
-		GL11.glScalef(2.0F, 2.0F, 1.0F);
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		Minecraft.getMinecraft().renderEngine.bindTexture(this.background);
-		
-		this.gui.drawTexturedModalRect(k1 / 2, l1 / 2, vx / 2, vy / 2, 82, 82);
-		GL11.glScalef(0.5F, 0.5F, 1.0F);
-		GL11.glPopMatrix();
-		 */
+	@Override
+	public void addHoverInformation(int mouseX, int mouseY, List<String> hoverInfo) {
+		this.tree.addHoverInformation(mouseX, mouseY, hoverInfo);
 	}
 	
 }
