@@ -55,6 +55,10 @@ public class ComponentTree extends ComponentPage {
 		this.tree.drawWidget(mouseX, mouseY, renderPartialTicks);
 	}
 	
+	public void onMouseClick(int x, int y, int mouseButton) {
+		this.tree.onMouseClick(x, y, mouseButton);
+	}
+	
 	private void drawActualBackground(int mouseX, int mouseY, float renderPartialTicks) {
 		/*
 		GL11.glPushMatrix();
