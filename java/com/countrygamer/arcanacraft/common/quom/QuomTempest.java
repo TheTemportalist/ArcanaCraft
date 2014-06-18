@@ -8,8 +8,8 @@ import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
 
 public class QuomTempest extends Quom {
 	
-	public QuomTempest(String name, Quom parent) {
-		super(name, parent);
+	public QuomTempest(String name, Quom parent, int col, int row) {
+		super(name, parent, col, row);
 	}
 	
 	@Override

@@ -15,8 +15,8 @@ import com.countrygamer.countrygamercore.lib.CoreUtil;
 
 public class QuomCreateManus extends QuomCreative {
 	
-	public QuomCreateManus(String name) {
-		super(name);
+	public QuomCreateManus(String name, int col, int row) {
+		super(name, col, row);
 	}
 	
 	@Override

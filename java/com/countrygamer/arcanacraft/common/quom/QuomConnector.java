@@ -13,8 +13,8 @@ import com.countrygamer.countrygamercore.lib.CoreUtil;
 
 public class QuomConnector extends Quom {
 	
-	public QuomConnector(String name, Quom parent) {
-		super(name, parent);
+	public QuomConnector(String name, Quom parent, int col, int row) {
+		super(name, parent, col, row);
 	}
 	
 	@Override

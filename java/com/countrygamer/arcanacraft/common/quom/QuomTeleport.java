@@ -9,8 +9,8 @@ import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
 
 public class QuomTeleport extends Quom {
 	
-	public QuomTeleport(String name, Quom parent) {
-		super(name, parent);
+	public QuomTeleport(String name, Quom parent, int col, int row) {
+		super(name, parent, col, row);
 	}
 	
 	@Override
@@ -19,8 +19,8 @@ public class QuomTeleport extends Quom {
 	}
 	
 	@Override
-	public boolean onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world, int x,
-			int y, int z, int side, Tiers.Cast castTier) {		
+	public boolean onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,
+			int x, int y, int z, int side, Tiers.Cast castTier) {
 		if (!world.isRemote) {
 			arcanePlayer.setChanging(EnumSmokeAction.TELEPORT);
 			arcanePlayer.setTeleportDestination(new double[] {

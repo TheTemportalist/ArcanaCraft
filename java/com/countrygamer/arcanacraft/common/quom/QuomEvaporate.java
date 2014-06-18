@@ -9,13 +9,13 @@ import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
 
 public class QuomEvaporate extends Quom {
 	
-	public QuomEvaporate(String name, Quom parent) {
-		super(name, parent);
+	public QuomEvaporate(String name, Quom parent, int col, int row) {
+		super(name, parent, col, row);
 	}
 	
 	@Override
-	public boolean onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world, int x,
-			int y, int z, int side, Cast castTier) {
+	public boolean onUse(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,
+			int x, int y, int z, int side, Cast castTier) {
 		return false;
 	}
 	

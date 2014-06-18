@@ -16,8 +16,8 @@ import com.countrygamer.countrygamercore.lib.CoreUtil;
 
 public class QuomData extends Quom {
 	
-	public QuomData(String name, Quom parent) {
-		super(name, parent);
+	public QuomData(String name, Quom parent, int col, int row) {
+		super(name, parent, col, row);
 	}
 	
 	@Override
@@ -28,7 +28,7 @@ public class QuomData extends Quom {
 		
 		if (player.isSneaking() && block instanceof BlockBase) {
 			if (tileEntity instanceof TileEntityActuator) {
-				((TileEntityActuator)tileEntity).shouldDropStats = true;
+				((TileEntityActuator) tileEntity).shouldDropStats = true;
 			}
 			world.setBlockToAir(x, y, z);
 			return true;

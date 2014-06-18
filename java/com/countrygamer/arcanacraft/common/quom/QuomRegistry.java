@@ -47,37 +47,35 @@ public class QuomRegistry {
 		
 		QuomRegistry.dig = new QuomDig("Dig", 0, 0);
 		
-		QuomRegistry.luminize = new QuomLuminize("Luminize", null, 2, 0);
+		QuomRegistry.luminize = new QuomLuminize("Luminize", null, 0, -2);
 		
-		QuomRegistry.extract = new QuomExtract("Rescindo", 0, 2);
+		QuomRegistry.extract = new QuomExtract("Rescindo", 2, -2);
 		
-		QuomRegistry.lightFire = new QuomFire("Light Fire", null, -2, 0);
+		QuomRegistry.lightFire = new QuomFire("Light Fire", null, 2, 0);
 		
-		QuomRegistry.fireBall = new QuomFireBall("Fire Ball", null, 0, -2);
+		QuomRegistry.fireBall = new QuomFireBall("Fire Ball", null, 2, 2);
 		
-		//QuomRegistry.furnace = new QuomSmelt("Furnace", null);
+		QuomRegistry.furnace = new QuomSmelt("Furnace", null, 0, 2);
 		
-		QuomRegistry.bind = new QuomBind("Bind", null, 5, 5);
-
-		/*
-		QuomRegistry.data = new QuomData("Data", null);
+		QuomRegistry.bind = new QuomBind("Bind", null, -2, 2);
 		
-		QuomRegistry.teleport = new QuomTeleport("Teleport", null);
+		QuomRegistry.data = new QuomData("Data", null, -2, 0);
 		
-		QuomRegistry.fastTravel = new QuomEvaporate("Evaporate", null);
+		QuomRegistry.teleport = new QuomTeleport("Teleport", null, -2, -2);
+		
+		QuomRegistry.fastTravel = new QuomEvaporate("Evaporate", null, -2, -4);
 		
 		// QuomRegistry.quell = new QuomQuell("Quell", null);
 		
-		QuomRegistry.connector = new QuomConnector("Connector", null);
+		QuomRegistry.connector = new QuomConnector("Connector", null, 0, -4);
 		
-		QuomRegistry.manus_Creative = new QuomCreateManus("Manus");
+		QuomRegistry.manus_Creative = new QuomCreateManus("Manus", 2, -4);
 		
-		QuomRegistry.growth = new QuomGrowth("Growth", null);
+		QuomRegistry.growth = new QuomGrowth("Growth", null, 4, -4);
 		
-		QuomRegistry.tempest = new QuomTempest("Tempest", null);
+		QuomRegistry.tempest = new QuomTempest("Tempest", null, 4, -2);
 		
-		*/
-		QuomRegistry.filter = new QuomFilter("Filter", null, -3, 2);
+		QuomRegistry.filter = new QuomFilter("Filter", null, 4, 0);
 		
 	}
 	

@@ -23,7 +23,7 @@ public class QuomFilter extends Quom {
 	@Override
 	public void onRightClick(EntityPlayer player, ExtendedArcanePlayer arcanePlayer, World world,
 			Cast castTier) {
-
+		
 		player.openGui(ArcanaCraft.instance, ACOptions.filterGui, world, (int) player.posX,
 				(int) player.posY, (int) player.posZ);
 		

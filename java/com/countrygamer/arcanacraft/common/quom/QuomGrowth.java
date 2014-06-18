@@ -11,8 +11,8 @@ import com.countrygamer.countrygamercore.lib.UtilCursor;
 
 public class QuomGrowth extends Quom {
 	
-	public QuomGrowth(String name, Quom parent) {
-		super(name, parent);
+	public QuomGrowth(String name, Quom parent, int col, int row) {
+		super(name, parent, col, row);
 	}
 	
 	@Override

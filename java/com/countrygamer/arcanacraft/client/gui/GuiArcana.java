@@ -13,6 +13,7 @@ import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.countrygamercore.Base.Plugin.extended.ExtendedEntity;
 import com.countrygamer.countrygamercore.Base.client.gui.GuiScreenBase;
+import com.countrygamer.countrygamercore.lib.ResourceHelper;
 
 public class GuiArcana extends GuiScreenBase {
 	
@@ -23,7 +24,7 @@ public class GuiArcana extends GuiScreenBase {
 	private ExtendedArcanePlayer arcanePlayer;
 	
 	public GuiArcana(EntityPlayer player, boolean revertPages) {
-		super("", new ResourceLocation(ArcanaCraft.pluginID, "textures/gui/Scroll.png"));
+		super("", ResourceHelper.getResource(ArcanaCraft.pluginID, "gui/", "Scroll"));
 		this.xSize = 200;
 		this.ySize = 200;
 		IExtendedEntityProperties props = ExtendedEntity.getExtended(player,
@@ -66,7 +67,7 @@ public class GuiArcana extends GuiScreenBase {
 		int d = this.ySize;
 		int e = this.grayTextColor;
 		
-		this.pages.put("Info", new ComponentPage(a, b, c, d, e) {
+		this.pages.put("Info", new ComponentPage(this, a, b, c, d, e) {
 			
 			@Override
 			public void init() {
@@ -89,9 +90,9 @@ public class GuiArcana extends GuiScreenBase {
 			
 		});
 		
-		this.pages.put("Quomi", new ComponentPageQuomi(a, b, c, d, e, this.arcanePlayer));
+		this.pages.put("Quomi", new ComponentPageQuomi(this, a, b, c, d, e, this.arcanePlayer));
 		
-		this.pages.put("Skill Tree", new ComponentTree(a, b, c, d, e));
+		this.pages.put("Skill Tree", new ComponentTree(this, a, b, c, d, e));
 		
 	}
 	
@@ -105,7 +106,7 @@ public class GuiArcana extends GuiScreenBase {
 	public void updateScreen() {
 		super.updateScreen();
 		
-		this.pages.get(this.currPage).update();
+		if (this.pages.containsKey(this.currPage)) this.pages.get(this.currPage).update();
 		
 	}
 	
@@ -129,6 +130,7 @@ public class GuiArcana extends GuiScreenBase {
 			this.pages.get(this.currPage).onMouseClick(x, y, mouseButton);
 	}
 	
+	@Override
 	protected void foregroundText() {
 		if (this.pages.containsKey(this.currPage)) {
 			this.pages.get(this.currPage).drawForeground();
@@ -138,9 +140,25 @@ public class GuiArcana extends GuiScreenBase {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float renderPartialTicks, int i, int j) {
 		super.drawGuiContainerBackgroundLayer(renderPartialTicks, i, j);
-		if (this.pages.containsKey(this.currPage)) {
+		if (this.pages.containsKey(this.currPage) && !this.currPage.equals("Skill Tree")) {
 			this.pages.get(this.currPage).drawBackground(i, j, renderPartialTicks);
 		}
+	}
+	
+	final ResourceLocation frameBkgd = ResourceHelper.getResource(ArcanaCraft.pluginID, "gui/",
+			"Scroll_Frame");
+	
+	@Override
+	protected ResourceLocation getBackground() {
+		return this.currPage.equals("Skill Tree") ? frameBkgd : super.getBackground();
+	}
+	
+	@Override
+	protected void drawBackground(int mouseX, int mouseY, float renderPartialTicks) {
+		if (this.pages.containsKey(this.currPage) && this.currPage.equals("Skill Tree")) {
+			this.pages.get(this.currPage).drawBackground(mouseX, mouseY, renderPartialTicks);
+		}
+		super.drawBackground(mouseX, mouseY, renderPartialTicks);
 	}
 	
 	protected void backgroundObjects() {

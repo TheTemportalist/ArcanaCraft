@@ -6,6 +6,7 @@ import net.minecraft.client.gui.Gui;
 import com.countrygamer.arcanacraft.common.ACOptions;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Quom;
+import com.countrygamer.countrygamercore.Base.client.gui.GuiScreenBase;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -18,8 +19,8 @@ public class ComponentPageQuomi extends ComponentPage {
 	ExtendedArcanePlayer arcanePlayer;
 	final int number_of_slots;
 	
-	public ComponentPageQuomi(int a, int b, int c, int d, int e, ExtendedArcanePlayer arcanePlayer) {
-		super(a, b, c, d, e);
+	public ComponentPageQuomi(GuiScreenBase ownerGui, int a, int b, int c, int d, int e, ExtendedArcanePlayer arcanePlayer) {
+		super(ownerGui, a, b, c, d, e);
 		this.arcanePlayer = arcanePlayer;
 		this.number_of_slots = 9 + 1 + arcanePlayer.getLearnedQuoms().length;
 	}

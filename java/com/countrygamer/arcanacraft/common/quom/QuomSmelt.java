@@ -17,8 +17,8 @@ import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
 
 public class QuomSmelt extends Quom {
 	
-	public QuomSmelt(String name, Quom parent) {
-		super(name, parent);
+	public QuomSmelt(String name, Quom parent, int col, int row) {
+		super(name, parent, col, row);
 	}
 	
 	@Override
