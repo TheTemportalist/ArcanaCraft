@@ -21,7 +21,7 @@ public class GuiArcana extends GuiScreenBase {
 	private Map<String, ComponentPage> pages = new HashMap<String, ComponentPage>();
 	private GuiButton infoTab, quomiTab, skillTab;
 	
-	private ExtendedArcanePlayer arcanePlayer;
+	public ExtendedArcanePlayer arcanePlayer;
 	
 	public GuiArcana(EntityPlayer player, boolean revertPages) {
 		super("", UtilRender.getResource(ArcanaCraft.pluginID, "gui/", "Scroll"));
@@ -92,11 +92,11 @@ public class GuiArcana extends GuiScreenBase {
 		
 		this.pages.put("Quomi", new ComponentPageQuomi(this, a, b, c, d, e, this.arcanePlayer));
 		
-		this.pages.put("Skill Tree", new ComponentTree(this, a, b, c, d, e));
+		this.pages.put("Skill Tree", new ComponentTree(this, a, b, c, d, e, this.arcanePlayer));
 		
 	}
 	
-	private void initPages() {
+	public void initPages() {
 		for (String pageKey : this.pages.keySet()) {
 			this.pages.get(pageKey).init();
 		}

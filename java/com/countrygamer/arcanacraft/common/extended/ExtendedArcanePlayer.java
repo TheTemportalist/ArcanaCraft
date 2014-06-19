@@ -429,7 +429,7 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 		else {
 			this.discoveredQuoms[quom.getID()] = quom;
 			// TODO Remove this learning line!
-			this.learnQuom(quom);
+			//this.learnQuom(quom);
 			//
 			this.syncEntity();
 			return true;
@@ -496,6 +496,7 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 		int size = QuomRegistry.quomRegistry.size();
 		this.discoveredQuoms = new Quom[size];
 		this.learnedQuoms = new Quom[size];
+		this.hotBar = new Quom[9];
 		this.syncEntity();
 	}
 	

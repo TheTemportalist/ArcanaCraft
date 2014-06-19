@@ -20,7 +20,7 @@ public class ACCommand extends CommandBase {
 	
 	@Override
 	public String getCommandUsage(ICommandSender var1) {
-		return "/arcana <me:PLAYERNAME> quom <add:remove> <QUOMNAME:all> OR ...";
+		return "/arcana <me:PLAYERNAME> quom <remove:discover:learn> <QUOMNAME:all> OR ...";
 	}
 	
 	@Override
@@ -52,39 +52,7 @@ public class ACCommand extends CommandBase {
 				
 				if (args.length < 3) return;
 				
-				if (args[2].equalsIgnoreCase("add")) {
-					// adding quom(s)
-					// arcana PLAYER quom add ...
-					
-					if (args.length < 4) return;
-					
-					if (args[3].equalsIgnoreCase("all")) {
-						// adding all quoms
-						// arcana PLAYER quom add all
-						
-						for (int i = 0; i < QuomRegistry.quomRegistry.size(); i++) {
-							arcanePlayer.forceLearnQuom(QuomRegistry.quomRegistry.get(i), true);
-						}
-						ArcanaCraft.logger.info("Added all Quoms");
-						didSomething = true;
-					}
-					else {
-						// adding a specific quom
-						// arcana PLAYER quom add QUOMNAME
-						
-						String quomKey = this.getQuomKey(args[3]);
-						System.out.println(quomKey);
-						Quom quom = QuomRegistry.getQuom(quomKey);
-						if (quom != null
-								&& (!arcanePlayer.hasDiscoveredQuom(quom) || !arcanePlayer
-										.hasLearnedQuom(quom))) {
-							arcanePlayer.forceLearnQuom(quom, true);
-						}
-						didSomething = true;
-					}
-					
-				}
-				else if (args[2].equalsIgnoreCase("remove")) {
+				if (args[2].equalsIgnoreCase("remove")) {
 					// removing quom(s)
 					// arcana PLAYER quom remove ...
 					
@@ -95,8 +63,12 @@ public class ACCommand extends CommandBase {
 						// arcana PLAYER quom remove all
 						
 						arcanePlayer.removeAllQuoms();
-						arcanePlayer.learnStartingQuoms();
 						ArcanaCraft.logger.info("Removed all quoms");
+						
+						if (args.length == 5 && args[4].equalsIgnoreCase("true")) {
+							arcanePlayer.learnStartingQuoms();
+						}
+						
 						didSomething = true;
 					}
 					else {
@@ -114,6 +86,69 @@ public class ACCommand extends CommandBase {
 						}
 						didSomething = true;
 					}
+				}
+				
+				else if (args[2].equalsIgnoreCase("discover")) {
+					// discovering quom(s)
+					// arcana PLAYER quom discover ...
+					
+					if (args.length < 4) return;
+					
+					if (args[3].equalsIgnoreCase("all")) {
+						// discovering all quoms
+						// arcana PLAYEr quom discover all
+						
+						for (int i = 0; i < QuomRegistry.quomRegistry.size(); i++) {
+							arcanePlayer.discoverQuom(QuomRegistry.quomRegistry.get(i));
+						}
+						ArcanaCraft.logger.info("Discovered all Quoms");
+						didSomething = true;
+						
+					}
+					else {
+						// discovering a specific quom
+						// arcana PLAYER quom discover QUOMNAME
+						String quomKey = this.getQuomKey(args[3]);
+						System.out.println(quomKey);
+						Quom quom = QuomRegistry.getQuom(quomKey);
+						if (quom != null && !arcanePlayer.hasDiscoveredQuom(quom)) {
+							arcanePlayer.discoverQuom(quom);
+						}
+						didSomething = true;
+					}
+					
+				}
+				else if (args[2].equalsIgnoreCase("learn")) {
+					// adding quom(s)
+					// arcana PLAYER quom learn ...
+					
+					if (args.length < 4) return;
+					
+					if (args[3].equalsIgnoreCase("all")) {
+						// adding all quoms
+						// arcana PLAYER quom learn all
+						
+						for (int i = 0; i < QuomRegistry.quomRegistry.size(); i++) {
+							arcanePlayer.forceLearnQuom(QuomRegistry.quomRegistry.get(i), true);
+						}
+						ArcanaCraft.logger.info("Learned all Quoms");
+						didSomething = true;
+					}
+					else {
+						// adding a specific quom
+						// arcana PLAYER quom learn QUOMNAME
+						
+						String quomKey = this.getQuomKey(args[3]);
+						System.out.println(quomKey);
+						Quom quom = QuomRegistry.getQuom(quomKey);
+						if (quom != null
+								&& (!arcanePlayer.hasDiscoveredQuom(quom) || !arcanePlayer
+										.hasLearnedQuom(quom))) {
+							arcanePlayer.forceLearnQuom(quom, true);
+						}
+						didSomething = true;
+					}
+					
 				}
 			}
 			ExtendedEntity.syncEntity(arcanePlayer);
