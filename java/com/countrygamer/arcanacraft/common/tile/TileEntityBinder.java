@@ -14,7 +14,7 @@ import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.quom.QuomRegistry;
 import com.countrygamer.arcanacraft.common.recipes.BinderRecipes;
 import com.countrygamer.arcanacraft.common.recipes.EnumBinderType;
-import com.countrygamer.countrygamercore.lib.UtilDrops;
+import com.countrygamer.countrygamercore.common.lib.util.UtilDrops;
 
 public class TileEntityBinder extends TileEntityManusPowered {
 	

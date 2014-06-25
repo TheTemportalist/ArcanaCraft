@@ -10,6 +10,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
@@ -18,11 +19,11 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 import com.countrygamer.arcanacraft.common.block.ACBlocks;
-import com.countrygamer.countrygamercore.Base.common.tile.ICamouflage;
-import com.countrygamer.countrygamercore.Base.common.tile.TileEntityInventoryBase;
-import com.countrygamer.countrygamercore.lib.Activity;
-import com.countrygamer.countrygamercore.lib.ItemMeta;
-import com.countrygamer.countrygamercore.lib.UtilDrops;
+import com.countrygamer.countrygamercore.base.common.tile.ICamouflage;
+import com.countrygamer.countrygamercore.base.common.tile.TileEntityInventoryBase;
+import com.countrygamer.countrygamercore.common.lib.Activity;
+import com.countrygamer.countrygamercore.common.lib.ItemMeta;
+import com.countrygamer.countrygamercore.common.lib.util.UtilDrops;
 
 import cpw.mods.fml.common.eventhandler.Event;
 
@@ -175,10 +176,10 @@ public class TileEntityActuator extends TileEntityInventoryBase implements ICamo
 	public void doAction() {
 		switch (this.mouseButton) {
 			case 0:
-				this.rightClick();
+				this.leftClick();
 				break;
 			case 1:
-				this.leftClick();
+				this.rightClick();
 				break;
 			case 2:
 				
@@ -328,8 +329,8 @@ public class TileEntityActuator extends TileEntityInventoryBase implements ICamo
 	
 	private MovingObjectPosition getMOP(int x, int y, int z, int side) {
 		float[] hitVecs = this.getHitVectors(side);
-		return new MovingObjectPosition(x, y, z, side, this.getWorldObj().getWorldVec3Pool()
-				.getVecFromPool(hitVecs[0], hitVecs[1], hitVecs[2]));
+		return new MovingObjectPosition(x, y, z, side, Vec3.createVectorHelper(hitVecs[0],
+				hitVecs[1], hitVecs[2]));
 	}
 	
 	@Override

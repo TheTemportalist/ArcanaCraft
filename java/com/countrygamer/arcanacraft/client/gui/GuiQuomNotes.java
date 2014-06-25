@@ -1,7 +1,7 @@
 package com.countrygamer.arcanacraft.client.gui;
 
 import com.countrygamer.arcanacraft.common.quom.Quom;
-import com.countrygamer.countrygamercore.Base.client.gui.GuiScreenBase;
+import com.countrygamer.countrygamercore.base.client.gui.GuiScreenBase;
 
 public class GuiQuomNotes extends GuiScreenBase {
 	

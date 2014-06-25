@@ -11,7 +11,7 @@ import net.minecraftforge.fluids.IFluidHandler;
 import com.countrygamer.arcanacraft.common.block.ACBlocks;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
-import com.countrygamer.countrygamercore.lib.CoreUtil;
+import com.countrygamer.countrygamercore.common.lib.util.Player;
 
 public class QuomCreateManus extends QuomCreative {
 	
@@ -60,7 +60,7 @@ public class QuomCreateManus extends QuomCreative {
 				manusCreationAmount += 100;
 			}
 			
-			CoreUtil.sendMessageToPlayer(player, "Manus amount = " + manusCreationAmount);
+			Player.sendMessageToPlayer(player, "Manus amount = " + manusCreationAmount);
 			
 			data.setInteger("manusAmount", manusCreationAmount);
 		}

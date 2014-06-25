@@ -8,8 +8,8 @@ import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.quom.QuomRegistry;
-import com.countrygamer.countrygamercore.Base.client.gui.GuiScreenBase;
-import com.countrygamer.countrygamercore.Base.client.gui.widget.WidgetTree;
+import com.countrygamer.countrygamercore.base.client.gui.GuiScreenBase;
+import com.countrygamer.countrygamercore.base.client.gui.widget.WidgetTree;
 
 public class ComponentTree extends ComponentPage {
 	

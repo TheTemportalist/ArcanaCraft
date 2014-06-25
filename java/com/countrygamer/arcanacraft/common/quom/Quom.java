@@ -14,8 +14,8 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
-import com.countrygamer.countrygamercore.lib.UtilCursor;
-import com.countrygamer.countrygamercore.lib.UtilRender;
+import com.countrygamer.countrygamercore.common.lib.util.UtilCursor;
+import com.countrygamer.countrygamercore.common.lib.util.UtilRender;
 
 public abstract class Quom {
 	

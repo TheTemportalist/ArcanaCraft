@@ -10,9 +10,9 @@ import com.countrygamer.arcanacraft.common.block.ACBlocks;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
 import com.countrygamer.arcanacraft.common.tile.TileEntityActuator;
-import com.countrygamer.countrygamercore.Base.common.block.BlockBase;
-import com.countrygamer.countrygamercore.Base.common.tile.TileEntityTankBase;
-import com.countrygamer.countrygamercore.lib.CoreUtil;
+import com.countrygamer.countrygamercore.base.common.block.BlockBase;
+import com.countrygamer.countrygamercore.base.common.tile.TileEntityTankBase;
+import com.countrygamer.countrygamercore.common.lib.util.Player;
 
 public class QuomData extends Quom {
 	
@@ -61,7 +61,7 @@ public class QuomData extends Quom {
 				message = "That tank contains no fluid";
 			}
 			
-			CoreUtil.sendMessageToPlayer(player, message);
+			Player.sendMessageToPlayer(player, message);
 		}
 	}
 	

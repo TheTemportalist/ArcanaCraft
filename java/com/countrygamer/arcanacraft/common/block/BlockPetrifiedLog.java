@@ -12,8 +12,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import com.countrygamer.countrygamercore.Base.common.block.BlockBase;
-import com.countrygamer.countrygamercore.lib.UtilHex;
+import com.countrygamer.countrygamercore.base.common.block.BlockBase;
+import com.countrygamer.countrygamercore.common.lib.util.UtilHex;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

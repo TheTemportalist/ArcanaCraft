@@ -12,7 +12,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
-import com.countrygamer.countrygamercore.lib.UtilCursor;
+import com.countrygamer.countrygamercore.common.lib.util.UtilCursor;
 
 public class QuomFire extends Quom {
 	

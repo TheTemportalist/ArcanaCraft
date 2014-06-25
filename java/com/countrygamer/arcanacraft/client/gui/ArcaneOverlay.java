@@ -12,7 +12,7 @@ import org.lwjgl.opengl.GL11;
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Quom;
-import com.countrygamer.countrygamercore.Base.Plugin.extended.ExtendedEntity;
+import com.countrygamer.countrygamercore.base.extended.ExtendedEntity;
 
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -52,7 +52,7 @@ public class ArcaneOverlay extends Gui {
 		if (props != null) {
 			ExtendedArcanePlayer arcanePlayer = (ExtendedArcanePlayer) props;
 			
-			if (!arcanePlayer.isPlayerArcaic()) return;
+			if (!arcanePlayer.isPlayerArcaic() || !arcanePlayer.isHoldingValidMagic()) return;
 			
 			if (event.type == ElementType.EXPERIENCE) {
 				

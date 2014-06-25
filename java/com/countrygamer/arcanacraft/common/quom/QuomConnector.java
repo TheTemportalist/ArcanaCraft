@@ -9,7 +9,7 @@ import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
 import com.countrygamer.arcanacraft.common.tile.TileEntityAugmentedTank;
 import com.countrygamer.arcanacraft.common.tile.TileEntityManusPowered;
-import com.countrygamer.countrygamercore.lib.CoreUtil;
+import com.countrygamer.countrygamercore.common.lib.util.Player;
 
 public class QuomConnector extends Quom {
 	
@@ -37,7 +37,7 @@ public class QuomConnector extends Quom {
 				};
 				data.setIntArray("sourceTileEntity", sourceTileCoords);
 				
-				CoreUtil.sendMessageToPlayer(player, "Set source tank's coordinates");
+				Player.sendMessageToPlayer(player, "Set source tank's coordinates");
 				arcanePlayer.addData(this.getName(), data);
 				this.checkForConnection(world, player, arcanePlayer, sourceTileCoords,
 						targetTileCoords);
@@ -50,7 +50,7 @@ public class QuomConnector extends Quom {
 				};
 				data.setIntArray("targetTankTileEntity", targetTileCoords);
 				
-				CoreUtil.sendMessageToPlayer(player, "Set target's coordinates");
+				Player.sendMessageToPlayer(player, "Set target's coordinates");
 				arcanePlayer.addData(this.getName(), data);
 				this.checkForConnection(world, player, arcanePlayer, sourceTileCoords,
 						targetTileCoords);
@@ -77,11 +77,11 @@ public class QuomConnector extends Quom {
 			int[] targetTileCoords = data.getIntArray("targetTankTileEntity");
 			
 			if (sourceTileCoords.length != 0) {
-				CoreUtil.sendMessageToPlayer(player, "Source tank is at: " + sourceTileCoords[0]
+				Player.sendMessageToPlayer(player, "Source tank is at: " + sourceTileCoords[0]
 						+ ", " + sourceTileCoords[1] + ", " + sourceTileCoords[2]);
 			}
 			if (targetTileCoords.length != 0) {
-				CoreUtil.sendMessageToPlayer(player, "Target block is at: " + targetTileCoords[0]
+				Player.sendMessageToPlayer(player, "Target block is at: " + targetTileCoords[0]
 						+ ", " + targetTileCoords[1] + ", " + targetTileCoords[2]);
 			}
 			
@@ -100,7 +100,7 @@ public class QuomConnector extends Quom {
 			if (poweredTE != null) {
 				poweredTE.setSourceTankCoords(sourceTileCoords);
 				
-				CoreUtil.sendMessageToPlayer(player, "Notified target of source tank");
+				Player.sendMessageToPlayer(player, "Notified target of source tank");
 				
 				arcanePlayer.removeData("Quom_" + this.getName());
 			}

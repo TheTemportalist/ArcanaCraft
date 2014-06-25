@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL12;
 
 import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.quom.QuomRegistry;
-import com.countrygamer.countrygamercore.Base.client.gui.GuiScreenBase;
+import com.countrygamer.countrygamercore.base.client.gui.GuiScreenBase;
 
 public class GuiTree extends GuiScreenBase {
 	

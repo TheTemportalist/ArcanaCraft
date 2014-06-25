@@ -13,16 +13,16 @@ import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.opengl.GL11;
 
-import com.countrygamer.arcanacraft.client.model.ModelBinder;
+import com.countrygamer.arcanacraft.client.render.models.ModelBinder;
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.recipes.EnumBinderType;
 import com.countrygamer.arcanacraft.common.tile.TileEntityBinder;
-import com.countrygamer.countrygamercore.lib.UtilRender;
+import com.countrygamer.countrygamercore.common.lib.util.UtilRender;
 
 public class TileEntityBinderRenderer extends TileEntitySpecialRenderer {
 	
 	final ResourceLocation texture = new ResourceLocation(ArcanaCraft.pluginID,
-			"textures/render/Binder.png");
+			"textures/model/block/Binder.png");
 	
 	final RenderItem bindableRender;
 	final RenderItem bindingItemRender;

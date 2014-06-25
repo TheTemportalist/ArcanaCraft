@@ -1,0 +1,16 @@
+[
+{
+  "modid": "arcanacraft",
+  "name": "ArcanaCraft",
+  "description": "Magical Michief",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authors": ["CountryGamer"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": ["countrygamercore"]
+}
+]

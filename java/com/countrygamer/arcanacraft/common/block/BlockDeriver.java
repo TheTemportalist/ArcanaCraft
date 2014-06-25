@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import com.countrygamer.arcanacraft.common.tile.TileEntityDeriver;
-import com.countrygamer.countrygamercore.Base.common.block.BlockContainerBase;
+import com.countrygamer.countrygamercore.base.common.block.BlockContainerBase;
 
 public class BlockDeriver extends BlockContainerBase {
 	

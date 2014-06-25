@@ -10,7 +10,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import com.countrygamer.countrygamercore.Base.common.block.BlockContainerBase;
+import com.countrygamer.countrygamercore.base.common.block.BlockContainerBase;
 
 public class BlockFalseAir extends BlockContainerBase {
 	

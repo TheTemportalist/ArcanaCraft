@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
-import com.countrygamer.countrygamercore.lib.UtilCursor;
+import com.countrygamer.countrygamercore.common.lib.util.UtilCursor;
 
 public class QuomGrowth extends Quom {
 	
@@ -26,12 +26,12 @@ public class QuomGrowth extends Quom {
 		
 		if (block instanceof IGrowable) {
 			if (castTier == Tiers.Cast.ADVANCED) {
-				int meta = world.getBlockMetadata(x, y, z);
 				
-				if (meta < 7) {
-					world.setBlockMetadataWithNotify(x, y, z, ++meta, 3);
-					return true;
+				for (int i = 0; i < 10; i++) {
+					world.scheduleBlockUpdate(x, y, z, block, 1);
 				}
+				
+				return true;
 			}
 			else {
 				world.scheduleBlockUpdate(x, y, z, block, 10);

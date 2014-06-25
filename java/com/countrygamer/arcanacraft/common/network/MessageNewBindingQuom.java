@@ -7,7 +7,7 @@ import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.quom.QuomRegistry;
 import com.countrygamer.arcanacraft.common.recipes.EnumBinderType;
 import com.countrygamer.arcanacraft.common.tile.TileEntityBinder;
-import com.countrygamer.countrygamercore.Base.common.network.AbstractMessage;
+import com.countrygamer.countrygamercore.base.common.network.AbstractMessage;
 
 public class MessageNewBindingQuom extends AbstractMessage {
 	

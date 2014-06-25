@@ -1,15 +1,16 @@
 package com.countrygamer.arcanacraft.common;
 
+import java.util.UUID;
+
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.server.MinecraftServer;
 
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.quom.QuomRegistry;
-import com.countrygamer.countrygamercore.Base.Plugin.extended.ExtendedEntity;
-import com.countrygamer.countrygamercore.lib.CoreUtil;
+import com.countrygamer.countrygamercore.base.extended.ExtendedEntity;
+import com.countrygamer.countrygamercore.common.lib.util.Player;
 
 public class ACCommand extends CommandBase {
 	
@@ -39,8 +40,7 @@ public class ACCommand extends CommandBase {
 			}
 			else {
 				// affecting that player
-				affectedPlayer = MinecraftServer.getServer().getConfigurationManager()
-						.getPlayerForUsername(args[0]);
+				affectedPlayer = Player.getPlayerByUUID(UUID.fromString(args[0]));
 			}
 			
 			ExtendedArcanePlayer arcanePlayer = (ExtendedArcanePlayer) ExtendedEntity.getExtended(
@@ -154,7 +154,7 @@ public class ACCommand extends CommandBase {
 			ExtendedEntity.syncEntity(arcanePlayer);
 			
 			if (!didSomething) {
-				CoreUtil.sendMessageToPlayer(senderPlayer, "Something was invalid");
+				Player.sendMessageToPlayer(senderPlayer, "Something was invalid");
 			}
 		}
 	}

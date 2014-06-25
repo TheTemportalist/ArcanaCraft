@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
-import com.countrygamer.countrygamercore.lib.UtilDrops;
+import com.countrygamer.countrygamercore.common.lib.util.UtilDrops;
 
 public class QuomDig extends Quom {
 	
@@ -25,7 +25,7 @@ public class QuomDig extends Quom {
 			Block block = world.getBlock(x, y, z);
 			int meta = world.getBlockMetadata(x, y, z);
 			if (block.getMaterial() != Material.air) {
-				boolean flag = block.removedByPlayer(world, arcanePlayer.player, x, y, z);
+				boolean flag = world.setBlockToAir(x, y, z);//block.removedByPlayer(world, arcanePlayer.player, x, y, z);
 				
 				if (flag) {
 					world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));

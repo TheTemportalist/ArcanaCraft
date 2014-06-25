@@ -13,7 +13,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import com.countrygamer.arcanacraft.common.ACOptions;
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.tile.TileEntityActuator;
-import com.countrygamer.countrygamercore.Base.common.block.BlockContainerBase;
+import com.countrygamer.countrygamercore.base.common.block.BlockContainerBase;
 import com.countrygamer.countrygamercore.client.BlockCamouflageRender;
 
 import cpw.mods.fml.relauncher.Side;

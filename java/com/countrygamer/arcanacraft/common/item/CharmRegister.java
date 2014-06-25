@@ -1,6 +1,7 @@
 package com.countrygamer.arcanacraft.common.item;
 
-import com.countrygamer.countrygamercore.Base.common.generic.GenericRegister;
+import com.countrygamer.countrygamercore.base.common.generic.GenericRegister;
+
 
 public class CharmRegister extends GenericRegister {
 	

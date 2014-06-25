@@ -2,7 +2,7 @@ package com.countrygamer.arcanacraft.client.gui;
 
 import java.util.List;
 
-import com.countrygamer.countrygamercore.Base.client.gui.GuiScreenBase;
+import com.countrygamer.countrygamercore.base.client.gui.GuiScreenBase;
 
 public abstract class ComponentPage {
 	

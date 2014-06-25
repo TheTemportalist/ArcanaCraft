@@ -7,7 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
-import com.countrygamer.countrygamercore.lib.Activity;
+import com.countrygamer.countrygamercore.common.lib.Activity;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

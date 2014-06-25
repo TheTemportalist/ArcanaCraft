@@ -16,6 +16,7 @@ import com.countrygamer.arcanacraft.client.gui.GuiSack;
 import com.countrygamer.arcanacraft.client.gui.GuiTree;
 import com.countrygamer.arcanacraft.client.render.ItemATRenderer;
 import com.countrygamer.arcanacraft.client.render.ItemBinderRenderer;
+import com.countrygamer.arcanacraft.client.render.ItemGauntletRenderer;
 import com.countrygamer.arcanacraft.client.render.TileEntityATRenderer;
 import com.countrygamer.arcanacraft.client.render.TileEntityBinderRenderer;
 import com.countrygamer.arcanacraft.common.ACOptions;
@@ -24,6 +25,7 @@ import com.countrygamer.arcanacraft.common.block.ACBlocks;
 import com.countrygamer.arcanacraft.common.inventory.ContainerActuator;
 import com.countrygamer.arcanacraft.common.inventory.ContainerBinder;
 import com.countrygamer.arcanacraft.common.inventory.InventorySack;
+import com.countrygamer.arcanacraft.common.item.ACItems;
 import com.countrygamer.arcanacraft.common.recipes.EnumBinderType;
 import com.countrygamer.arcanacraft.common.tile.TileEntityActuator;
 import com.countrygamer.arcanacraft.common.tile.TileEntityAugmentedTank;
@@ -54,6 +56,8 @@ public class ClientProxy extends CommonProxy {
 		binderTE.setBinderType(EnumBinderType.FLUID);
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ACBlocks.fluidBinder),
 				new ItemBinderRenderer(renderBinder, binderTE));
+		
+		MinecraftForgeClient.registerItemRenderer(ACItems.gauntlet, new ItemGauntletRenderer());
 		
 	}
 	

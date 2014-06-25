@@ -11,7 +11,7 @@ import com.countrygamer.arcanacraft.common.tile.TileEntityActuator;
 import com.countrygamer.arcanacraft.common.tile.TileEntityAugmentedTank;
 import com.countrygamer.arcanacraft.common.tile.TileEntityBinder;
 import com.countrygamer.arcanacraft.common.tile.TileEntityDeriver;
-import com.countrygamer.countrygamercore.Base.Plugin.registry.PluginBlockRegistry;
+import com.countrygamer.countrygamercore.base.registry.PluginBlockRegistry;
 import com.countrygamer.countrygamercore.common.Core;
 
 import cpw.mods.fml.common.registry.GameRegistry;

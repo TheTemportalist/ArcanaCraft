@@ -4,8 +4,8 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 
-import com.countrygamer.countrygamercore.Base.Plugin.PluginUtility;
-import com.countrygamer.countrygamercore.Base.Plugin.registry.PluginBiomeRegistry;
+import com.countrygamer.countrygamercore.base.common.PluginUtility;
+import com.countrygamer.countrygamercore.base.registry.PluginBiomeRegistry;
 
 public class ACBiomes implements PluginBiomeRegistry {
 	

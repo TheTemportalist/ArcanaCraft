@@ -1,5 +1,7 @@
 package com.countrygamer.arcanacraft.common.tile;
 
+import java.util.UUID;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
@@ -14,7 +16,7 @@ public class ActuatorFakePlayer extends EntityPlayer {
 	public boolean isSneaking = false;
 	
 	public ActuatorFakePlayer(TileEntityActuator actuator) {
-		super(actuator.getWorldObj(), new GameProfile("", "[Actuator]"));
+		super(actuator.getWorldObj(), new GameProfile(UUID.fromString(""), "[Actuator]"));
 		this.tileEntity = actuator;
 		this.posX = actuator.xCoord;
 		this.posY = actuator.yCoord;

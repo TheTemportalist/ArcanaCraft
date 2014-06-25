@@ -10,7 +10,7 @@ import com.countrygamer.arcanacraft.common.inventory.ContainerSack;
 import com.countrygamer.arcanacraft.common.inventory.InventorySack;
 import com.countrygamer.arcanacraft.common.tile.TileEntityActuator;
 import com.countrygamer.arcanacraft.common.tile.TileEntityBinder;
-import com.countrygamer.countrygamercore.Base.Plugin.PluginCommonProxy;
+import com.countrygamer.countrygamercore.base.common.PluginCommonProxy;
 
 public class CommonProxy implements PluginCommonProxy {
 	

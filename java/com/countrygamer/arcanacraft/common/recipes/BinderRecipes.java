@@ -13,8 +13,8 @@ import com.countrygamer.arcanacraft.common.block.ACBlocks;
 import com.countrygamer.arcanacraft.common.item.ACItems;
 import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.quom.QuomRegistry;
-import com.countrygamer.countrygamercore.lib.ItemMeta;
-import com.countrygamer.countrygamercore.lib.UtilCrash;
+import com.countrygamer.countrygamercore.common.lib.ItemMeta;
+import com.countrygamer.countrygamercore.common.lib.util.UtilCrash;
 
 public class BinderRecipes {
 	

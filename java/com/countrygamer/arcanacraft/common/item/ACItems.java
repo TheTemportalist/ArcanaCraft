@@ -3,15 +3,16 @@ package com.countrygamer.arcanacraft.common.item;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.block.ACBlocks;
-import com.countrygamer.countrygamercore.Base.Plugin.registry.PluginItemRegistry;
-import com.countrygamer.countrygamercore.Base.common.item.ItemBase;
+import com.countrygamer.countrygamercore.base.registry.PluginItemRegistry;
 import com.countrygamer.countrygamercore.common.Core;
+import com.countrygamer.countrygamercore.common.item.ItemBase;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -26,6 +27,13 @@ public class ACItems implements PluginItemRegistry {
 	
 	public static Item charm;
 	public static Item inventorySack;
+	
+	public static Item cowl;
+	public static Item robe;
+	public static Item pants;
+	public static Item boots;
+	
+	public static Item gauntlet;
 	
 	@Override
 	public void registerItems() {
@@ -50,6 +58,23 @@ public class ACItems implements PluginItemRegistry {
 		
 		ACItems.inventorySack = new ItemInventorySack(ArcanaCraft.pluginID, "Player Sack");
 		Core.addItemToTab(ACItems.inventorySack);
+		
+		int arcane = Core.proxy.addArmor("arcaic");
+		ACItems.cowl = new ItemArcaicArmor(ArcanaCraft.pluginID, "Cowl of the Arcane",
+				ItemArmor.ArmorMaterial.DIAMOND, arcane, "helmet");
+		Core.addItemToTab(ACItems.cowl);
+		ACItems.robe = new ItemArcaicArmor(ArcanaCraft.pluginID, "Robe of the Arcane",
+				ItemArmor.ArmorMaterial.DIAMOND, arcane, "chestplate");
+		Core.addItemToTab(ACItems.robe);
+		ACItems.pants = new ItemArcaicArmor(ArcanaCraft.pluginID, "Arcaic Pants",
+				ItemArmor.ArmorMaterial.DIAMOND, arcane, "pants");
+		Core.addItemToTab(ACItems.pants);
+		ACItems.boots = new ItemArcaicArmor(ArcanaCraft.pluginID, "Slippers of the Arcane",
+				ItemArmor.ArmorMaterial.DIAMOND, arcane, "boots");
+		Core.addItemToTab(ACItems.boots);
+		
+		ACItems.gauntlet = new ItemGauntlet(ArcanaCraft.pluginID, "Arcane Gauntlet");
+		Core.addItemToTab(ACItems.gauntlet);
 		
 	}
 	

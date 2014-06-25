@@ -14,12 +14,13 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
+import com.countrygamer.arcanacraft.common.item.ACItems;
 import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.quom.QuomRegistry;
 import com.countrygamer.arcanacraft.common.quom.Tiers;
-import com.countrygamer.countrygamercore.Base.Plugin.extended.ExtendedEntity;
-import com.countrygamer.countrygamercore.lib.CoreUtil;
-import com.countrygamer.countrygamercore.lib.LogBlock;
+import com.countrygamer.countrygamercore.base.extended.ExtendedEntity;
+import com.countrygamer.countrygamercore.common.lib.LogBlock;
+import com.countrygamer.countrygamercore.common.lib.util.UtilVector;
 
 public class ExtendedArcanePlayer extends ExtendedEntity {
 	
@@ -75,7 +76,7 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	
 	@Override
 	public void saveNBTData(NBTTagCompound compound) {
-		//ArcanaCraft.logger.info("Save");
+		// ArcanaCraft.logger.info("Save");
 		compound.setBoolean("isActive", this.isActive);
 		compound.setInteger("staminaCounter", this.manusTick);
 		compound.setInteger("maxStamina", this.maxManus);
@@ -157,7 +158,7 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	
 	@Override
 	public void loadNBTData(NBTTagCompound compound) {
-		//ArcanaCraft.logger.info("Load");
+		// ArcanaCraft.logger.info("Load");
 		this.isActive = compound.getBoolean("isActive");
 		this.manusTick = compound.getInteger("staminaCounter");
 		this.maxManus = compound.getInteger("maxStamina");
@@ -237,6 +238,12 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 	
 	public boolean isPlayerArcaic() {
 		return this.isActive;
+	}
+	
+	public boolean isHoldingValidMagic() {
+		ItemStack held = this.player.getHeldItem();
+		return held == null || held.getItem() == ACItems.focusBasic
+				|| held.getItem() == ACItems.stave;
 	}
 	
 	public void setManus(int value) {
@@ -372,7 +379,7 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 			double y = this.teleportationDestination[1];
 			double z = this.teleportationDestination[2];
 			System.out.println(x + ":" + y + ":" + z);
-			CoreUtil.teleportPlayer(this.player, x, y, z, true, false);
+			UtilVector.teleportPlayer(this.player, x, y, z, true, false);
 			/*
 			player.setPositionAndUpdate(this.teleportationDestination[0],
 					this.teleportationDestination[1],
@@ -429,7 +436,7 @@ public class ExtendedArcanePlayer extends ExtendedEntity {
 		else {
 			this.discoveredQuoms[quom.getID()] = quom;
 			// TODO Remove this learning line!
-			//this.learnQuom(quom);
+			// this.learnQuom(quom);
 			//
 			this.syncEntity();
 			return true;

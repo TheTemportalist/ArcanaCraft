@@ -8,13 +8,13 @@ import net.minecraft.util.ResourceLocation;
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.network.MessageUpdateClick;
 import com.countrygamer.arcanacraft.common.tile.TileEntityActuator;
-import com.countrygamer.countrygamercore.Base.client.gui.GuiButtonRedstone;
-import com.countrygamer.countrygamercore.Base.client.gui.GuiContainerBase;
-import com.countrygamer.countrygamercore.Base.common.inventory.ContainerBase;
-import com.countrygamer.countrygamercore.Base.common.network.PacketHandler;
+import com.countrygamer.countrygamercore.base.client.gui.GuiButtonRedstone;
+import com.countrygamer.countrygamercore.base.client.gui.GuiContainerBase;
 import com.countrygamer.countrygamercore.common.Core;
+import com.countrygamer.countrygamercore.common.inventory.ContainerBase;
 import com.countrygamer.countrygamercore.common.network.MessageUpdateActivity;
 import com.countrygamer.countrygamercore.common.network.MessageUpdateRedstoneState;
+import com.countrygamer.countrygamercore.common.network.PacketHandler;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

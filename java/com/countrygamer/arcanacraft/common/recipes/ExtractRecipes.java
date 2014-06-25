@@ -6,7 +6,7 @@ import java.util.Map;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
-import com.countrygamer.countrygamercore.lib.ItemMeta;
+import com.countrygamer.countrygamercore.common.lib.ItemMeta;
 
 public class ExtractRecipes {
 	

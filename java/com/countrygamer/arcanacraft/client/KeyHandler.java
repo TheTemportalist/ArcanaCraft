@@ -1,4 +1,4 @@
-package com.countrygamer.arcanacraft.common;
+package com.countrygamer.arcanacraft.client;
 
 import java.util.ArrayList;
 
@@ -7,9 +7,10 @@ import net.minecraft.client.settings.KeyBinding;
 
 import org.lwjgl.input.Keyboard;
 
+import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.network.MessageCastQuom;
 import com.countrygamer.arcanacraft.common.network.MessageSelectQuom;
-import com.countrygamer.countrygamercore.Base.common.network.PacketHandler;
+import com.countrygamer.countrygamercore.common.network.PacketHandler;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;

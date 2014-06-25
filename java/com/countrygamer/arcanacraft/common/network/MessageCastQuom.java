@@ -8,8 +8,8 @@ import net.minecraftforge.common.IExtendedEntityProperties;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.quom.Tiers;
-import com.countrygamer.countrygamercore.Base.Plugin.extended.ExtendedEntity;
-import com.countrygamer.countrygamercore.Base.common.network.AbstractMessage;
+import com.countrygamer.countrygamercore.base.common.network.AbstractMessage;
+import com.countrygamer.countrygamercore.base.extended.ExtendedEntity;
 
 public class MessageCastQuom extends AbstractMessage {
 	

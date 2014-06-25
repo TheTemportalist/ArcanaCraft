@@ -5,7 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 
 import com.countrygamer.arcanacraft.common.tile.TileEntityActuator;
-import com.countrygamer.countrygamercore.Base.common.network.MessageTileEntityBase;
+import com.countrygamer.countrygamercore.common.network.MessageTileEntityBase;
 
 public class MessageUpdateClick extends MessageTileEntityBase {
 	

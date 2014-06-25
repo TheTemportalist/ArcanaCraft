@@ -12,10 +12,10 @@ import com.countrygamer.arcanacraft.common.inventory.ContainerSack;
 import com.countrygamer.arcanacraft.common.inventory.InventorySack;
 import com.countrygamer.arcanacraft.common.item.ItemInventorySack;
 import com.countrygamer.arcanacraft.common.network.MessageSaveSackName;
-import com.countrygamer.countrygamercore.Base.client.gui.GuiContainerBase;
-import com.countrygamer.countrygamercore.Base.common.inventory.ContainerBase;
-import com.countrygamer.countrygamercore.Base.common.item.ItemInvBase;
-import com.countrygamer.countrygamercore.Base.common.network.PacketHandler;
+import com.countrygamer.countrygamercore.base.client.gui.GuiContainerBase;
+import com.countrygamer.countrygamercore.common.inventory.ContainerBase;
+import com.countrygamer.countrygamercore.common.item.ItemInvBase;
+import com.countrygamer.countrygamercore.common.network.PacketHandler;
 
 public class GuiSack extends GuiContainerBase {
 	

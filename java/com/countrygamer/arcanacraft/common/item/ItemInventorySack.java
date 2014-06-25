@@ -19,9 +19,9 @@ import net.minecraft.world.World;
 import com.countrygamer.arcanacraft.common.ACOptions;
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.inventory.InventorySack;
-import com.countrygamer.countrygamercore.Base.common.inventory.ContainerBase;
-import com.countrygamer.countrygamercore.Base.common.item.ItemInvBase;
-import com.countrygamer.countrygamercore.lib.CoreUtil;
+import com.countrygamer.countrygamercore.common.inventory.ContainerBase;
+import com.countrygamer.countrygamercore.common.item.ItemInvBase;
+import com.countrygamer.countrygamercore.common.lib.util.Player;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -157,7 +157,7 @@ public class ItemInventorySack extends ItemInvBase {
 					tagCom.setTag(ItemInvBase.basicDataKey, genericData);
 					itemStack.setTagCompound(tagCom);
 					
-					CoreUtil.sendMessageToPlayer(player, "Linked to Chest at " + x + " " + y + " "
+					Player.sendMessageToPlayer(player, "Linked to Chest at " + x + " " + y + " "
 							+ z);
 				}
 				else {
@@ -166,7 +166,7 @@ public class ItemInventorySack extends ItemInvBase {
 						this.removeLink(player, itemStack);
 					}
 					else {
-						CoreUtil.sendMessageToPlayer(player,
+						Player.sendMessageToPlayer(player,
 								"Cannot link until the old link is removed.");
 					}
 				}
@@ -178,7 +178,7 @@ public class ItemInventorySack extends ItemInvBase {
 	
 	private void removeLink(EntityPlayer player, ItemStack itemStack) {
 		itemStack.getTagCompound().getCompoundTag(ItemInvBase.basicDataKey).removeTag("chest");
-		CoreUtil.sendMessageToPlayer(player, "Removed link to chest");
+		Player.sendMessageToPlayer(player, "Removed link to chest");
 	}
 	
 	@SuppressWarnings({

@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.countrygamer.arcanacraft.common.ACOptions;
 import com.countrygamer.arcanacraft.common.quom.Quom;
-import com.countrygamer.countrygamercore.Base.client.gui.GuiScreenBase;
-import com.countrygamer.countrygamercore.Base.client.gui.widget.Component;
-import com.countrygamer.countrygamercore.lib.UtilRender;
+import com.countrygamer.countrygamercore.base.client.gui.GuiScreenBase;
+import com.countrygamer.countrygamercore.base.client.gui.widget.Component;
+import com.countrygamer.countrygamercore.common.lib.util.UtilRender;
 
 public class ComponentTreeItem extends Component {
 	

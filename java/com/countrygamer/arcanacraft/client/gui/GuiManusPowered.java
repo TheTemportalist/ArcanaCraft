@@ -10,10 +10,10 @@ import net.minecraftforge.fluids.FluidStack;
 
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
-import com.countrygamer.countrygamercore.Base.Plugin.extended.ExtendedEntity;
-import com.countrygamer.countrygamercore.Base.client.gui.GuiContainerBase;
-import com.countrygamer.countrygamercore.Base.common.inventory.ContainerBase;
-import com.countrygamer.countrygamercore.Base.common.tile.TileEntityTankBase;
+import com.countrygamer.countrygamercore.base.client.gui.GuiContainerBase;
+import com.countrygamer.countrygamercore.base.common.tile.TileEntityTankBase;
+import com.countrygamer.countrygamercore.base.extended.ExtendedEntity;
+import com.countrygamer.countrygamercore.common.inventory.ContainerBase;
 
 public class GuiManusPowered extends GuiContainerBase {
 	

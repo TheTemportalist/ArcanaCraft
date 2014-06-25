@@ -11,9 +11,9 @@ import com.countrygamer.arcanacraft.common.ACOptions;
 import com.countrygamer.arcanacraft.common.ArcanaCraft;
 import com.countrygamer.arcanacraft.common.block.ACBlocks;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
-import com.countrygamer.countrygamercore.Base.Plugin.extended.ExtendedEntity;
-import com.countrygamer.countrygamercore.Base.common.item.ItemBase;
-import com.countrygamer.countrygamercore.Base.common.tile.TileEntityTankBase;
+import com.countrygamer.countrygamercore.base.common.tile.TileEntityTankBase;
+import com.countrygamer.countrygamercore.base.extended.ExtendedEntity;
+import com.countrygamer.countrygamercore.common.item.ItemBase;
 
 public class ItemArcana extends ItemBase {
 	

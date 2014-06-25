@@ -45,37 +45,75 @@ public class QuomRegistry {
 	
 	public static void registerQuoms() {
 		
-		QuomRegistry.dig = new QuomDig("Dig", 0, 0);
+		int maxWidth = 4;
 		
-		QuomRegistry.luminize = new QuomLuminize("Luminize", null, 2, 0);
+		int[] xy = null;
+		int x = 0;
+		int y = 0;
 		
-		QuomRegistry.extract = new QuomExtract("Rescindo", 4, 0);
-		
-		QuomRegistry.lightFire = new QuomFire("Light Fire", null, 6, 0);
-		
-		QuomRegistry.fireBall = new QuomFireBall("Fire Ball", null, 0, 2);
-		
-		QuomRegistry.furnace = new QuomSmelt("Furnace", null, 2, 2);
-		
-		QuomRegistry.bind = new QuomBind("Bind", null, 4, 2);
-		
-		QuomRegistry.data = new QuomData("Data", null, 6, 2);
-		
-		QuomRegistry.teleport = new QuomTeleport("Teleport", null, 0, 4);
-		
-		QuomRegistry.fastTravel = new QuomEvaporate("Evaporate", null, 2, 4);
-		
-		// QuomRegistry.quell = new QuomQuell("Quell", null);
-		
-		QuomRegistry.connector = new QuomConnector("Connector", null, 4, 4);
-		
-		QuomRegistry.manus_Creative = new QuomCreateManus("Manus", 6, 4);
-		
-		QuomRegistry.growth = new QuomGrowth("Growth", null, 0, 6);
-		
-		QuomRegistry.tempest = new QuomTempest("Tempest", null, 2, 6);
-		
-		QuomRegistry.filter = new QuomFilter("Filter", null, 4, 6);
+		QuomRegistry.dig = new QuomDig("Dig", x, y);
+		xy = next(x, y, maxWidth);
+		x = xy[0];
+		y = xy[1];
+		QuomRegistry.luminize = new QuomLuminize("Luminize", null, x, y);
+		xy = next(x, y, maxWidth);
+		x = xy[0];
+		y = xy[1];
+		QuomRegistry.extract = new QuomExtract("Rescindo", x, y);
+		xy = next(x, y, maxWidth);
+		x = xy[0];
+		y = xy[1];
+		QuomRegistry.lightFire = new QuomFire("Light Fire", null, x, y);
+		xy = next(x, y, maxWidth);
+		x = xy[0];
+		y = xy[1];
+		QuomRegistry.fireBall = new QuomFireBall("Fire Ball", null, x, y);
+		xy = next(x, y, maxWidth);
+		x = xy[0];
+		y = xy[1];
+		QuomRegistry.furnace = new QuomSmelt("Furnace", null, x, y);
+		xy = next(x, y, maxWidth);
+		x = xy[0];
+		y = xy[1];
+		QuomRegistry.bind = new QuomBind("Bind", null, x, y);
+		xy = next(x, y, maxWidth);
+		x = xy[0];
+		y = xy[1];
+		QuomRegistry.data = new QuomData("Data", null, x, y);
+		xy = next(x, y, maxWidth);
+		x = xy[0];
+		y = xy[1];
+		QuomRegistry.teleport = new QuomTeleport("Teleport", null, x, y);
+		xy = next(x, y, maxWidth);
+		x = xy[0];
+		y = xy[1];
+		QuomRegistry.fastTravel = new QuomEvaporate("Evaporate", null, x, y);
+		xy = next(x, y, maxWidth);
+		x = xy[0];
+		y = xy[1];
+		/*
+		QuomRegistry.quell = new QuomQuell("Quell", null);
+		xy = next(x, y, maxWidth);
+		x = xy[0];
+		y = xy[1];
+		 */
+		QuomRegistry.connector = new QuomConnector("Connector", null, x, y);
+		xy = next(x, y, maxWidth);
+		x = xy[0];
+		y = xy[1];
+		QuomRegistry.manus_Creative = new QuomCreateManus("Manus", x, y);
+		xy = next(x, y, maxWidth);
+		x = xy[0];
+		y = xy[1];
+		QuomRegistry.growth = new QuomGrowth("Growth", null, x, y);
+		xy = next(x, y, maxWidth);
+		x = xy[0];
+		y = xy[1];
+		QuomRegistry.tempest = new QuomTempest("Tempest", null, x, y);
+		xy = next(x, y, maxWidth);
+		x = xy[0];
+		y = xy[1];
+		QuomRegistry.filter = new QuomFilter("Filter", null, x, y);
 		
 	}
 	
@@ -88,6 +126,17 @@ public class QuomRegistry {
 		if (!QuomRegistry.quomKeys.containsKey(key)) return null;
 		int id = QuomRegistry.quomKeys.get(key);
 		return QuomRegistry.quomRegistry.get(id);
+	}
+	
+	private static int[] next(int x, int y, int maxW) {
+		x += 2;
+		if (x > maxW * 2) {
+			x = 0;
+			y += 2;
+		}
+		return new int[] {
+				x, y
+		};
 	}
 	
 }

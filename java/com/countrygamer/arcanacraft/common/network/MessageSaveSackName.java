@@ -6,8 +6,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 import com.countrygamer.arcanacraft.common.item.ItemInventorySack;
-import com.countrygamer.countrygamercore.Base.common.item.ItemInvBase;
-import com.countrygamer.countrygamercore.Base.common.network.AbstractMessage;
+import com.countrygamer.countrygamercore.base.common.network.AbstractMessage;
+import com.countrygamer.countrygamercore.common.item.ItemInvBase;
 
 public class MessageSaveSackName extends AbstractMessage {
 	

@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 import com.countrygamer.arcanacraft.common.extended.ExtendedArcanePlayer;
 import com.countrygamer.arcanacraft.common.quom.Tiers.Cast;
 import com.countrygamer.arcanacraft.common.recipes.ExtractRecipes;
-import com.countrygamer.countrygamercore.lib.ItemMeta;
+import com.countrygamer.countrygamercore.common.lib.ItemMeta;
 
 public class QuomExtract extends Quom {
 	
@@ -29,7 +29,7 @@ public class QuomExtract extends Quom {
 		
 		ItemStack result = ExtractRecipes.getOutput(new ItemMeta(block, meta));
 		if (result != null && Block.getBlockFromItem(result.getItem()) != Blocks.air) {
-			boolean flag = block.removedByPlayer(world, arcanePlayer.player, x, y, z);
+			boolean flag = world.setBlockToAir(x, y, z);//block.removedByPlayer(world, arcanePlayer.player, x, y, z);
 			
 			if (flag) {
 				world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));

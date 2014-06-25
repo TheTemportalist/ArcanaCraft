@@ -4,8 +4,8 @@ import net.minecraft.client.Minecraft;
 
 import org.lwjgl.input.Mouse;
 
-import com.countrygamer.countrygamercore.Base.client.gui.GuiScreenBase;
-import com.countrygamer.countrygamercore.Base.client.gui.advanced.ScrollBar;
+import com.countrygamer.countrygamercore.base.client.gui.GuiScreenBase;
+import com.countrygamer.countrygamercore.base.client.gui.advanced.ScrollBar;
 
 public class GuiFilter extends GuiScreenBase {
 	

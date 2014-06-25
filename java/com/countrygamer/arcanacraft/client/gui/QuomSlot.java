@@ -5,7 +5,7 @@ import net.minecraft.util.ResourceLocation;
 
 import com.countrygamer.arcanacraft.common.ACOptions;
 import com.countrygamer.arcanacraft.common.quom.Quom;
-import com.countrygamer.countrygamercore.lib.UtilRender;
+import com.countrygamer.countrygamercore.common.lib.util.UtilRender;
 
 public class QuomSlot {
 	

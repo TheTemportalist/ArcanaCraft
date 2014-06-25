@@ -6,8 +6,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Configuration;
 
 import com.countrygamer.arcanacraft.common.item.ACItems;
-import com.countrygamer.countrygamercore.Base.Plugin.PluginEnchantment;
-import com.countrygamer.countrygamercore.Base.Plugin.registry.PluginOptionRegistry;
+import com.countrygamer.countrygamercore.base.common.PluginEnchantment;
+import com.countrygamer.countrygamercore.base.registry.PluginOptionRegistry;
 
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 

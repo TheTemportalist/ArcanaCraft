@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -19,6 +18,7 @@ import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
+import com.countrygamer.arcanacraft.client.KeyHandler;
 import com.countrygamer.arcanacraft.client.particle.Particles;
 import com.countrygamer.arcanacraft.common.biome.ACBiomes;
 import com.countrygamer.arcanacraft.common.block.ACBlocks;
@@ -31,16 +31,14 @@ import com.countrygamer.arcanacraft.common.network.MessageGuiAddFluid;
 import com.countrygamer.arcanacraft.common.network.MessageNewBindingQuom;
 import com.countrygamer.arcanacraft.common.network.MessageSaveSackName;
 import com.countrygamer.arcanacraft.common.network.MessageSelectQuom;
+import com.countrygamer.arcanacraft.common.network.MessageUpdateClick;
 import com.countrygamer.arcanacraft.common.quom.Quom;
 import com.countrygamer.arcanacraft.common.quom.QuomRegistry;
 import com.countrygamer.arcanacraft.common.recipes.BinderRecipes;
 import com.countrygamer.arcanacraft.common.recipes.ExtractRecipes;
-import com.countrygamer.countrygamercore.Base.Plugin.PluginBase;
-import com.countrygamer.countrygamercore.Base.Plugin.extended.ExtendedEntity;
-import com.countrygamer.countrygamercore.Base.common.multiblock.MultiBlockHandler;
-import com.countrygamer.countrygamercore.Base.common.multiblock.MultiBlockStructure;
-import com.countrygamer.countrygamercore.Base.common.network.PacketHandler;
-import com.countrygamer.countrygamercore.Base.common.tile.TileEntityMultiBlockComponent;
+import com.countrygamer.countrygamercore.base.common.PluginBase;
+import com.countrygamer.countrygamercore.base.extended.ExtendedEntity;
+import com.countrygamer.countrygamercore.common.network.PacketHandler;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.IFuelHandler;
@@ -89,7 +87,7 @@ public class ArcanaCraft extends PluginBase implements IFuelHandler {
 		
 		this.regsiterPacketHandler(ArcanaCraft.pluginID, MessageCastQuom.class,
 				MessageSelectQuom.class, MessageNewBindingQuom.class, MessageGuiAddFluid.class,
-				MessageSaveSackName.class);
+				MessageSaveSackName.class, MessageUpdateClick.class);
 		
 		this.registerExtendedPlayer("Extended Arcane Player", ExtendedArcanePlayer.class, true);
 		if (event.getSide() == Side.CLIENT) {
@@ -101,9 +99,6 @@ public class ArcanaCraft extends PluginBase implements IFuelHandler {
 		ExtractRecipes.registerRecipes();
 		Caste.registerCastes();
 		
-		MultiBlockStructure simple = new MultiBlockStructure("SimpleACMB", true);
-		simple.addBlock(+0, +1, +1, Blocks.cobblestone, 0, TileEntityMultiBlockComponent.class);
-		MultiBlockHandler.registerMultiBlock(new MultiBlockHandler(simple));
 		
 	}
 	
@@ -335,5 +330,73 @@ public class ArcanaCraft extends PluginBase implements IFuelHandler {
 		}
 		
 	}
+	/*
+	@SubscribeEvent
+	public void fogRender(EntityViewRenderEvent.FogColors event) {
+		if (event.entity != null && event.entity instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) event.entity;
+			
+			if (player.getHeldItem() != null
+					&& player.getHeldItem().getItem() == ACItems.focusAdvanced) {
+				Block block = ActiveRenderInfo.getBlockAtEntityViewpoint(event.entity.worldObj,
+						event.entity, (float) event.renderPartialTicks);
+				if (block.getMaterial().isLiquid()) {
+					Minecraft mc = Minecraft.getMinecraft();
+					float f1 = 0.25F + 0.75F * (float) mc.gameSettings.renderDistanceChunks / 16.0F;
+					f1 = 1.0F - (float) Math.pow((double) f1, 0.25D);
+					Vec3 vec3 = event.entity.worldObj.getSkyColor(mc.renderViewEntity,
+							(float) event.renderPartialTicks);
+					float f2 = (float) vec3.xCoord;
+					float f3 = (float) vec3.yCoord;
+					float f4 = (float) vec3.zCoord;
+					Vec3 vec31 = event.entity.worldObj
+							.getFogColor((float) event.renderPartialTicks);
+					float red = (float) vec31.xCoord;
+					float green = (float) vec31.yCoord;
+					float blue = (float) vec31.zCoord;
+					float f5;
+					
+					if (mc.gameSettings.renderDistanceChunks >= 4) {
+						Vec3 vec32 = MathHelper.sin(event.entity.worldObj
+								.getCelestialAngleRadians((float) event.renderPartialTicks)) > 0.0F ? event.entity.worldObj
+								.getWorldVec3Pool().getVecFromPool(-1.0D, 0.0D, 0.0D)
+								: event.entity.worldObj.getWorldVec3Pool().getVecFromPool(1.0D,
+										0.0D, 0.0D);
+						f5 = (float) event.entity.getLook((float) event.renderPartialTicks)
+								.dotProduct(vec32);
+						
+						if (f5 < 0.0F) {
+							f5 = 0.0F;
+						}
+						
+						if (f5 > 0.0F) {
+							float[] afloat = event.entity.worldObj.provider
+									.calcSunriseSunsetColors(event.entity.worldObj
+											.getCelestialAngle((float) event.renderPartialTicks),
+											(float) event.renderPartialTicks);
+							
+							if (afloat != null) {
+								f5 *= afloat[3];
+								red = red * (1.0F - f5) + afloat[0] * f5;
+								green = green * (1.0F - f5) + afloat[1] * f5;
+								blue = blue * (1.0F - f5) + afloat[2] * f5;
+							}
+						}
+					}
+					
+					red += (f2 - red) * f1;
+					green += (f3 - green) * f1;
+					blue += (f4 - blue) * f1;
+					
+					//event.red = red;
+					//event.blue = blue;
+					//event.green = green;
+					
+				}
+			}
+			
+		}
+	}
+	*/
 	
 }
