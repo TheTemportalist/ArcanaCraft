@@ -1,0 +1,27 @@
+
+http://powerlisting.wikia.com/wiki/Magic#Alternative_Classification
+
+http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/requests-ideas-for-mods/1336165-1-7-2-cloned-helpers-mod
+
+http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/requests-ideas-for-mods/2146340-need-an-idea-why-not-noobcraft-req
+
+http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/requests-ideas-for-mods/2142067-making-a-mod-kinda?comment=5
+
+http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/requests-ideas-for-mods/2147382-need-mod-idea?comment=2
+
+http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/requests-ideas-for-mods/1309239-arcane-magic-mod
+
+http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/requests-ideas-for-mods/1335875-a-freelancing-modmaker?comment=25
+
+http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/requests-ideas-for-mods/2132687-can-someone-make-a-mod-that-makes-you-giant-or
+
+
+
+ItemTemplate- taken from any item
+ItemSlate- ItemTemplates binded to this to create a multitool
+
+
+Strip item- Returns an ItemTemplate (holding functionality) and some raw materials of the item. ItemTemplate not ACTUALLY and item, just a place holder of magical what not which can only be moved by a secial storage cell
+ItemSlate- Crafting an item slate takes a bit of power. You can bing ItemTemplates to this item in a binder, creating a multiitem
+
+Adding block to filter X will highlight the block in the world

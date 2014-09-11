@@ -1,0 +1,138 @@
+{
+	"Offense": {
+		"Elemental Manipulation": {
+			"requires": [
+			]
+		},
+		"Magical Attacks": {
+			"requires": [
+			]
+
+		},
+		"Power Absorbtion": {
+			"requires": [
+				"Energy Absorbtion"
+			]
+
+		}
+	},
+	"Defense": {
+		"Force Fields": {
+			"requires": [
+			]
+
+		},
+		"Healing": {
+			"requires": [
+			]
+
+		},
+		"Energy Absorbtion": {
+			"requires": [
+			]
+
+		},
+		"Shape Shifting": {
+			"requires": [
+			]
+
+		}
+	},
+	"Misc": {
+
+		"Telekinesis": { // move an object
+			"requires": [
+			]
+
+		},
+		"Teleportation": { // instantly move from point to point
+			"requires": [
+				"Telekinesis"
+			]
+
+		},
+		"Banish": { // teleport a creature to the void
+			"requires": [
+				"Teleportation"
+			]
+
+		},
+		"Summon": { // teleport a creature from the void
+			"requires": [
+				"Banish"
+			]
+
+		},
+
+		"Destruction": { // destroy material
+			"requires": [
+			]
+
+		},
+		"Creation": { // create material
+			"requires": [
+			]
+
+		},
+		"Construction": { // create magical material
+			"requires": [
+			]
+
+		},
+		"Transmutation": { // make a new material from an old
+			"requires": [
+			]
+
+		},
+
+		"Inanimation": { // take life
+			"requires": [
+				"Destruction"
+			]
+
+		},
+		"Animation": { // give life
+			"requires": [
+				"Inanimation", "Creation"
+			]
+
+		},
+
+		"Magical Sensory": { // find other magics
+			"requires": [
+			]
+
+		},
+		"Aura": { // local/global magical area to boost effects
+			"requires": [
+				"Magical Sensory"
+			]
+
+		},
+		"Illusion": { // fake construct
+			"requires": [
+				"Aura"
+			]
+
+		},
+
+		"Amplification": { // boost magics
+			"requires": [
+			]
+
+		},
+		"Destabilization": { // nullify or backfire self or anothers magics
+			"requires": [
+				"Amplification"
+			]
+
+		},
+		"Negation": { // nullify a magics
+			"requires": [
+				"Destabilization"
+			]
+
+		}
+
+	}
+}

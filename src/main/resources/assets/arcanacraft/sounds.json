@@ -1,0 +1,20 @@
+{
+	"creepy1": {
+		"category": "master",
+		"sounds": [
+			{
+				"name": "creepy1",
+				"stream": false
+			}
+		]
+	},
+	"creepy2": {
+		"category": "master",
+		"sounds": [
+			{
+				"name": "creepy2",
+				"stream": false
+			}
+		]
+    }
+}
